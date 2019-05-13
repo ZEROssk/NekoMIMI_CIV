@@ -37,25 +37,18 @@ func main() {
         return c.String(http.StatusOK, "Hello World")
     })
 
-  e.GET("/page1", func(c echo.Context) error {
+  e.GET("/pg1", func(c echo.Context) error {
     // テンプレートに渡す値
 
     data := struct {
       ServiceInfo
       Content_a string
-      Content_b string
-      Content_c string
-      Content_d string
     } {
       ServiceInfo: serviceInfo,
-      Content_a: "雨が降っています。",
-      Content_b: "明日も雨でしょうか。",
-      Content_c: "台風が近づいています。",
-      Content_d: "Jun/11/2018",
+      Content_a: "TEST",
     }
-    return c.Render(http.StatusOK, "page1", data)
-  })
-  
+    return c.Render(http.StatusOK, "pg1", data)
+  }) 
 	e.Logger.Fatal(e.Start(":1323"))
 }
 
