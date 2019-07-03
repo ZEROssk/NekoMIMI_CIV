@@ -1,0 +1,26 @@
+version: '3'
+
+service:
+    api:
+        build: ./API
+        ports:
+            - "5300:5300"
+        container_name: img_v_api_zero
+        depends_on:
+            - db
+
+    db:
+        build: ./DB
+        container_name: img_v_db_zero
+        expose:
+            - '3306'
+        volumes:
+            - db:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: img_data_db
+            MYSQL_USER: root
+            MYSQL_PASSWORD: root
+        restart: always
+volumes:
+    db:

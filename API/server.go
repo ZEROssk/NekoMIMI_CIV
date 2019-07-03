@@ -2,9 +2,9 @@ package main
 
 import(
 	"log"
-	//"fmt"
+	"fmt"
 	"net/http"
-	//"strconv"
+	"strconv"
 
 	"github.com/ant0ine/go-json-rest/rest"
 )
@@ -21,7 +21,8 @@ func postHello(w rest.ResponseWriter, req *rest.Request) {
 	input := postHelloInput{}
 	err := req.DecodeJsonPayload(&input)
 
-	//var page string = strconv.Itoa(input.Page)
+	var page int 
+	page, _ = strconv.Atoi(input.Page)
 
 	if err != nil {
 		rest.Error(w, err.Error(), http.StatusInternalServerError)
@@ -33,6 +34,8 @@ func postHello(w rest.ResponseWriter, req *rest.Request) {
 	}
 
 	log.Printf("%#v", input)
+
+	fmt.Println(page)
 
 	w.WriteJson(&postHelloOutput{
 		"Page number is "+input.Page,
