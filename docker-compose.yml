@@ -1,6 +1,6 @@
 version: '3'
 
-service:
+services:
     api:
         build: ./API
         ports:
@@ -17,10 +17,7 @@ service:
         volumes:
             - db:/var/lib/mysql
         environment:
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: img_data_db
-            MYSQL_USER: root
-            MYSQL_PASSWORD: root
+            MYSQL_ROOT_PASSWORD: 'root'
         restart: always
 volumes:
     db:
