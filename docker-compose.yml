@@ -6,6 +6,8 @@ services:
         ports:
             - "5300:5300"
         container_name: img_v_api_zero
+        environment:
+            -
         depends_on:
             - db
 
