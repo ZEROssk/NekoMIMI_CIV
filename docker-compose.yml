@@ -2,28 +2,28 @@ version: '3'
 
 services:
     api:
-        build: ./API
+        build: ./API_SERVER
         ports:
-            - "5300:5300"
+            - "$API_SERVER_PORT"
         container_name: img_v_api_zero
         environment:
             MYSQL_DB_HOST: db
-            MYSQL_DB: imgs_data_db
-            MYSQL_PORT: 3306
-            MYSQL_USER: imgs_data
-            MYSQL_USER_PASS: 
+            MYSQL_DB: $MYSQL_DB
+            MYSQL_USER: $MYSQL_USER
+            MYSQL_PORT: $MYSQL_SERVER_PORT
+        restart: always
         depends_on:
             - db
 
     db:
-        build: ./DB
+        build: ./DB_SERVER
         container_name: img_v_db_zero
         expose:
-            - '3306'
+            - '$MYSQL_SERVER_PORT'
         volumes:
             - db:/var/lib/mysql
         environment:
-            MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASS
+            MYSQL_ROOT_PASSWORD: '$MYSQL_ROOT_PASS'
             TZ: 'Asia/Tokyo'
         restart: always
 volumes:
