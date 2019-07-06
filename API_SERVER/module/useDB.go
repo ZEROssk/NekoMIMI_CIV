@@ -1,4 +1,4 @@
-package useDB
+package moduleDB
 
 import(
 	"log"

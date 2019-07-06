@@ -54,7 +54,7 @@ func main() {
 		log.Fatal(err)
 	}
 	log.Printf("Server started.")
-	module.DB()
+	moduleDB.DB()
 	api.SetApp(router)
 	log.Fatal(http.ListenAndServe(":5300", api.MakeHandler()))
 }

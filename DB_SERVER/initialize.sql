@@ -8,7 +8,9 @@ CREATE TABLE IF NOT EXISTS `imgs_data_db`.`imgs` (
 	`img`		TEXT		NOT NULL,
 	`add_date`	TIMESTAMP	NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
--- USE imgs_data_db;
+
+USE imgs_data_db;
+
 INSERT INTO imgs (img) VALUES
 ('Twitter-test1'),
 ('Twitter-test2'),
