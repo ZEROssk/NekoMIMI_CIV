@@ -38,6 +38,8 @@ func postHello(w rest.ResponseWriter, req *rest.Request) {
 
 	fmt.Println(page)
 
+	moduleDB.DB()
+
 	w.WriteJson(&postHelloOutput{
 		"Page number is "+input.Page,
 	})
@@ -54,8 +56,6 @@ func main() {
 		log.Fatal(err)
 	}
 	log.Printf("Server started.")
-
-	moduleDB.DB()
 
 	api.SetApp(router)
 	log.Fatal(http.ListenAndServe(":5200", api.MakeHandler()))

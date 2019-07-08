@@ -21,7 +21,7 @@ func DB() {
 
 	log.Printf("%s %s %s", dbNAME, dbUSER, dbPORT)
 
-	db, err := sql.Open("mysql", "root:root@tcp(db:5300)/imgs_data_db")
+	db, err := sql.Open("mysql", "admin@tcp(db:3306)/imgs_data_db")
 	if err != nil {
 		panic(err.Error())
 	}
