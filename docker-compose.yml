@@ -7,7 +7,6 @@ services:
             - "$API_SERVER_PORT"
         container_name: img_v_api_zero
         environment:
-            MYSQL_DB_HOST: db
             MYSQL_DB: $MYSQL_DB
             MYSQL_USER: $MYSQL_USER
             MYSQL_PORT: $MYSQL_SERVER_PORT
@@ -18,12 +17,12 @@ services:
     db:
         build: ./DB_SERVER
         container_name: img_v_db_zero
-        expose:
+        ports:
             - '$MYSQL_SERVER_PORT'
         volumes:
             - db:/var/lib/mysql
         environment:
-            MYSQL_ROOT_PASSWORD: '$MYSQL_ROOT_PASS'
+            MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASS
             TZ: 'Asia/Tokyo'
         restart: always
 volumes:
