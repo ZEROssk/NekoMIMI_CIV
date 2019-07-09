@@ -14,7 +14,7 @@ type postPageInput struct {
 	Page json.Number
 }
 
-type postPageJSON struct {
+type postResultJSON struct {
 	Result string
 }
 
@@ -35,7 +35,7 @@ func postPage(Rw rest.ResponseWriter, req *rest.Request) {
 	}
 
 	if PNumber != 0 {
-		Rw.WriteJson(&postPageJSON{
+		Rw.WriteJson(&postResultJSON{
 			"Page number is OK",
 		})
 		moduleDB.DB()
@@ -44,11 +44,23 @@ func postPage(Rw rest.ResponseWriter, req *rest.Request) {
 	}
 }
 
+func postUserID(Rw rest.ResponseWriter, req *rest.Request) {
+	var Tinput string
+	err := req.DecodeJsonPayload(&Tinput)
+	if err != nil {
+		rest.Error(Rw, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	log.Printf("input: ", Tinput)
+}
+
 func main() {
 	api := rest.NewApi()
 	api.Use(rest.DefaultDevStack...)
 	router, err := rest.MakeRouter(
 		rest.Post("/page", postPage),
+		rest.Post("/userID", postUserID),
 	)
 
 	if err != nil {
