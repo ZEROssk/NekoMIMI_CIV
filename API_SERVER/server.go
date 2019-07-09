@@ -2,16 +2,16 @@ package main
 
 import(
 	"log"
-	"fmt"
 	"net/http"
-	"strconv"
+	"encoding/json"
+	//"strconv"
 
 	"./module"
 	"github.com/ant0ine/go-json-rest/rest"
 )
 
 type postHelloInput struct {
-	Page string
+	Page json.Number
 }
 
 type postHelloOutput struct {
@@ -21,28 +21,27 @@ type postHelloOutput struct {
 func postHello(w rest.ResponseWriter, req *rest.Request) {
 	input := postHelloInput{}
 	err := req.DecodeJsonPayload(&input)
-
-	var page int 
-	page, _ = strconv.Atoi(input.Page)
-
 	if err != nil {
 		rest.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	if input.Page == "" {
+	// var PageNum int 
+	// PageNum, _ = strconv.Atoi(input.Page)
+
+	log.Printf("input: %#v", input)
+	log.Printf("input.page: %d", input.Page)
+
+	PNumber, _ := input.Page.Int64()
+
+	if PNumber != 0 {
+		w.WriteJson(&postHelloOutput{
+			"Page number is ",//+input.Page,
+		})
+		moduleDB.DB()
+	} else {
 		rest.Error(w, "Page number is required", 400)
 	}
-
-	log.Printf("%#v", input)
-
-	fmt.Println(page)
-
-	moduleDB.DB()
-
-	w.WriteJson(&postHelloOutput{
-		"Page number is "+input.Page,
-	})
 }
 
 func main() {
