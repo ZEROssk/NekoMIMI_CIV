@@ -17,8 +17,6 @@ services:
     db:
         build: ./DB_SERVER
         container_name: img_v_db_zero
-        # ports:
-        #     - '$MYSQL_SERVER_PORT:$MYSQL_SERVER_PORT'
         volumes:
             - db:/var/lib/mysql
         environment:
