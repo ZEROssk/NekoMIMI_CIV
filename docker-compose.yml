@@ -8,6 +8,7 @@ services:
         container_name: img_v_api_zero
         environment:
             MYSQL_DB: $MYSQL_DB
+            MYSQL_TABLE: $MYSQL_TABLE
             MYSQL_USER: $MYSQL_USER
             MYSQL_PORT: $MYSQL_SERVER_PORT
         restart: always

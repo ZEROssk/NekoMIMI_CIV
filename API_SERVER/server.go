@@ -10,19 +10,19 @@ import(
 	"github.com/ant0ine/go-json-rest/rest"
 )
 
-type postHelloInput struct {
+type postPageInput struct {
 	Page json.Number
 }
 
-type postHelloOutput struct {
+type postPageJSON struct {
 	Result string
 }
 
-func postHello(w rest.ResponseWriter, req *rest.Request) {
-	input := postHelloInput{}
+func postPage(Rw rest.ResponseWriter, req *rest.Request) {
+	input := postPageInput{}
 	err := req.DecodeJsonPayload(&input)
 	if err != nil {
-		rest.Error(w, err.Error(), http.StatusInternalServerError)
+		rest.Error(Rw, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
@@ -30,17 +30,17 @@ func postHello(w rest.ResponseWriter, req *rest.Request) {
 
 	PNumber, err := input.Page.Int64()
 	if err != nil {
-		rest.Error(w, err.Error(), http.StatusInternalServerError)
+		rest.Error(Rw, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	if PNumber != 0 {
-		w.WriteJson(&postHelloOutput{
+		Rw.WriteJson(&postPageJSON{
 			"Page number is OK",
 		})
 		moduleDB.DB()
 	} else {
-		rest.Error(w, "Page number is required", 400)
+		rest.Error(Rw, "Page number is required", 400)
 	}
 }
 
@@ -48,7 +48,7 @@ func main() {
 	api := rest.NewApi()
 	api.Use(rest.DefaultDevStack...)
 	router, err := rest.MakeRouter(
-		rest.Post("/hello", postHello),
+		rest.Post("/page", postPage),
 	)
 
 	if err != nil {
