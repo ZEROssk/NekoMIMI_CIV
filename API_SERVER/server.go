@@ -26,17 +26,17 @@ func postHello(w rest.ResponseWriter, req *rest.Request) {
 		return
 	}
 
-	// var PageNum int 
-	// PageNum, _ = strconv.Atoi(input.Page)
-
 	log.Printf("input: %#v", input)
-	log.Printf("input.page: %d", input.Page)
 
-	PNumber, _ := input.Page.Int64()
+	PNumber, err := input.Page.Int64()
+	if err != nil {
+		rest.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 
 	if PNumber != 0 {
 		w.WriteJson(&postHelloOutput{
-			"Page number is ",//+input.Page,
+			"Page number is OK",
 		})
 		moduleDB.DB()
 	} else {
