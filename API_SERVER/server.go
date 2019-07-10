@@ -4,7 +4,7 @@ import(
 	"log"
 	"net/http"
 	"encoding/json"
-	//"strconv"
+	"strconv"
 
 	"./module"
 	"github.com/ant0ine/go-json-rest/rest"
@@ -60,17 +60,19 @@ func postTwiID_Page(Rw rest.ResponseWriter, req *rest.Request) {
 	log.Printf("input: %#v", input)
 
 	PNum, _ := input.Page.Int64()
+	var s string
+	s = strconv.Itoa(PNum)
 
-	if input.UserID && input.Page == nil {
+	if input.UserID && input.Page == "" {
 		rest.Error(Rw, "UserID & Page number is required", 400)
-	} else if input.Page == nil {
+	} else if input.Page == "" {
 		Rw.WriteJson(&Result_JSON{
 			input.UserID,
 		})
 		moduleDB.DB()
 	} else if PNum != 0 {
 		Rw.WriteJson(&Result_JSON{
-			input.UserID+" "+input.Page,
+			input.UserID+" "+s,
 		})
 		moduleDB.DB()
 	} else {
@@ -82,8 +84,8 @@ func main() {
 	api := rest.NewApi()
 	api.Use(rest.DefaultDevStack...)
 	router, err := rest.MakeRouter(
-		rest.Post("api/Page", postPage),
-		rest.Post("api/TwiID_Page", postTwiID_Page),
+		rest.Post("api/v1/page", postPage),
+		rest.Post("api/v1/id/page", postTwiID_Page),
 	)
 	if err != nil {
 		log.Fatal(err)
