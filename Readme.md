@@ -22,22 +22,22 @@
   - `API: https://host-name:port/v1/image_viewer/imgs/twimg/data/{PageNum}`  
 ```json
 {
-    headers: {
-        'Content-Type': 'application/json; charset=utf-8'
-        'Date': 'Mon, 1 Jan 2019 00:00:00 GMT'
-        'Version': 'v1'
-        'Server': 'host-name'
-        'Status': 'up'
-    }
-    PageNumber: PageNum
-    Thumbnail: [
+    "Headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Mon, 1 Jan 2019 00:00:00 GMT",
+        "Version": "v1",
+        "Server": "host-name",
+        "Status": "up"
+    },
+    "PageNumber": PageNum
+    "Thumbnail": [
         {
-            fileName: "NAME",
-            userID: "ID"
+            "fileName": "NAME",
+            "userID": "ID"
         },
         {
-            fileName: "NAME",
-            userID: "ID"
+            "fileName": "NAME",
+            "userID": "ID"
         }
     ]
 }
@@ -48,23 +48,23 @@
   - `API: https://host-name:port/v1/image_viewer/imgs/twimg/data/search/{UserID}/{PageNum}`  
 ```json
 {
-    headers: {
-        'Content-Type': 'application/json; charset=utf-8'
-        'Date': 'Mon, 1 Jan 2019 00:00:00 GMT'
-        'Version': 'v1'
-        'Server': 'host-name'
-        'Status': 'up'
-    }
-    UserID: "userID"
-    PageNumber: PageNum
-    Thumbnail: [
+    "Headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Mon, 1 Jan 2019 00:00:00 GMT",
+        "Version": "v1",
+        "Server": "host-name",
+        "Status": "up"
+    },
+    "UserID": "userID"
+    "PageNumber": "PageNum"
+    "Thumbnail": [
         {
-            fileName: "NAME",
-            userID: "ID"
+            "fileName": "NAME",
+            "userID": "ID"
         },
         {
-            fileName: "NAME",
-            userID: "ID"
+            "fileName": "NAME",
+            "userID": "ID"
         }
     ]
 }
@@ -75,19 +75,19 @@
   - `API: https://host-name:port/v1/image_viewer/imgs/twimg/data/original?id={UserID}&img={ImageID}`  
 ```json
 {
-    headers: {
-        'Content-Type': 'application/json; charset=utf-8'
-        'Date': 'Mon, 1 Jan 2019 00:00:00 GMT'
-        'Version': 'v1'
-        'Server': 'host-name'
-        'Status': 'up'
-    }
-    Image: [
+    "Headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Mon, 1 Jan 2019 00:00:00 GMT",
+        "Version": "v1",
+        "Server": "host-name",
+        "Status": "up"
+    },
+    "Image": [
         {
-            fileName: "NAME",
-            userID: "ID"
-        }
-    ]
+            "fileName": "NAME",
+            "userID": "ID"
+        },
+     ]
 }
 ```
 
