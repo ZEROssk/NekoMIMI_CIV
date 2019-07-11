@@ -19,8 +19,8 @@
   - `URL: https://host-name/image_viewer`
 - 画像一覧表示のページ(変更の可能性あり)
   - `URL: https://host-name/image_viewer/images/thumbnail?p={PageNum}`
-  - `API: https://host-name:port/v1/image_viewer/imgs/twimg/data/{PageNum}`
-    - ```json
+  - `API: https://host-name:port/v1/image_viewer/imgs/twimg/data/{PageNum}`  
+	```
 		{
 			headers: {
 				'Content-Type': 'application/json; charset=utf-8'
@@ -41,7 +41,7 @@
 							}
 			]
 		}
-     ```
+	```
 
 - userIDで検索した場合の一覧表示ページ(変更の可能性あり)
   - `URL: https://host-name/image_viewer/images/search?id={UserID}`
