@@ -25,7 +25,7 @@
     - `API:https://host-name:port/image_viewer/imgs/twimg/data/search/{UserID}/{PageNum}`
   - 一覧表示から画像の個別表示ページ(変更の可能性あり)
     - `URL:https://host-name/image_viewer/image/original?id={UserID}&img={ImageID}`
-- DB
+- DB  
 | Example |
 | ID | userID | fileNAME | CreateDATE |
 |:---|:---|:---|:---|
