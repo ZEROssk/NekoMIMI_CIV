@@ -29,7 +29,7 @@
         "Server": "host-name",
         "Status": "up"
     },
-    "PageNumber": PageNum
+    "PageNumber": "PageNum",
     "Thumbnail": [
         {
             "fileName": "NAME",
@@ -56,7 +56,7 @@
         "Status": "up"
     },
     "UserID": "userID"
-    "PageNumber": "PageNum"
+    "PageNumber": "PageNum",
     "Thumbnail": [
         {
             "fileName": "NAME",
