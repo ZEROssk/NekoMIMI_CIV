@@ -8,7 +8,7 @@
   - APIサーバーとDBサーバーの連携
     - DB
       - DBサーバーのCREATE USERやCREATE DATABASEは.sqlに書かない(本番実行時)
-	  - TABLE userID・fileNAME・ID・CreateDATE(2019/07/09時点)
+	  - TABLE userID・fileNAME・ID・CreateDATE(2019/07/09時点)  
 		| Example |
 		| Center align | Center align | Center align | Center align |
 		| ID | userID | fileNAME | CreateDATE |
