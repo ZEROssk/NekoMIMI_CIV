@@ -22,24 +22,24 @@
   - `API: https://host-name:port/v1/image_viewer/imgs/twimg/data/{PageNum}`  
 ```json
 {
-	headers: {
-		'Content-Type': 'application/json; charset=utf-8'
-		'Date': 'Mon, 1 Jan 2019 00:00:00 GMT'
-		'Version': 'v1'
-		'Server': 'host-name'
-		'Status': 'up'
-	}
-	PageNumber: PageNum
-	Thumbnail: [
-		{
-			fileName: "NAME",
-			userID: "ID"
-		},
-		{
-			fileName: "NAME",
-			userID: "ID"
-		}
-	]
+    headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+        'Date': 'Mon, 1 Jan 2019 00:00:00 GMT'
+        'Version': 'v1'
+        'Server': 'host-name'
+        'Status': 'up'
+    }
+    PageNumber: PageNum
+    Thumbnail: [
+        {
+            fileName: "NAME",
+            userID: "ID"
+        },
+        {
+            fileName: "NAME",
+            userID: "ID"
+        }
+    ]
 }
 ```
 
@@ -48,25 +48,25 @@
   - `API: https://host-name:port/v1/image_viewer/imgs/twimg/data/search/{UserID}/{PageNum}`  
 ```json
 {
-	headers: {
-		'Content-Type': 'application/json; charset=utf-8'
-		'Date': 'Mon, 1 Jan 2019 00:00:00 GMT'
-		'Version': 'v1'
-		'Server': 'host-name'
-		'Status': 'up'
-	}
-	UserID: "userID"
-	PageNumber: PageNum
-	Thumbnail: [
-		{
-			fileName: "NAME",
-			userID: "ID"
-		},
-		{
-			fileName: "NAME",
-			userID: "ID"
-		}
-	]
+    headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+        'Date': 'Mon, 1 Jan 2019 00:00:00 GMT'
+        'Version': 'v1'
+        'Server': 'host-name'
+        'Status': 'up'
+    }
+    UserID: "userID"
+    PageNumber: PageNum
+    Thumbnail: [
+        {
+            fileName: "NAME",
+            userID: "ID"
+        },
+        {
+            fileName: "NAME",
+            userID: "ID"
+        }
+    ]
 }
 ```
 
@@ -75,29 +75,27 @@
   - `API: https://host-name:port/v1/image_viewer/imgs/twimg/data/original?id={UserID}&img={ImageID}`  
 ```json
 {
-	headers: {
-		'Content-Type': 'application/json; charset=utf-8'
-		'Date': 'Mon, 1 Jan 2019 00:00:00 GMT'
-		'Version': 'v1'
-		'Server': 'host-name'
-		'Status': 'up'
-	}
-	Image: [
-		{
-			fileName: "NAME",
-			userID: "ID"
-		}
-	]
+    headers: {
+        'Content-Type': 'application/json; charset=utf-8'
+        'Date': 'Mon, 1 Jan 2019 00:00:00 GMT'
+        'Version': 'v1'
+        'Server': 'host-name'
+        'Status': 'up'
+    }
+    Image: [
+        {
+            fileName: "NAME",
+            userID: "ID"
+        }
+    ]
 }
 ```
 
 ##### DB
   - Example
 
-| ID      | userID  | fileNAME | CreateDATE             |
 |:-------:|:-------:|:--------:|:----------------------:|
-| ------- | ------- | -------- | ---------------------- |
+| ID      | userID  | fileNAME | CreateDATE             |
 | 1       | a       | test-a   | YYYY/MM/DD Date-Time   |
 | 2       | b       | test-b   | YYYY/MM/DD Date-Time   |
-
 
