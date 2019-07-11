@@ -14,22 +14,48 @@
 	  - 検索用APIの作成
 ---
 #### 要件メモとか
-- API
-  - rootページ(変更の可能性あり)
-    - `URL: https://host-name/image_viewer`
-  - 画像一覧表示のページ(変更の可能性あり)
-    - `URL: https://host-name/image_viewer/image?p={PageNum}`
-    - `API: https://host-name:port/image_viewer/imgs/twimg/data/{PageNum}`
-  - userIDで検索した場合の一覧表示ページ(変更の可能性あり)
-    - `URL: https://host-name/image_viewer/image/search?id={UserID}`
-    - `API: https://host-name:port/image_viewer/imgs/twimg/data/search/{UserID}/{PageNum}`
-  - 一覧表示から画像の個別表示ページ(変更の可能性あり)
-    - `URL: https://host-name/image_viewer/image/original?id={UserID}&img={ImageID}`
-- DB
+##### API
+- rootページ(変更の可能性あり)
+  - `URL: https://host-name/image_viewer`
+- 画像一覧表示のページ(変更の可能性あり)
+  - `URL: https://host-name/image_viewer/images/thumbnail?p={PageNum}`
+  - `API: https://host-name:port/v1/image_viewer/imgs/twimg/data/{PageNum}`
+    - ```json
+		{
+			headers: {
+				'Content-Type': 'application/json; charset=utf-8'
+				'Date': 'Mon, 1 Jan 2019 00:00:00 GMT'
+				'Version': 'v1'
+				'Server': 'host-name'
+				'Status': 'up'
+			}
+			PageNumber: 1
+			Thumbnail: [
+							{
+								fileName: "NAME",
+								userID: "ID"
+							},
+							{
+								fileName: "NAME",
+								userID: "ID"
+							}
+			]
+		}
+     ```
+
+- userIDで検索した場合の一覧表示ページ(変更の可能性あり)
+  - `URL: https://host-name/image_viewer/images/search?id={UserID}`
+  - `API: https://host-name:port/v1/image_viewer/imgs/twimg/data/search/{UserID}/{PageNum}`
+- 一覧表示から画像の個別表示ページ(変更の可能性あり)
+  - `URL: https://host-name/image_viewer/image/original?id={UserID}&img={ImageID}`
+  - `API: https://host-name:port/v1/image_viewer/imgs/twimg/data/original?id={UserID}&img={ImageID}`
+
+##### DB
   - Example
 
-| ID | userID | fileNAME | CreateDATE |
-|:---|:---|:---|:---|
-| 1 | a | test-a | YYYY/MM/DD Date-Time |
-| 2 | b | test-b | YYYY/MM/DD Date-Time |
+| ID      | userID  | fileNAME | CreateDATE             |
+|:-------:|:-------:|:--------:|:----------------------:|
+| ------- | ------- | -------- | ---------------------- |
+| 1       | a       | test-a   | YYYY/MM/DD Date-Time   |
+| 2       | b       | test-b   | YYYY/MM/DD Date-Time   |
 
