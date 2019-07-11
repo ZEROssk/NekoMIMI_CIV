@@ -9,13 +9,11 @@
     - DB
       - DBサーバーのCREATE USERやCREATE DATABASEは.sqlに書かない(本番実行時)
 	  - TABLE userID・fileNAME・ID・CreateDATE(2019/07/09時点)  
-		| Example |
 		| Center align | Center align | Center align | Center align |
 		| ID | userID | fileNAME | CreateDATE |
 		|:--:|:--:|:--:|:--:|
 		| 1 | a | test-a | YYYY/MM/DD Date-Time |
 		| 1 | a | test-a | YYYY/MM/DD Date-Time |
-		| ... |
 	- API
 	  - APIはページ番号を整数値でのみ受け取る。(1.1などはエラーを返す)
 	  - 検索用APIの作成
