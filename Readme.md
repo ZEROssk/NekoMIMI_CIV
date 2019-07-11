@@ -55,7 +55,7 @@
         "Server": "host-name",
         "Status": "up"
     },
-    "UserID": "userID"
+    "UserID": "userID",
     "PageNumber": "PageNum",
     "Thumbnail": [
         {
