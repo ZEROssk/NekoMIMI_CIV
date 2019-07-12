@@ -19,7 +19,7 @@
   - `URL: https://host-name/image_viewer`
 - 画像一覧表示のページ(変更の可能性あり)
   - `URL: https://host-name/image_viewer/images/thumbnail?p={PageNum}`
-  - `API: GET https://host-name:port/api/v1/twimg/data?p={PageNum}`  
+  - `API: GET https://host-name:port/api/v1/twimg/data/page/{PageNum}`  
 ```json
 {
     "Headers": {
@@ -32,12 +32,12 @@
     "PageNumber": "PageNum",
     "Thumbnail": [
         {
-            "fileName": "NAME",
-            "userID": "ID"
+            "userID": "ID",
+            "fileName": "NAME"
         },
         {
-            "fileName": "NAME",
-            "userID": "ID"
+            "userID": "ID",
+            "fileName": "NAME"
         }
     ]
 }
@@ -45,7 +45,7 @@
 
 - userIDで検索した場合の一覧表示ページ(変更の可能性あり)
   - `URL: https://host-name/image_viewer/images/search?id={UserID}`
-  - `API: GET https://host-name:port/api/v1/twimg/data/search?id={UserID}&p={PageNum}`  
+  - `API: GET https://host-name:port/api/v1/twimg/data/search/{UserID}/{PageNum}`  
 ```json
 {
     "Headers": {
@@ -59,12 +59,10 @@
     "PageNumber": "PageNum",
     "Thumbnail": [
         {
-            "fileName": "NAME",
-            "userID": "ID"
+            "fileName": "NAME"
         },
         {
-            "fileName": "NAME",
-            "userID": "ID"
+            "fileName": "NAME"
         }
     ]
 }
@@ -72,7 +70,7 @@
 
 - 一覧表示から画像の個別表示ページ(変更の可能性あり)
   - `URL: https://host-name/image_viewer/image/original?id={UserID}&img={ImageID}`
-  - `API: GET https://host-name:port/api/v1/twimg/data/original?id={UserID}&img={ImageID}`  
+  - `API: GET https://host-name:port/api/v1/twimg/data/original/{UserID}/{ImageID}`  
 ```json
 {
     "Headers": {
@@ -84,8 +82,8 @@
     },
     "Image": [
         {
-            "fileName": "NAME",
-            "userID": "ID"
+            "userID": "ID",
+            "fileName": "NAME"
         },
      ]
 }
