@@ -19,7 +19,7 @@
   - `URL: https://host-name/image_viewer`
 - 画像一覧表示のページ(変更の可能性あり)
   - `URL: https://host-name/image_viewer/images/thumbnail?p={PageNum}`
-  - `API: GET https://host-name:port/v1/image_viewer/images/twimg/data/{PageNum}`  
+  - `API: GET https://host-name:port/api/v1/image_viewer/images/twimg/data?p={PageNum}`  
 ```json
 {
     "Headers": {
@@ -45,7 +45,7 @@
 
 - userIDで検索した場合の一覧表示ページ(変更の可能性あり)
   - `URL: https://host-name/image_viewer/images/search?id={UserID}`
-  - `API: GET https://host-name:port/v1/image_viewer/images/twimg/data/search?id={UserID}&p={PageNum}`  
+  - `API: GET https://host-name:port/api/v1/image_viewer/images/twimg/data/search?id={UserID}&p={PageNum}`  
 ```json
 {
     "Headers": {
@@ -72,7 +72,7 @@
 
 - 一覧表示から画像の個別表示ページ(変更の可能性あり)
   - `URL: https://host-name/image_viewer/image/original?id={UserID}&img={ImageID}`
-  - `API: GET https://host-name:port/v1/image_viewer/images/twimg/data/original?id={UserID}&img={ImageID}`  
+  - `API: GET https://host-name:port/api/v1/image_viewer/images/twimg/data/original?id={UserID}&img={ImageID}`  
 ```json
 {
     "Headers": {
