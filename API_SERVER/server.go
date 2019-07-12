@@ -15,67 +15,62 @@ type Result_JSON struct {
 
 // https://host-name:port/api/v1/twimg/data/page/{PageNum}
 func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
-	PNums := req.PathParam("Page")
-	log.Println("Page Number is ", PNums)
+	page := req.PathParam("PageNum")
+	log.Println("Page Number is ", page)
 
-	PNumi, err := strconv.Atoi(PNums)
+	PNum, err := strconv.Atoi(page)
 	if err != nil {
 		rest.Error(Rw, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	if PNumi != 0 {
+	if PNum != 0 {
 		Rw.WriteJson(&Result_JSON{
-			"Page number is "+PNums,
+			"Page number is "+page,
 		})
 	} else {
 		rest.Error(Rw, "Page number is required", 400)
 	}
 }
 
-// https://host-name:port/api/v1/twimg/data/search/{UserID}/{PageNum}
+// https://host-name:port/api/v1/twimg/data/search/{TwiID}/{PageNum}
 func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
-      input := TwiID_Page_Input{}
-      err := req.DecodeJsonPayload(&input)
-      if err != nil {
-              rest.Error(Rw, err.Error(), http.StatusInternalServerError)
-              return
-      }
+	twiID := req.PathParam("TwiID")
+	page := req.PathParam("PageNum")
+	log.Println("TwitterID is ", twiID)
+	log.Println("Page Number is ", page)
 
-      log.Printf("input: %#v", input)
+	PNum, err := strconv.Atoi(page)
+	if err != nil {
+		rest.Error(Rw, err.Error(), http.StatusInternalServerError)
+		return
+	}
 
-      PNum, _ := input.Page.Int64()
-      var s string
-      s = strconv.Itoa(PNum)
-
-      if input.UserID && input.Page == "" {
-              rest.Error(Rw, "UserID & Page number is required", 400)
-      } else if input.Page == "" {
-              Rw.WriteJson(&Result_JSON{
-                      input.UserID,
-              })
-              moduleDB.DB()
-      } else if PNum != 0 {
-              Rw.WriteJson(&Result_JSON{
-                      input.UserID+" "+s,
-              })
-              moduleDB.DB()
-      } else {
-              rest.Error(Rw, "Page number is required", 400)
-      }
+	if PNum != 0 && twiID != "" {
+		Rw.WriteJson(&Result_JSON{
+			"Page number is "+page,
+			"TwitterID is "+twiID,
+		})
+	} else {
+		rest.Error(Rw, "Page number & TwitterID is required", 400)
+	}
 }
 
-// https://host-name:port/api/v1/twimg/data/original/{UserID}/{ImageID}
+// https://host-name:port/api/v1/twimg/data/original/{TwiID}/{ImageID}
 func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
+	twiID := req.PathParam("TwiID")
+	imgID := req.PathParam("ImageID")
+	log.Println("TwitterID is ", twiID)
+	log.Println("ImageID is ", imgID)
 }
 
 func main() {
 	api := rest.NewApi()
 	api.Use(rest.DefaultDevStack...)
 	router, err := rest.MakeRouter(
-		rest.Post("/api/v1/twimg/data/page/:Page", API_twimg),
-		rest.Post("/api/v1/twimg/data/search/:UserID/:PageNum", API_twimg_search),
-		rest.Post("/api/v1/twimg/data/original/:UserID/:ImageID", API_twimg_original),
+		rest.Post("/api/v1/twimg/data/page/:PageNum", API_twimg),
+		rest.Post("/api/v1/twimg/data/search/:TwiID/:PageNum", API_twimg_search),
+		rest.Post("/api/v1/twimg/data/original/:TwiID/:ImageID", API_twimg_original),
 	)
 	if err != nil {
 		log.Fatal(err)
