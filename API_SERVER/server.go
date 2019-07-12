@@ -90,10 +90,9 @@ func main() {
 	api := rest.NewApi()
 	api.Use(rest.DefaultDevStack...)
 	router, err := rest.MakeRouter(
-		rest.Post("/api/v1/image_viewer/images/twimg/data", API_twimg),
-		//rest.Post("/api/v1/image_viewer/images/twimg/data?p={PageNum}", api.API_twimg),
-		//rest.Post("/api/v1/image_viewer/images/twimg/data/search?id={UserID}&p={PageNum}", api.API_twimg_search),
-		//rest.Post("/api/v1/image_viewer/images/twimg/data/original?id={UserID}&img={ImageID}", api.API_twimg_original),
+		rest.Post("/api/v1/image_viewer/images/twimg/data?p={PageNum}", API_twimg),
+		rest.Post("/api/v1/image_viewer/images/twimg/data/search?id={UserID}&p={PageNum}", API_twimg_search),
+		rest.Post("/api/v1/image_viewer/images/twimg/data/original?id={UserID}&img={ImageID}", API_twimg_original),
 	)
 	if err != nil {
 		log.Fatal(err)
