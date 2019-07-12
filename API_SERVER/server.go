@@ -3,54 +3,37 @@ package main
 import(
 	"log"
 	"net/http"
-	"encoding/json"
-	//"strconv"
+	"strconv"
 
-	"./module"
+	//"./module"
 	"github.com/ant0ine/go-json-rest/rest"
 )
-
-type Page_Input struct {
-	Page json.Number
-}
-
-type TwiID_Page_Input struct {
-	Page json.Number
-	UserID string
-}
 
 type Result_JSON struct {
 	Result string
 }
 
-// https://host-name:port/api/v1/twimg/data?p={PageNum}
+// https://host-name:port/api/v1/twimg/data/page/{PageNum}
 func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
-	input := Page_Input{}
-	err := req.DecodeJsonPayload(&input)
+	PNums := req.PathParam("Page")
+	log.Println("Page Number is ", PNums)
+
+	PNumi, err := strconv.Atoi(PNums)
 	if err != nil {
 		rest.Error(Rw, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	log.Printf("input: %#v", input)
-
-	PNum, err := input.Page.Int64()
-	if err != nil {
-		rest.Error(Rw, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	if PNum != 0 {
+	if PNumi != 0 {
 		Rw.WriteJson(&Result_JSON{
-			"Page number is OK",
+			"Page number is "+PNums,
 		})
-		moduleDB.DB()
 	} else {
 		rest.Error(Rw, "Page number is required", 400)
 	}
 }
 
-// https://host-name:port/api/v1/twimg/data/search?id={UserID}&p={PageNum}
+// https://host-name:port/api/v1/twimg/data/search/{UserID}/{PageNum}
 func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
       input := TwiID_Page_Input{}
       err := req.DecodeJsonPayload(&input)
@@ -82,7 +65,7 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
       }
 }
 
-// https://host-name:port/api/v1/twimg/data/original?id={UserID}&img={ImageID}
+// https://host-name:port/api/v1/twimg/data/original/{UserID}/{ImageID}
 func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
 }
 
@@ -90,9 +73,9 @@ func main() {
 	api := rest.NewApi()
 	api.Use(rest.DefaultDevStack...)
 	router, err := rest.MakeRouter(
-		rest.Post("/api/v1/image_viewer/images/twimg/data?p={PageNum}", API_twimg),
-		rest.Post("/api/v1/image_viewer/images/twimg/data/search?id={UserID}&p={PageNum}", API_twimg_search),
-		rest.Post("/api/v1/image_viewer/images/twimg/data/original?id={UserID}&img={ImageID}", API_twimg_original),
+		rest.Post("/api/v1/twimg/data/page/:Page", API_twimg),
+		rest.Post("/api/v1/twimg/data/search/:UserID/:PageNum", API_twimg_search),
+		rest.Post("/api/v1/twimg/data/original/:UserID/:ImageID", API_twimg_original),
 	)
 	if err != nil {
 		log.Fatal(err)
