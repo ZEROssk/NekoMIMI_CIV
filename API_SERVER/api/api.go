@@ -23,7 +23,8 @@ type Result_JSON struct {
 	Result string
 }
 
-func API_Page(Rw rest.ResponseWriter, req *rest.Request) {
+// https://host-name:port/api/v1/image_viewer/images/twimg/data?p={PageNum}
+func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 	input := Page_Input{}
 	err := req.DecodeJsonPayload(&input)
 	if err != nil {
@@ -49,7 +50,8 @@ func API_Page(Rw rest.ResponseWriter, req *rest.Request) {
 	}
 }
 
-func API_TwiID_Page(Rw rest.ResponseWriter, req *rest.Request) {
+// https://host-name:port/api/v1/image_viewer/images/twimg/data/search?id={UserID}&p={PageNum}
+func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 	input := TwiID_Page_Input{}
 	err := req.DecodeJsonPayload(&input)
 	if err != nil {
@@ -78,5 +80,9 @@ func API_TwiID_Page(Rw rest.ResponseWriter, req *rest.Request) {
 	} else {
 		rest.Error(Rw, "Page number is required", 400)
 	}
+}
+
+// https://host-name:port/api/v1/image_viewer/images/twimg/data/original?id={UserID}&img={ImageID}
+func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
 }
 
