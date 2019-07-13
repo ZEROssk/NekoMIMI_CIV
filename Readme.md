@@ -34,12 +34,12 @@
         {
             "TwitterID": "TwiID",
             "FileName": "NAME",
-            "ImageID"": "ImgID"
+            "ImageID": "ImgID"
         },
         {
             "TwitterID": "TwiID",
             "FileName": "NAME",
-            "ImageID"": "ImgID"
+            "ImageID": "ImgID"
         }
     ]
 }
@@ -62,7 +62,7 @@
     "Thumbnail": [
         {
             "FileName": "NAME",
-            "ImageID"": "ImgID"
+            "ImageID": "ImgID"
         },
         {
             "FileName": "NAME",
@@ -88,7 +88,7 @@
         {
             "TwitterID": "TwiID",
             "FileName": "NAME",
-            "ImageID"": "ImgID"
+            "ImageID": "ImgID"
         },
      ]
 }
