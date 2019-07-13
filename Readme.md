@@ -7,8 +7,8 @@
 - サーバーサイドの実装
   - APIサーバーとDBサーバーの連携
     - DB
-      - DBサーバーのCREATE USERやCREATE DATABASEは.sqlに書かない(本番実行時)
-	  - TABLE userID・fileNAME・ID・CreateDATE(2019/07/09時点)  
+      - DBサーバーの`CREATE USER`や`CREATE DATABASE`は.sqlに書かない(本番実行時)
+	  - TABLE TwitterID・FileNAME・ID・CreateDATE(2019/07/13時点)  
 	- API
 	  - APIはページ番号を整数値でのみ受け取る。(1.1などはエラーを返す)
 	  - 検索用APIの作成
@@ -18,7 +18,7 @@
 - rootページ(変更の可能性あり)
   - `URL: https://host-name/image_viewer`
 - 画像一覧表示のページ(変更の可能性あり)
-  - `URL: https://host-name/image_viewer/images/thumbnail?p={PageNum}`
+  - `URL: https://host-name/image_viewer/twimg/thumbnail?p={PageNum}`
   - `API: GET https://host-name:port/api/v1/twimg/data/page/{PageNum}`  
 ```json
 {
@@ -32,20 +32,22 @@
     "PageNumber": "PageNum",
     "Thumbnail": [
         {
-            "userID": "ID",
-            "fileName": "NAME"
+            "TwitterID": "TwiID",
+            "FileName": "NAME",
+			"ImageID"": "ID"
         },
         {
-            "userID": "ID",
-            "fileName": "NAME"
+            "TwitterID": "TwiID",
+            "FileName": "NAME",
+			"ImageID"": "ID"
         }
     ]
 }
 ```
 
-- userIDで検索した場合の一覧表示ページ(変更の可能性あり)
-  - `URL: https://host-name/image_viewer/images/search?id={UserID}`
-  - `API: GET https://host-name:port/api/v1/twimg/data/search/{UserID}/{PageNum}`  
+- TwitterIDで検索した場合の一覧表示ページ(変更の可能性あり)
+  - `URL: https://host-name/image_viewer/twimg/search?id={TwitterID}`
+  - `API: GET https://host-name:port/api/v1/twimg/data/search/{TwitterID}/{PageNum}`  
 ```json
 {
     "Headers": {
@@ -55,22 +57,24 @@
         "Server": "host-name",
         "Status": "up"
     },
-    "UserID": "userID",
+    "TwitterID": "TwiID",
     "PageNumber": "PageNum",
     "Thumbnail": [
         {
-            "fileName": "NAME"
+            "FileName": "NAME",
+			"ImageID"": "ID"
         },
         {
-            "fileName": "NAME"
+            "FileName": "NAME",
+			"ImageID"": "ID"
         }
     ]
 }
 ```
 
 - 一覧表示から画像の個別表示ページ(変更の可能性あり)
-  - `URL: https://host-name/image_viewer/image/original?id={UserID}&img={ImageID}`
-  - `API: GET https://host-name:port/api/v1/twimg/data/original/{UserID}/{ImageID}`  
+  - `URL: https://host-name/image_viewer/image/original?id={TwitterID}&img={ImageID}`
+  - `API: GET https://host-name:port/api/v1/twimg/data/original/{TwitterID}/{ImageID}`  
 ```json
 {
     "Headers": {
@@ -82,8 +86,9 @@
     },
     "Image": [
         {
-            "userID": "ID",
-            "fileName": "NAME"
+            "TwitterID": "TwiID",
+            "FileName": "NAME",
+			"ImageID"": "ID"
         },
      ]
 }
@@ -92,12 +97,12 @@
 ##### DB
   - Example
 
-| ID  | userID | fileNAME | CreateDATE               |
-|:---:|:------:|:--------:|:------------------------:|
-| 1   | a      | test-a   | YYYY/MM/DD Add-Date-Time |
-| 2   | b      | test-b   | YYYY/MM/DD Add-Date-Time |
-| 3   | c      | test-c   | YYYY/MM/DD Add-Date-Time |
-| ・  | ・     | ・       | ・                       |
-| ・  | ・     | ・       | ・                       |
-| ・  | ・     | ・       | ・                       |
+| ID  | TwitterID | FileNAME | CreateDATE               |
+|:---:|:---------:|:--------:|:------------------------:|
+| 1   | a         | test-a   | YYYY/MM/DD Add-Date-Time |
+| 2   | b         | test-b   | YYYY/MM/DD Add-Date-Time |
+| 3   | c         | test-c   | YYYY/MM/DD Add-Date-Time |
+| ・  | ・        | ・       | ・                       |
+| ・  | ・        | ・       | ・                       |
+| ・  | ・        | ・       | ・                       |
 
