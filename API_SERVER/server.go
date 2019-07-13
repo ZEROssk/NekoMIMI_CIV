@@ -48,15 +48,14 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 
 	if PNum != 0 && twiID != "" {
 		Rw.WriteJson(&Result_JSON{
-			"Page number is "+page,
-			"TwitterID is "+twiID,
+			"Page number is "+page+" TwitterID is "+twiID,
 		})
 	} else {
 		rest.Error(Rw, "Page number & TwitterID is required", 400)
 	}
 }
 
-// https://host-name:port/api/v1/twimg/data/original/{TwiID}/{ImageID}
+// https://host-name:port/api/v1/twimg/data/original/{TwiID}/{FileName}
 func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
 	twiID := req.PathParam("TwiID")
 	imgID := req.PathParam("ImageID")
@@ -65,8 +64,7 @@ func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
 
 	if twiID != "" && imgID != "" {
 		Rw.WriteJson(&Result_JSON{
-			"TwitterID is "+twiID,
-			"UserID is "+imgID,
+			"TwitterID is "+twiID+" UserID is "+imgID,
 		})
 	} else {
 		rest.Error(Rw, "ImageID & TwitterID is required", 400)
