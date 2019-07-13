@@ -34,12 +34,10 @@
         {
             "TwitterID": "TwiID",
             "FileName": "NAME",
-            "ImageID": "ImgID"
         },
         {
             "TwitterID": "TwiID",
             "FileName": "NAME",
-            "ImageID": "ImgID"
         }
     ]
 }
@@ -62,19 +60,17 @@
     "Thumbnail": [
         {
             "FileName": "NAME",
-            "ImageID": "ImgID"
         },
         {
             "FileName": "NAME",
-            "ImageID": "ImgID"
         }
     ]
 }
 ```
 
 - 一覧表示から画像の個別表示ページ(変更の可能性あり)
-  - `URL: https://host-name/image_viewer/image/original?id={TwitterID}&img={ImageID}`
-  - `API: GET https://host-name:port/api/v1/twimg/data/original/{TwitterID}/{ImageID}`  
+  - `URL: https://host-name/image_viewer/image/original?id={TwitterID}&img={FileName}`
+  - `API: GET https://host-name:port/api/v1/twimg/data/original/{TwitterID}/{FileName}`  
 ```json
 {
     "Headers": {
@@ -88,7 +84,6 @@
         {
             "TwitterID": "TwiID",
             "FileName": "NAME",
-            "ImageID": "ImgID"
         },
      ]
 }
@@ -97,7 +92,7 @@
 ##### DB
   - Example
 
-| ID  | TwitterID | FileNAME | CreateDATE               |
+| ID  | TwitterID | FileName | CreateDATE               |
 |:---:|:---------:|:--------:|:------------------------:|
 | 1   | a         | test-a   | YYYY/MM/DD Add-Date-Time |
 | 2   | b         | test-b   | YYYY/MM/DD Add-Date-Time |
