@@ -62,6 +62,15 @@ func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
 	imgID := req.PathParam("ImageID")
 	log.Println("TwitterID is ", twiID)
 	log.Println("ImageID is ", imgID)
+
+	if twiID != "" && imgID != "" {
+		Rw.WriteJson(&Result_JSON{
+			"TwitterID is "+twiID,
+			"UserID is "+imgID,
+		})
+	} else {
+		rest.Error(Rw, "ImageID & TwitterID is required", 400)
+	}
 }
 
 func main() {
