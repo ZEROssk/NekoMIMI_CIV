@@ -5,7 +5,7 @@ import(
 	"net/http"
 	"strconv"
 
-	//"./module"
+	"./module"
 	"github.com/ant0ine/go-json-rest/rest"
 )
 
@@ -25,9 +25,8 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 	}
 
 	if PNum != 0 {
-		Rw.WriteJson(&Result_JSON{
-			"Page number is "+page,
-		})
+		json := "Page number is "+page
+		Send_JSON(Rw, json)
 	} else {
 		rest.Error(Rw, "Page number is required", 400)
 	}
@@ -47,9 +46,8 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 	}
 
 	if PNum != 0 && twiID != "" {
-		Rw.WriteJson(&Result_JSON{
-			"Page number is "+page+" TwitterID is "+twiID,
-		})
+		json := "Page number is "+page+" TwitterID is "+twiID
+		Send_JSON(Rw, json)
 	} else {
 		rest.Error(Rw, "Page number & TwitterID is required", 400)
 	}
@@ -63,21 +61,25 @@ func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
 	log.Println("ImageID is ", imgID)
 
 	if twiID != "" && imgID != "" {
-		Rw.WriteJson(&Result_JSON{
-			"TwitterID is "+twiID+" UserID is "+imgID,
-		})
+		json := "TwitterID is "+twiID+" UserID is "+imgID
+		Send_JSON(Rw, json)
 	} else {
 		rest.Error(Rw, "ImageID & TwitterID is required", 400)
 	}
+}
+
+func Send_JSON(Rw rest.ResponseWriter, j string) {
+	useDB.DB_home()
+	Rw.WriteJson(&Result_JSON{j})
 }
 
 func main() {
 	api := rest.NewApi()
 	api.Use(rest.DefaultDevStack...)
 	router, err := rest.MakeRouter(
-		rest.Post("/api/v1/twimg/data/page/:PageNum", API_twimg),
-		rest.Post("/api/v1/twimg/data/search/:TwiID/:PageNum", API_twimg_search),
-		rest.Post("/api/v1/twimg/data/original/:TwiID/:ImageID", API_twimg_original),
+		rest.Get("/api/v1/twimg/data/page/:PageNum", API_twimg),
+		rest.Get("/api/v1/twimg/data/search/:TwiID/:PageNum", API_twimg_search),
+		rest.Get("/api/v1/twimg/data/original/:TwiID/:ImageID", API_twimg_original),
 	)
 	if err != nil {
 		log.Fatal(err)
