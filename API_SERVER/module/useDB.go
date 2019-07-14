@@ -20,7 +20,7 @@ func getENV(p string) string {
 	return env
 }
 
-func DB_home() {
+func DB_home(p string) {
 	dbNAME := getENV("MYSQL_DB")
 	dbUSER := getENV("MYSQL_USER")
 	dbPORT := getENV("MYSQL_PORT")
@@ -38,6 +38,8 @@ func DB_home() {
 	if err != nil {
 		panic(err.Error())
 	}
+	
+	log.Println(p)
 
 	for rows.Next() {
 		var v Data
@@ -50,11 +52,13 @@ func DB_home() {
 
 }
 
-func DB_search() {
+func DB_search(twiID string, p string) {
 	log.Printf("DB_search\n")
+	log.Println(twiID, p)
 }
 
-func DB_origin() {
+func DB_origin(twiID string, imgID string) {
 	log.Printf("DB_origin\n")
+	log.Println(twiID, imgID)
 }
 
