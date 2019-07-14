@@ -9,9 +9,9 @@ import(
 	"github.com/ant0ine/go-json-rest/rest"
 )
 
-type Result_JSON struct {
-	Result string
-}
+// type Result_JSON struct {
+// 	Result string
+// }
 
 // https://host-name:port/api/v1/twimg/data/page/{PageNum}
 func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
@@ -26,6 +26,8 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 
 	if PNum != 0 {
 		json := "Page number is "+page
+
+		useDB.DB_home()
 		Send_JSON(Rw, json)
 	} else {
 		rest.Error(Rw, "Page number is required", 400)
@@ -47,6 +49,8 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 
 	if PNum != 0 && twiID != "" {
 		json := "Page number is "+page+" TwitterID is "+twiID
+
+		useDB.DB_search()
 		Send_JSON(Rw, json)
 	} else {
 		rest.Error(Rw, "Page number & TwitterID is required", 400)
@@ -62,6 +66,8 @@ func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
 
 	if twiID != "" && imgID != "" {
 		json := "TwitterID is "+twiID+" UserID is "+imgID
+
+		useDB.DB_origin()
 		Send_JSON(Rw, json)
 	} else {
 		rest.Error(Rw, "ImageID & TwitterID is required", 400)
@@ -69,8 +75,8 @@ func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
 }
 
 func Send_JSON(Rw rest.ResponseWriter, j string) {
-	useDB.DB_home()
-	Rw.WriteJson(&Result_JSON{j})
+	Rw.WriteJson(j)
+	//Rw.WriteJson(&Result_JSON{json})
 }
 
 func main() {
