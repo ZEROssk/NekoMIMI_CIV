@@ -9,7 +9,7 @@ import(
 	"github.com/ant0ine/go-json-rest/rest"
 )
 
-type Result_JSON struct {
+type ResultJSON struct {
 	Result string
 }
 
@@ -29,7 +29,7 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 		json := "Page number is "+page
 
 		useDB.DB_home(page, "1", "5")
-		Send_JSON(Rw, json)
+		SendJSON(Rw, json)
 	} else {
 		rest.Error(Rw, "Page number is required", 400)
 	}
@@ -50,7 +50,7 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 		json := "Page number is "+page+" TwitterID is "+twiID
 
 		useDB.DB_search(twiID, page)
-		Send_JSON(Rw, json)
+		SendJSON(Rw, json)
 	} else {
 		rest.Error(Rw, "Page number & TwitterID is required", 400)
 	}
@@ -65,13 +65,13 @@ func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
 		json := "TwitterID is "+twiID+" UserID is "+imgID
 
 		useDB.DB_origin(twiID, imgID)
-		Send_JSON(Rw, json)
+		SendJSON(Rw, json)
 	} else {
 		rest.Error(Rw, "ImageID & TwitterID is required", 400)
 	}
 }
 
-func Send_JSON(Rw rest.ResponseWriter, j string) {
+func SendJSON(Rw rest.ResponseWriter, j string) {
 	Rw.WriteJson(&Result_JSON{j})
 }
 
