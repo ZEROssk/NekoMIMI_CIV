@@ -23,8 +23,6 @@
 ```json
 {
     "Headers": {
-        "Content-Type": "application/json; charset=utf-8",
-        "Date": "Mon, 1 Jan 2019 00:00:00 GMT",
         "Version": "v1",
         "Server": "host-name",
         "Status": "up"
@@ -49,8 +47,6 @@
 ```json
 {
     "Headers": {
-        "Content-Type": "application/json; charset=utf-8",
-        "Date": "Mon, 1 Jan 2019 00:00:00 GMT",
         "Version": "v1",
         "Server": "host-name",
         "Status": "up"
@@ -74,8 +70,6 @@
 ```json
 {
     "Headers": {
-        "Content-Type": "application/json; charset=utf-8",
-        "Date": "Mon, 1 Jan 2019 00:00:00 GMT",
         "Version": "v1",
         "Server": "host-name",
         "Status": "up"
