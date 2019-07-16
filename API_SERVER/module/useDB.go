@@ -46,8 +46,8 @@ func DB_home(p string, begin string, end string) {
 	defer db.Close()
 
 	// tes := "SELECT MAX(ID) FROM "+dbTABLE+" LIMIT "+begin", "+end
-	tes := "SELECT*FROM "+dbTABLE+" LIMIT "+begin", "+end
-	rows, err := db,Query(tes)
+	//tes := "SELECT*FROM "+dbTABLE+" LIMIT "+begin", "+end
+	rows, err := db,Query("SELECT*FROM ? LIMIT ?, ?", dbTable, begin, end)
 	if err != nil {
 		panic(err.Error())
 	}
