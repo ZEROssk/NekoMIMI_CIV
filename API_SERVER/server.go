@@ -28,7 +28,7 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 	if PNum != 0 {
 		json := "Page number is "+page
 
-		useDB.DB_home(page)
+		useDB.DB_home(page, "1", "5")
 		Send_JSON(Rw, json)
 	} else {
 		rest.Error(Rw, "Page number is required", 400)
