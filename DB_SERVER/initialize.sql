@@ -5,8 +5,8 @@ CREATE DATABASE IF NOT EXISTS `api_data_db`;
 
 CREATE TABLE IF NOT EXISTS `api_data_db`.`twi_data` (
 	`id`		INT			NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	`twi_id`	TEXT		NOT NULL,
-	`file_name`	TEXT		NOT NULL,
+	`twi_id`	VARCHAR(15)	NOT NULL,
+	`file_name`	VARCHAR(62)	NOT NULL,
 	`add_date`	TIMESTAMP	NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
