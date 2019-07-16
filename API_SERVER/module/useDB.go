@@ -41,11 +41,9 @@ func DB_login() *sql.DB {
 	return db
 }
 
-func DB_home(p string) {
+func DB_home(p string, begin string, end string) {
 	db := DB_login()
 	defer db.Close()
-
-	begin := 1
 
 	// tes := "SELECT MAX(ID) FROM "+dbTABLE+" LIMIT "+begin", "+end
 	tes := "SELECT*FROM "+dbTABLE+" LIMIT "+begin", "+end
