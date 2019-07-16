@@ -16,10 +16,10 @@ var (
 )
 
 type Data struct {
-	ID		int
-	TwiID	string
-	IMG		string
-	DATE	string
+	ID			int
+	TwiID		string
+	Img			string
+	CreatedAt	string
 }
 
 func getENV(p string) string {
@@ -27,14 +27,14 @@ func getENV(p string) string {
 	return env
 }
 
-func DB_login() *sql.DB {
+func Login_DB() *sql.DB {
 	dbNAME	= getENV("MYSQL_DB")
 	dbUSER	= getENV("MYSQL_USER")
 	dbPORT	= getENV("MYSQL_PORT")
 	dbTABLE	= getENV("MYSQL_TABLE")
 
-	dblogin := dbUSER+"@tcp(db:"+dbPORT+")/"+dbNAME
-	db, err := sql.Open("mysql", dblogin)
+	//connectDB := dbUSER+"@tcp(db:"+dbPORT+")/"+dbNAME
+	db, err := sql.Open("mysql", dbUSER+"@tcp(db:"+dbPORT+")/"+dbNAME)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -42,7 +42,7 @@ func DB_login() *sql.DB {
 }
 
 func DB_home(p string, begin string, end string) {
-	db := DB_login()
+	db := Login_DB()
 	defer db.Close()
 
 	// tes := "SELECT MAX(ID) FROM "+dbTABLE+" LIMIT "+begin", "+end
@@ -72,7 +72,7 @@ func DB_home(p string, begin string, end string) {
 }
 
 func DB_search(twiID string, p string) {
-	db := DB_login()
+	db := Login_DB()
 	defer db.Close()
 
 	log.Printf("DB_search\n")
@@ -80,7 +80,7 @@ func DB_search(twiID string, p string) {
 }
 
 func DB_origin(twiID string, imgID string) {
-	db := DB_login()
+	db := Login_DB()
 	defer db.Close()
 
 	log.Printf("DB_origin\n")
