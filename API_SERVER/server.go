@@ -1,6 +1,7 @@
 package main
 
 import(
+	."fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -16,23 +17,22 @@ type ResultJSON struct {
 // https://host-name:port/api/v1/twimg/data/page?p={PageNum}
 func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 	v := req.URL.Query()
-	page := v.Get("p")
-
-	m := 5
-
-	PNum, err := strconv.Atoi(page)
+	PNum, err := strconv.Atoi(v.Get("p"))
 	if err != nil {
 		rest.Error(Rw, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	if PNum != 0 {
-		json := "Page number is "+page
+		json := Sprintf("Page number is %d", PNum)
+		m := 5
 		b := (m*PNum)-m
-		es := strconv.Itoa(m)
-		bs := strconv.Itoa(b)
 
-		useDB.DB_home(page, bs, es)
+		useDB.DB_home(
+			Sprintf("%d", PNum),
+			Sprintf("%d", b),
+			Sprintf("%d", m),
+		)
 		SendJSON(Rw, json)
 	} else {
 		rest.Error(Rw, "Page number is required", 400)
@@ -43,18 +43,20 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 	v := req.URL.Query()
 	twiID := v.Get("tid")
-	page := v.Get("p")
 
-	PNum, err := strconv.Atoi(page)
+	PNum, err := strconv.Atoi(v.Get("p"))
 	if err != nil {
 		rest.Error(Rw, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	if PNum != 0 && twiID != "" {
-		json := "Page number is "+page+" TwitterID is "+twiID
+		json := Sprintf("Page number is %d TwiID is %s", page, twiID)
 
-		useDB.DB_search(twiID, page)
+		useDB.DB_search(
+			twiID,
+			Sprintf("%d", PNum),
+		)
 		SendJSON(Rw, json)
 	} else {
 		rest.Error(Rw, "Page number & TwitterID is required", 400)
@@ -68,9 +70,12 @@ func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
 	img := v.Get("fname")
 
 	if twiID != "" && img != "" {
-		json := "TwitterID is "+twiID+" UserID is "+img
+		json := Sprintf("TwitterID is %s UserID is %s", twiID, img)
 
-		useDB.DB_origin(twiID, img)
+		useDB.DB_origin(
+			twiID,
+			img,
+		)
 		SendJSON(Rw, json)
 	} else {
 		rest.Error(Rw, "FileName & TwitterID is required", 400)
