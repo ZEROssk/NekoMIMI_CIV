@@ -28,9 +28,8 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 
 	if PNum != 0 {
 		json := "Page number is "+page
-		e := m*PNum
-		b := e-m
-		es := strconv.Itoa(e)
+		b := (m*PNum)-m
+		es := strconv.Itoa(m)
 		bs := strconv.Itoa(b)
 
 		useDB.DB_home(page, bs, es)
