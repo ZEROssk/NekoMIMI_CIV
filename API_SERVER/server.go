@@ -33,7 +33,7 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 		es := strconv.Itoa(e)
 		bs := strconv.Itoa(b)
 
-		useDB.DB_home(page, b, e)
+		useDB.DB_home(page, bs, es)
 		SendJSON(Rw, json)
 	} else {
 		rest.Error(Rw, "Page number is required", 400)
