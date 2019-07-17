@@ -47,7 +47,9 @@ func DB_home(p string, begin string, end string) {
 
 	// tes := "SELECT MAX(ID) FROM "+dbTABLE+" LIMIT "+begin", "+end
 	//tes := "SELECT*FROM "+dbTABLE+" LIMIT "+begin", "+end
-	rows, err := db,Query("SELECT*FROM ? LIMIT ?, ?", dbTable, begin, end)
+	//rows, err := db.Query("SELECT*FROM ? LIMIT ?, ?", dbTable, begin, end)
+	//rows, err := db.Query("SELECT*FROM ?", dbTABLE)
+	rows, err := db.Query("SELECT*FROM twi_data LIMIT ?, ?", begin, end)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -62,11 +64,11 @@ func DB_home(p string, begin string, end string) {
 
 	for rows.Next() {
 		var v Data
-		err := rows.Scan(&v.ID, &v.TwiID, &v.IMG, &v.DATE)
+		err := rows.Scan(&v.ID, &v.TwiID, &v.Img, &v.CreatedAt)
 		if err != nil {
 			panic(err.Error())
 		}
-		log.Printf("%d %s %s %s\n", v.ID, v.TwiID, v.IMG, v.DATE)
+		log.Printf("%d %s %s %s\n", v.ID, v.TwiID, v.Img, v.CreatedAt)
 	}
 
 }

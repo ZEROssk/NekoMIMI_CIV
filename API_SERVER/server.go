@@ -73,7 +73,7 @@ func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
 }
 
 func SendJSON(Rw rest.ResponseWriter, j string) {
-	Rw.WriteJson(&Result_JSON{j})
+	Rw.WriteJson(&ResultJSON{j})
 }
 
 func main() {
