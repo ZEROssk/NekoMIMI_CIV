@@ -70,7 +70,7 @@ func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
 	img := v.Get("fname")
 
 	if twiID != "" && img != "" {
-		json := Sprintf("TwitterID is %s UserID is %s", twiID, img)
+		json := Sprintf("TwitterID is %s FileName is %s", twiID, img)
 
 		useDB.DB_origin(
 			twiID,

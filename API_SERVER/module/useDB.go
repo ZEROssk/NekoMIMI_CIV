@@ -75,7 +75,18 @@ func DB_origin(t string, f string) {
 	db := Login_DB()
 	defer db.Close()
 
-	log.Printf("DB_origin\n")
+	rows, err := db.Query("SELECT TWI_ID, FILE_NAME FROM twi_data WHERE TWI_ID='?' AND FILE_NAME='?'", t, f)
+	if err != nil {
+		panic(err.Error())
+	}
+
 	log.Println(t, f)
+
+	var v Data
+	err := rows.Scan(&v.ID, &v.TwiID, &v.Img, &v.CreatedAt)
+	if err != nil {
+		panic(err.Error())
+	}
+	log.Printf("%d %s %s %s\n", v.ID, v.TwiID, v.Img, v.CreatedAt)
 }
 
