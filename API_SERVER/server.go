@@ -18,6 +18,8 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 	v := req.URL.Query()
 	page := v.Get("p")
 
+	m := 5
+
 	PNum, err := strconv.Atoi(page)
 	if err != nil {
 		rest.Error(Rw, err.Error(), http.StatusInternalServerError)
@@ -26,8 +28,12 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 
 	if PNum != 0 {
 		json := "Page number is "+page
+		e := m*PNum
+		b := e-m
+		es := strconv.Itoa(e)
+		bs := strconv.Itoa(b)
 
-		useDB.DB_home(page, "1", "5")
+		useDB.DB_home(page, b, e)
 		SendJSON(Rw, json)
 	} else {
 		rest.Error(Rw, "Page number is required", 400)
