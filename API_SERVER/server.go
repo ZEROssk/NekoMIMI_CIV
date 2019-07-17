@@ -51,7 +51,7 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 	}
 
 	if PNum != 0 && twiID != "" {
-		json := Sprintf("Page number is %d TwiID is %s", page, twiID)
+		json := Sprintf("Page number is %d TwiID is %s", PNum, twiID)
 
 		useDB.DB_search(
 			twiID,
