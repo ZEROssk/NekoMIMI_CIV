@@ -45,21 +45,11 @@ func DB_home(p string, begin string, end string) {
 	db := Login_DB()
 	defer db.Close()
 
-	// tes := "SELECT MAX(ID) FROM "+dbTABLE+" LIMIT "+begin", "+end
-	//tes := "SELECT*FROM "+dbTABLE+" LIMIT "+begin", "+end
-	//rows, err := db.Query("SELECT*FROM ? LIMIT ?, ?", dbTable, begin, end)
-	//rows, err := db.Query("SELECT*FROM ?", dbTABLE)
 	rows, err := db.Query("SELECT*FROM twi_data LIMIT ?, ?", begin, end)
 	if err != nil {
 		panic(err.Error())
 	}
 
-	// dbTable := "SELECT*FROM "+dbTABLE
-	// rows, err := db.Query(dbTable)
-	// if err != nil {
-	// 	panic(err.Error())
-	// }
-	
 	log.Println(p)
 
 	for rows.Next() {
@@ -73,19 +63,19 @@ func DB_home(p string, begin string, end string) {
 
 }
 
-func DB_search(twiID string, p string) {
+func DB_search(t string, p string) {
 	db := Login_DB()
 	defer db.Close()
 
 	log.Printf("DB_search\n")
-	log.Println(twiID, p)
+	log.Println(t, p)
 }
 
-func DB_origin(twiID string, imgID string) {
+func DB_origin(t string, f string) {
 	db := Login_DB()
 	defer db.Close()
 
 	log.Printf("DB_origin\n")
-	log.Println(twiID, imgID)
+	log.Println(t, f)
 }
 

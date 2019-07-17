@@ -13,7 +13,7 @@ type ResultJSON struct {
 	Result string
 }
 
-// https://host-name:port/api/v1/twimg/data/page/{PageNum}
+// https://host-name:port/api/v1/twimg/data/page?p={PageNum}
 func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 	v := req.URL.Query()
 	page := v.Get("p")
@@ -34,7 +34,7 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 	}
 }
 
-// https://host-name:port/api/v1/twimg/data/search/{TwiID}/{PageNum}
+// https://host-name:port/api/v1/twimg/data/search?tid={TwiID}&p={PageNum}
 func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 	v := req.URL.Query()
 	twiID := v.Get("tid")
@@ -56,19 +56,19 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 	}
 }
 
-// https://host-name:port/api/v1/twimg/data/original/{TwiID}/{FileName}
+// https://host-name:port/api/v1/twimg/data/original?tid={TwiID}&fname={FileName}
 func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
 	v := req.URL.Query()
 	twiID := v.Get("tid")
-	imgID := v.Get("fname")
+	img := v.Get("fname")
 
-	if twiID != "" && imgID != "" {
-		json := "TwitterID is "+twiID+" UserID is "+imgID
+	if twiID != "" && img != "" {
+		json := "TwitterID is "+twiID+" UserID is "+img
 
-		useDB.DB_origin(twiID, imgID)
+		useDB.DB_origin(twiID, img)
 		SendJSON(Rw, json)
 	} else {
-		rest.Error(Rw, "ImageID & TwitterID is required", 400)
+		rest.Error(Rw, "FileName & TwitterID is required", 400)
 	}
 }
 
