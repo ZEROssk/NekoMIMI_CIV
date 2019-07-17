@@ -12,6 +12,7 @@
 	- API
 	  - APIはページ番号を整数値でのみ受け取る。(1.1などはエラーを返す)
 	  - 検索用APIの作成
+- Twitterのユーザー名周りは [ここ](https://help.twitter.com/ja/managing-your-account/twitter-username-rules) 参考に制限する
 ---
 #### 要件メモとか
 ##### API
