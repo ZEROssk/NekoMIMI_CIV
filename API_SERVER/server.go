@@ -72,10 +72,7 @@ func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
 	if twiID != "" && img != "" {
 		json := Sprintf("TwitterID is %s FileName is %s", twiID, img)
 
-		useDB.DB_origin(
-			twiID,
-			img,
-		)
+		useDB.DB_origin(twiID, img)
 		SendJSON(Rw, json)
 	} else {
 		rest.Error(Rw, "FileName & TwitterID is required", 400)
