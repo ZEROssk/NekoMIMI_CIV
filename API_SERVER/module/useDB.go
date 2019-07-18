@@ -13,6 +13,7 @@ var (
 	dbUSER	string
 	dbPORT	string
 	dbTABLE	string
+	db		*sql.DB
 )
 
 type Data struct {
@@ -27,24 +28,20 @@ func getENV(p string) string {
 	return env
 }
 
-func Login_DB() *sql.DB {
+func Login_DB() {
 	dbNAME	= getENV("MYSQL_DB")
 	dbUSER	= getENV("MYSQL_USER")
 	dbPORT	= getENV("MYSQL_PORT")
 	dbTABLE	= getENV("MYSQL_TABLE")
 
-	//connectDB := dbUSER+"@tcp(db:"+dbPORT+")/"+dbNAME
-	db, err := sql.Open("mysql", dbUSER+"@tcp(db:"+dbPORT+")/"+dbNAME)
+	var err error
+	db, err = sql.Open("mysql", dbUSER+"@tcp(db:"+dbPORT+")/"+dbNAME)
 	if err != nil {
 		panic(err.Error())
 	}
-	return db
 }
 
 func DB_home(p string, begin string, end string) {
-	db := Login_DB()
-	defer db.Close()
-
 	rows, err := db.Query("SELECT*FROM twi_data LIMIT ?, ?", begin, end)
 	if err != nil {
 		panic(err.Error())
@@ -60,40 +57,21 @@ func DB_home(p string, begin string, end string) {
 		}
 		log.Printf("%d %s %s %s\n", v.ID, v.TwiID, v.Img, v.CreatedAt)
 	}
-
 }
 
 func DB_search(t string, p string) {
-	db := Login_DB()
-	defer db.Close()
-
 	log.Printf("DB_search\n")
 	log.Println(t, p)
 }
 
 func DB_origin(t string, f string) {
-	db := Login_DB()
-	defer db.Close()
+	var v Data
+	rows := db.QueryRow("SELECT*FROM twi_data WHERE TWI_ID=? AND FILE_NAME=?", t, f)
 
-	log.Println("check")
-
-	rows, err := db.Query("SELECT*FROM twi_data WHERE TWI_ID='?' AND FILE_NAME='?'", t, f)
-	// rows, err := db.Query("SELECT * FROM twi_data LIMIT 1")
-	if err != nil {
-		panic(err.Error())
+	e := rows.Scan(&v.ID, &v.TwiID, &v.Img, &v.CreatedAt)
+	if e != nil {
+		panic(e.Error())
 	}
-
-	log.Println(rows)
-
-	for rows.Next() {
-		var v Data
-		err := rows.Scan(&v.ID, &v.TwiID, &v.Img, &v.CreatedAt)
-		//e := rows.Scan(&v.TwiID, &v.Img)
-		if err != nil {
-			panic(err.Error())
-		}
-		log.Printf("%d %s %s %s\n", v.ID, v.TwiID, v.Img, v.CreatedAt)
-		//log.Printf("%s %s\n", v.TwiID, v.Img)
-	}
+	log.Printf("%d %s %s %s\n", v.ID, v.TwiID, v.Img, v.CreatedAt)
 }
 
