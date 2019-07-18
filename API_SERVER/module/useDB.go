@@ -58,7 +58,7 @@ func DB_home(p string, begin string, end string) {
 }
 
 func DB_search(t string, begin string, end string) {
-	rows, err := db.Query("SELECT*FROM twi_data WHERE TWI_ID=? LIMIT ?, ?", t, begin, end)
+	rows, err := db.Query("SELECT*FROM twi_data WHERE TwiID=? LIMIT ?, ?", t, begin, end)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -75,7 +75,7 @@ func DB_search(t string, begin string, end string) {
 
 func DB_origin(t string, f string) {
 	var v Data
-	rows := db.QueryRow("SELECT*FROM twi_data WHERE TWI_ID=? AND FILE_NAME=?", t, f)
+	rows := db.QueryRow("SELECT*FROM twi_data WHERE TwiID=? AND FileName=?", t, f)
 
 	e := rows.Scan(&v.ID, &v.TwiID, &v.Img, &v.CreatedAt)
 	if e != nil {
