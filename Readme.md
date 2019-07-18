@@ -87,12 +87,12 @@
 ##### DB
   - Example
 
-| ID  | TwitterID | FileName | CreateDATE               |
-|:---:|:---------:|:--------:|:------------------------:|
-| 1   | a         | test-a   | YYYY/MM/DD Add-Date-Time |
-| 2   | b         | test-b   | YYYY/MM/DD Add-Date-Time |
-| 3   | c         | test-c   | YYYY/MM/DD Add-Date-Time |
-| ・  | ・        | ・       | ・                       |
-| ・  | ・        | ・       | ・                       |
-| ・  | ・        | ・       | ・                       |
+| ID  | TwiID | FileName | CreatedAt                |
+|:---:|:-----:|:--------:|:------------------------:|
+| 1   | a     | test-a   | YYYY/MM/DD Add-Date-Time |
+| 2   | b     | test-b   | YYYY/MM/DD Add-Date-Time |
+| 3   | c     | test-c   | YYYY/MM/DD Add-Date-Time |
+| ・  | ・    | ・       | ・                       |
+| ・  | ・    | ・       | ・                       |
+| ・  | ・    | ・       | ・                       |
 
