@@ -47,8 +47,6 @@ func DB_home(p string, begin string, end string) {
 		panic(err.Error())
 	}
 
-	log.Println(p)
-
 	for rows.Next() {
 		var v Data
 		err := rows.Scan(&v.ID, &v.TwiID, &v.Img, &v.CreatedAt)
@@ -59,9 +57,20 @@ func DB_home(p string, begin string, end string) {
 	}
 }
 
-func DB_search(t string, p string) {
-	log.Printf("DB_search\n")
-	log.Println(t, p)
+func DB_search(t string, begin string, end string) {
+	rows, err := db.Query("SELECT*FROM twi_data WHERE TWI_ID=? LIMIT ?, ?", t, begin, end)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	for rows.Next() {
+		var v Data
+		err := rows.Scan(&v.ID, &v.TwiID, &v.Img, &v.CreatedAt)
+		if err != nil {
+			panic(err.Error())
+		}
+		log.Printf("%d %s %s %s\n", v.ID, v.TwiID, v.Img, v.CreatedAt)
+	}
 }
 
 func DB_origin(t string, f string) {

@@ -14,6 +14,8 @@ type ResultJSON struct {
 	Result string
 }
 
+var get_by_n int = 5
+
 // https://host-name:port/api/v1/twimg/data/page?p={PageNum}
 func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 	v := req.URL.Query()
@@ -25,13 +27,12 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 
 	if PNum != 0 {
 		json := Sprintf("Page number is %d", PNum)
-		m := 5
-		b := (m*PNum)-m
+		start := (get_by_n*PNum)-get_by_n
 
 		useDB.DB_home(
 			Sprintf("%d", PNum),
-			Sprintf("%d", b),
-			Sprintf("%d", m),
+			Sprintf("%d", start),
+			Sprintf("%d", get_by_n),
 		)
 		SendJSON(Rw, json)
 	} else {
@@ -52,10 +53,12 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 
 	if PNum != 0 && twiID != "" {
 		json := Sprintf("Page number is %d TwiID is %s", PNum, twiID)
+		start := (get_by_n*PNum)-get_by_n
 
 		useDB.DB_search(
 			twiID,
-			Sprintf("%d", PNum),
+			Sprintf("%d", start),
+			Sprintf("%d", get_by_n),
 		)
 		SendJSON(Rw, json)
 	} else {
