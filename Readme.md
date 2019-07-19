@@ -20,7 +20,7 @@
   - `URL: https://host-name/image_viewer`
 - 画像一覧表示のページ(変更の可能性あり)
   - `URL: https://host-name/image_viewer/twimg/thumbnail?p={PageNum}`
-  - `API: GET https://host-name:port/api/v1/twimg/data/page?p={PageNum}`  
+  - `API: GET https://host-name:port/api/v1/twimg/page?p={PageNum}`  
 ```json
 {
     "Headers": {
@@ -44,7 +44,7 @@
 
 - TwitterIDで検索した場合の一覧表示ページ(変更の可能性あり)
   - `URL: https://host-name/image_viewer/twimg/search?id={TwitterID}`
-  - `API: GET https://host-name:port/api/v1/twimg/data/search?tid={TwitterID}&p={PageNum}`  
+  - `API: GET https://host-name:port/api/v1/twimg/search?tid={TwitterID}&p={PageNum}`  
 ```json
 {
     "Headers": {
@@ -67,7 +67,7 @@
 
 - 一覧表示から画像の個別表示ページ(変更の可能性あり)
   - `URL: https://host-name/image_viewer/image/original?id={TwitterID}&img={FileName}`
-  - `API: GET https://host-name:port/api/v1/twimg/data/original?tid={TwitterID}&fname={FileName}`  
+  - `API: GET https://host-name:port/api/v1/twimg/original?tid={TwitterID}&fname={FileName}`  
 ```json
 {
     "Headers": {
