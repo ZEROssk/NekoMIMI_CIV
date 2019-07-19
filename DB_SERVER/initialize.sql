@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `api_data_db`.`twi_data` (
 
 USE api_data_db;
 
-INSERT INTO twi_data (twi_id, file_name) VALUES
+INSERT INTO twi_data (TwiID, FileName) VALUES
 ('aaa','test-01'),
 ('aaa','test-02'),
 ('abb','test-03'),
