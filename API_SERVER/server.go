@@ -16,7 +16,7 @@ type ResultJSON struct {
 
 var get_by_n int = 5
 
-// https://host-name:port/api/v1/twimg/data/page?p={PageNum}
+// https://host-name:port/api/v1/twimg/page?p={PageNum}
 func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 	v := req.URL.Query()
 	PNum, err := strconv.Atoi(v.Get("p"))
@@ -40,7 +40,7 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 	}
 }
 
-// https://host-name:port/api/v1/twimg/data/search?tid={TwiID}&p={PageNum}
+// https://host-name:port/api/v1/twimg/search?tid={TwiID}&p={PageNum}
 func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 	v := req.URL.Query()
 	twiID := v.Get("tid")
@@ -66,7 +66,7 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 	}
 }
 
-// https://host-name:port/api/v1/twimg/data/original?tid={TwiID}&fname={FileName}
+// https://host-name:port/api/v1/twimg/original?tid={TwiID}&fname={FileName}
 func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
 	v := req.URL.Query()
 	twiID := v.Get("tid")
@@ -91,9 +91,9 @@ func main() {
 	api := rest.NewApi()
 	api.Use(rest.DefaultDevStack...)
 	router, err := rest.MakeRouter(
-		rest.Get("/api/v1/twimg/data/page", API_twimg),
-		rest.Get("/api/v1/twimg/data/search", API_twimg_search),
-		rest.Get("/api/v1/twimg/data/original", API_twimg_original),
+		rest.Get("/api/v1/twimg/page", API_twimg),
+		rest.Get("/api/v1/twimg/search", API_twimg_search),
+		rest.Get("/api/v1/twimg/original", API_twimg_original),
 	)
 	if err != nil {
 		log.Fatal(err)
