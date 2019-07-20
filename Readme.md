@@ -56,9 +56,11 @@
     "PageNumber": "PageNum",
     "Thumbnail": [
         {
+            "TwitterID": "TwiID",
             "FileName": "NAME",
         },
         {
+            "TwitterID": "TwiID",
             "FileName": "NAME",
         }
     ]
