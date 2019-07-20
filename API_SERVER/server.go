@@ -14,6 +14,10 @@ type ResultJSON struct {
 	Result string
 }
 
+type testJSON struct {
+	Result []string
+}
+
 var get_by_n int = 5
 
 // https://host-name:port/api/v1/twimg/page?p={PageNum}
@@ -26,15 +30,16 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 	}
 
 	if PNum != 0 {
-		json := Sprintf("Page number is %d", PNum)
+		//json := Sprintf("Page number is %d", PNum)
 		start := (get_by_n*PNum)-get_by_n
 
-		useDB.DB_home(
+		content := useDB.DB_home(
 			Sprintf("%d", PNum),
 			Sprintf("%d", start),
 			Sprintf("%d", get_by_n),
 		)
-		SendJSON(Rw, json)
+		//SendJSON(Rw, json + content)
+		Rw.WriteJson(&testJSON{content})
 	} else {
 		rest.Error(Rw, "Page number is required", 400)
 	}
@@ -55,12 +60,12 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 		json := Sprintf("Page number is %d TwiID is %s", PNum, twiID)
 		start := (get_by_n*PNum)-get_by_n
 
-		useDB.DB_search(
+		content := useDB.DB_search(
 			twiID,
 			Sprintf("%d", start),
 			Sprintf("%d", get_by_n),
 		)
-		SendJSON(Rw, json)
+		SendJSON(Rw, json + content)
 	} else {
 		rest.Error(Rw, "Page number & TwitterID is required", 400)
 	}
@@ -75,8 +80,8 @@ func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
 	if twiID != "" && img != "" {
 		json := Sprintf("TwitterID is %s FileName is %s", twiID, img)
 
-		useDB.DB_origin(twiID, img)
-		SendJSON(Rw, json)
+		content := useDB.DB_origin(twiID, img)
+		SendJSON(Rw, json + content)
 	} else {
 		rest.Error(Rw, "FileName & TwitterID is required", 400)
 	}

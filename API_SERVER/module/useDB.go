@@ -1,6 +1,7 @@
 package useDB
 
 import(
+	."fmt"
 	"log"
 	"os"
 
@@ -41,12 +42,14 @@ func Login_DB() {
 	}
 }
 
-func DB_home(p string, begin string, end string) {
+func DB_home(p string, begin string, end string) []string {
 	rows, err := db.Query("SELECT*FROM twi_data LIMIT ?, ?", begin, end)
 	if err != nil {
 		panic(err.Error())
 	}
 
+	s := []string{}
+
 	for rows.Next() {
 		var v Data
 		err := rows.Scan(&v.ID, &v.TwiID, &v.Img, &v.CreatedAt)
@@ -54,15 +57,19 @@ func DB_home(p string, begin string, end string) {
 			panic(err.Error())
 		}
 		log.Printf("%d %s %s %s\n", v.ID, v.TwiID, v.Img, v.CreatedAt)
+		s = append(s, Sprintf("%s %s", v.TwiID, v.Img))
 	}
+	return s
 }
 
-func DB_search(t string, begin string, end string) {
+func DB_search(t string, begin string, end string) string {
 	rows, err := db.Query("SELECT*FROM twi_data WHERE TwiID=? LIMIT ?, ?", t, begin, end)
 	if err != nil {
 		panic(err.Error())
 	}
 
+	s := ""
+
 	for rows.Next() {
 		var v Data
 		err := rows.Scan(&v.ID, &v.TwiID, &v.Img, &v.CreatedAt)
@@ -70,10 +77,12 @@ func DB_search(t string, begin string, end string) {
 			panic(err.Error())
 		}
 		log.Printf("%d %s %s %s\n", v.ID, v.TwiID, v.Img, v.CreatedAt)
+		s += Sprintf("%s %s", v.TwiID, v.Img)
 	}
+	return s
 }
 
-func DB_origin(t string, f string) {
+func DB_origin(t string, f string) string {
 	var v Data
 	rows := db.QueryRow("SELECT*FROM twi_data WHERE TwiID=? AND FileName=?", t, f)
 
@@ -81,6 +90,8 @@ func DB_origin(t string, f string) {
 	if e != nil {
 		panic(e.Error())
 	}
-	log.Printf("%d %s %s %s\n", v.ID, v.TwiID, v.Img, v.CreatedAt)
+	s := Sprintf("%s %s", v.TwiID, v.Img)
+
+	return s
 }
 
