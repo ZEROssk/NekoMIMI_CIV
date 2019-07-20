@@ -75,12 +75,10 @@
         "Server": "host-name",
         "Status": "up"
     },
-    "Image": [
-        {
-            "TwitterID": "TwiID",
-            "FileName": "NAME",
-        },
-     ]
+    "Image": {
+        "TwitterID": "TwiID",
+        "FileName": "NAME",
+    }
 }
 ```
 
