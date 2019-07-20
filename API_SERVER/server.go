@@ -11,7 +11,7 @@ import(
 )
 
 type ResultJSON struct {
-	Image []string
+	Image [][]string
 }
 
 type OriginalResultJSON struct {

@@ -41,13 +41,13 @@ func Login_DB() {
 	}
 }
 
-func DB_home(p string, begin string, end string) []string {
+func DB_home(p string, begin string, end string) [][]string {
 	rows, err := db.Query("SELECT*FROM twi_data LIMIT ?, ?", begin, end)
 	if err != nil {
 		panic(err.Error())
 	}
 
-	s := []string{}
+	s := [][]string{}
 
 	for rows.Next() {
 		var v Data
@@ -55,18 +55,18 @@ func DB_home(p string, begin string, end string) []string {
 		if err != nil {
 			panic(err.Error())
 		}
-		s = append(s, Sprintf("%s %s", v.TwiID, v.Img))
+		s = append(s, []string{"TwiID : " + v.TwiID, "Image : " + v.Img})
 	}
 	return s
 }
 
-func DB_search(t string, begin string, end string) []string {
+func DB_search(t string, begin string, end string) [][]string {
 	rows, err := db.Query("SELECT*FROM twi_data WHERE TwiID=? LIMIT ?, ?", t, begin, end)
 	if err != nil {
 		panic(err.Error())
 	}
 
-	s := []string{}
+	s := [][]string{}
 
 	for rows.Next() {
 		var v Data
@@ -74,7 +74,7 @@ func DB_search(t string, begin string, end string) []string {
 		if err != nil {
 			panic(err.Error())
 		}
-		s = append(s, Sprintf("%s %s", v.TwiID, v.Img))
+		s = append(s, []string{"TwiID : " + v.TwiID, "Image : " + v.Img})
 	}
 	return s
 }
