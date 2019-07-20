@@ -38,7 +38,7 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 			Sprintf("%d", get_by_n),
 		)
 
-		Rw.WriteJson(&testJSON{content})
+		Rw.WriteJson(&ResultJSON{content})
 	} else {
 		rest.Error(Rw, "Page number is required", 400)
 	}
@@ -64,7 +64,7 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 			Sprintf("%d", get_by_n),
 		)
 
-		Rw.WriteJson(&testJSON{content})
+		Rw.WriteJson(&ResultJSON{content})
 	} else {
 		rest.Error(Rw, "Page number & TwitterID is required", 400)
 	}
