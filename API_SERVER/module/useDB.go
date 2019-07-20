@@ -2,7 +2,6 @@ package useDB
 
 import(
 	."fmt"
-	"log"
 	"os"
 
 	"database/sql"
@@ -56,19 +55,18 @@ func DB_home(p string, begin string, end string) []string {
 		if err != nil {
 			panic(err.Error())
 		}
-		log.Printf("%d %s %s %s\n", v.ID, v.TwiID, v.Img, v.CreatedAt)
 		s = append(s, Sprintf("%s %s", v.TwiID, v.Img))
 	}
 	return s
 }
 
-func DB_search(t string, begin string, end string) string {
+func DB_search(t string, begin string, end string) []string {
 	rows, err := db.Query("SELECT*FROM twi_data WHERE TwiID=? LIMIT ?, ?", t, begin, end)
 	if err != nil {
 		panic(err.Error())
 	}
 
-	s := ""
+	s := []string{}
 
 	for rows.Next() {
 		var v Data
@@ -76,8 +74,7 @@ func DB_search(t string, begin string, end string) string {
 		if err != nil {
 			panic(err.Error())
 		}
-		log.Printf("%d %s %s %s\n", v.ID, v.TwiID, v.Img, v.CreatedAt)
-		s += Sprintf("%s %s", v.TwiID, v.Img)
+		s = append(s, Sprintf("%s %s", v.TwiID, v.Img))
 	}
 	return s
 }
