@@ -5,6 +5,7 @@ import(
 	"log"
 	"net/http"
 	"strconv"
+	"encoding/json"
 
 	"./module"
 	"github.com/ant0ine/go-json-rest/rest"
@@ -15,7 +16,10 @@ type ResultJSON struct {
 }
 
 type OriginalResultJSON struct {
-	Image string
+	Image struct {
+		TwiID	string `json:"TwitterID"`
+		FName	string `json:"FileName"`
+	} `json:"Image"`
 }
 
 var get_by_n int = 5

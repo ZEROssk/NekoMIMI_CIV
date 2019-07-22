@@ -79,7 +79,7 @@ func DB_search(t string, begin string, end string) [][]string {
 	return s
 }
 
-func DB_origin(t string, f string) string {
+func DB_origin(t string, f string) []string {
 	var v Data
 	rows := db.QueryRow("SELECT*FROM twi_data WHERE TwiID=? AND FileName=?", t, f)
 
@@ -87,7 +87,7 @@ func DB_origin(t string, f string) string {
 	if e != nil {
 		panic(e.Error())
 	}
-	s := Sprintf("%s %s", v.TwiID, v.Img)
+	s := []string{v.TwiID, v.Img}
 
 	return s
 }
