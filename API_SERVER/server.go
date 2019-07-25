@@ -82,7 +82,7 @@ func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
 
 	if twiID != "" && img != "" {
 		content := useDB.DB_origin(twiID, img)
-		Rw.WriteJson(&OriginalResultJSON{content})
+		Rw.WriteJson(&OriginalResultJSON{TwiID: content[0], FName: content[1]})
 	} else {
 		rest.Error(Rw, "FileName & TwitterID is required", 400)
 	}
