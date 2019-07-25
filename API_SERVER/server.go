@@ -16,7 +16,7 @@ type ResultJSON struct {
 }
 
 type OriginalResultJSON struct {
-	Result map[string]Img `json:"Image"`
+	Result map[string]Img `json:"Result"`
 }
 
 type Img struct {
