@@ -5,7 +5,6 @@ import(
 	"log"
 	"net/http"
 	"strconv"
-	//"encoding/json"
 
 	"./module"
 	"github.com/ant0ine/go-json-rest/rest"
@@ -15,16 +14,12 @@ type ResultJSON struct {
 	Image [][]string
 }
 
-type OriginalResultJSON struct {
-	Result map[string]Img `json:"Result"`
-}
-
 type Img struct {
 	TwiID	string `json:"TwitterID"`
 	FName	string `json:"FileName"`
 }
 
-var get_by_n int = 5
+var get_by_n int = 10
 
 // https://host-name:port/api/v1/twimg/page?p={PageNum}
 func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
@@ -85,11 +80,10 @@ func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
 	if twiID != "" && img != "" {
 		content := useDB.DB_origin(twiID, img)
 
-		r := OriginalResultJSON{}
-		r.Result = map[string]Img{}
-		r.Result["Image"] = Img{TwiID: content[0], FName: content[1]}
+		r := map[string]Img{}
+		r["Image"] = Img{TwiID: content[0], FName: content[1]}
 
-		Rw.WriteJson(&r)
+		Rw.WriteJson(r)
 	} else {
 		rest.Error(Rw, "FileName & TwitterID is required", 400)
 	}
