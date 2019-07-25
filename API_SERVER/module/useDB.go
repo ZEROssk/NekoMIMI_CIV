@@ -1,7 +1,7 @@
 package useDB
 
 import(
-	."fmt"
+	//."fmt"
 	"os"
 
 	"database/sql"
