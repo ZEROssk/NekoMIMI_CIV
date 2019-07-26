@@ -40,12 +40,12 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 		)
 
 		r := []ImgJSON{}
-		for i := 0; i < content.length; i++ {
+		for i := 0; i < get_by_n; i++ {
 			r = append(r, ImgJSON{TwiID: content[i][0], FName: content[i][1]})
 		}
-		Rcon := ThumbnailJSON{thum: r}
+		//Rcon := ThumbnailJSON{thum: r}
 
-		Rw.WriteJson(Rcon)
+		Rw.WriteJson(&ThumbnailJSON{r})
 	} else {
 		rest.Error(Rw, "Page number is required", 400)
 	}
@@ -101,7 +101,7 @@ func main() {
 	api.Use(rest.DefaultDevStack...)
 	router, err := rest.MakeRouter(
 		rest.Get("/api/v1/twimg/page", API_twimg),
-		rest.Get("/api/v1/twimg/search", API_twimg_search),
+		// rest.Get("/api/v1/twimg/search", API_twimg_search),
 		rest.Get("/api/v1/twimg/original", API_twimg_original),
 	)
 	if err != nil {
