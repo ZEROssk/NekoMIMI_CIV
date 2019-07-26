@@ -107,7 +107,7 @@ func main() {
 	api.Use(rest.DefaultDevStack...)
 	router, err := rest.MakeRouter(
 		rest.Get("/api/v1/twimg/page", API_twimg),
-		// rest.Get("/api/v1/twimg/search", API_twimg_search),
+		rest.Get("/api/v1/twimg/search", API_twimg_search),
 		rest.Get("/api/v1/twimg/original", API_twimg_original),
 	)
 	if err != nil {
