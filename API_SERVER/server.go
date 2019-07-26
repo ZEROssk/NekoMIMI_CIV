@@ -10,11 +10,11 @@ import(
 	"github.com/ant0ine/go-json-rest/rest"
 )
 
-type ResultJSON struct {
-	Image [][]string
+type ThumbnailJSON struct {
+	thum []ImgJSON `json:"Image"`
 }
 
-type Img struct {
+type ImgJSON struct {
 	TwiID	string `json:"TwitterID"`
 	FName	string `json:"FileName"`
 }
@@ -39,37 +39,43 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 			Sprintf("%d", get_by_n),
 		)
 
-		Rw.WriteJson(&ResultJSON{content})
+		r := []ImgJSON{}
+		for i := 0; i < content.length; i++ {
+			r = append(r, ImgJSON{TwiID: content[i][0], FName: content[i][1]})
+		}
+		Rcon := ThumbnailJSON{thum: r}
+
+		Rw.WriteJson(Rcon)
 	} else {
 		rest.Error(Rw, "Page number is required", 400)
 	}
 }
 
 // https://host-name:port/api/v1/twimg/search?tid={TwiID}&p={PageNum}
-func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
-	v := req.URL.Query()
-	twiID := v.Get("tid")
-
-	PNum, err := strconv.Atoi(v.Get("p"))
-	if err != nil {
-		rest.Error(Rw, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	if PNum != 0 && twiID != "" {
-		start := (get_by_n*PNum)-get_by_n
-
-		content := useDB.DB_search(
-			twiID,
-			Sprintf("%d", start),
-			Sprintf("%d", get_by_n),
-		)
-
-		Rw.WriteJson(&ResultJSON{content})
-	} else {
-		rest.Error(Rw, "Page number & TwitterID is required", 400)
-	}
-}
+// func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
+// 	v := req.URL.Query()
+// 	twiID := v.Get("tid")
+//
+// 	PNum, err := strconv.Atoi(v.Get("p"))
+// 	if err != nil {
+// 		rest.Error(Rw, err.Error(), http.StatusInternalServerError)
+// 		return
+// 	}
+//
+// 	if PNum != 0 && twiID != "" {
+// 		start := (get_by_n*PNum)-get_by_n
+//
+// 		content := useDB.DB_search(
+// 			twiID,
+// 			Sprintf("%d", start),
+// 			Sprintf("%d", get_by_n),
+// 		)
+//
+// 		Rw.WriteJson(&ResultJSON{content})
+// 	} else {
+// 		rest.Error(Rw, "Page number & TwitterID is required", 400)
+// 	}
+// }
 
 // https://host-name:port/api/v1/twimg/original?tid={TwiID}&fname={FileName}
 func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
@@ -80,8 +86,8 @@ func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
 	if twiID != "" && img != "" {
 		content := useDB.DB_origin(twiID, img)
 
-		r := map[string]Img{}
-		r["Image"] = Img{TwiID: content[0], FName: content[1]}
+		r := map[string]ImgJSON{}
+		r["Image"] = ImgJSON{TwiID: content[0], FName: content[1]}
 
 		Rw.WriteJson(r)
 	} else {
