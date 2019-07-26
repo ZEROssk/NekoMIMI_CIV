@@ -41,7 +41,6 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 		for i := 0; i < get_by_n; i++ {
 			list = append(list, ImgJSON{TwiID: content[i][0], FName: content[i][1]})
 		}
-
 		r["Image"] = list
 
 		Rw.WriteJson(r)
@@ -51,30 +50,38 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 }
 
 // https://host-name:port/api/v1/twimg/search?tid={TwiID}&p={PageNum}
-// func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
-// 	v := req.URL.Query()
-// 	twiID := v.Get("tid")
-//
-// 	PNum, err := strconv.Atoi(v.Get("p"))
-// 	if err != nil {
-// 		rest.Error(Rw, err.Error(), http.StatusInternalServerError)
-// 		return
-// 	}
-//
-// 	if PNum != 0 && twiID != "" {
-// 		start := (get_by_n*PNum)-get_by_n
-//
-// 		content := useDB.DB_search(
-// 			twiID,
-// 			Sprintf("%d", start),
-// 			Sprintf("%d", get_by_n),
-// 		)
-//
-// 		Rw.WriteJson(&ResultJSON{content})
-// 	} else {
-// 		rest.Error(Rw, "Page number & TwitterID is required", 400)
-// 	}
-// }
+func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
+	v := req.URL.Query()
+	twiID := v.Get("tid")
+
+	PNum, err := strconv.Atoi(v.Get("p"))
+	if err != nil {
+		rest.Error(Rw, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	if PNum != 0 && twiID != "" {
+		start := (get_by_n*PNum)-get_by_n
+
+		content := useDB.DB_search(
+			twiID,
+			Sprintf("%d", start),
+			Sprintf("%d", get_by_n),
+		)
+
+		r := map[string][]ImgJSON{}
+		list := []ImgJSON{}
+
+		for i := 0; i < get_by_n; i++ {
+			list = append(list, ImgJSON{TwiID: content[i][0], FName: content[i][1]})
+		}
+		r["Image"] = list
+
+		Rw.WriteJson(r)
+	} else {
+		rest.Error(Rw, "Page number & TwitterID is required", 400)
+	}
+}
 
 // https://host-name:port/api/v1/twimg/original?tid={TwiID}&fname={FileName}
 func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
