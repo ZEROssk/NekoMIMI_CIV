@@ -10,10 +10,6 @@ import(
 	"github.com/ant0ine/go-json-rest/rest"
 )
 
-type ThumbnailJSON struct {
-	thum []ImgJSON `json:"Image"`
-}
-
 type ImgJSON struct {
 	TwiID	string `json:"TwitterID"`
 	FName	string `json:"FileName"`
@@ -39,13 +35,16 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 			Sprintf("%d", get_by_n),
 		)
 
-		r := []ImgJSON{}
-		for i := 0; i < get_by_n; i++ {
-			r = append(r, ImgJSON{TwiID: content[i][0], FName: content[i][1]})
-		}
-		//Rcon := ThumbnailJSON{thum: r}
+		r := map[string][]ImgJSON{}
+		list := []ImgJSON{}
 
-		Rw.WriteJson(&ThumbnailJSON{r})
+		for i := 0; i < get_by_n; i++ {
+			list = append(list, ImgJSON{TwiID: content[i][0], FName: content[i][1]})
+		}
+
+		r["Image"] = list
+
+		Rw.WriteJson(r)
 	} else {
 		rest.Error(Rw, "Page number is required", 400)
 	}
