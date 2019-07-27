@@ -43,7 +43,7 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 
 		list := []ImgJSON{}
 		for i := 0; i < len(content); i++ {
-			list = append(list, ImgJSON{TwiID: content[i][0], FName: content[i][1]})
+			list = append(list, ImgJSON{content[i][0], content[i][1]})
 		}
 
 		result := ResultJSON{}
@@ -78,7 +78,7 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 
 		list := []ImgJSON{}
 		for i := 0; i < len(content); i++ {
-			list = append(list, ImgJSON{TwiID: content[i][0], FName: content[i][1]})
+			list = append(list, ImgJSON{content[i][0], content[i][1]})
 		}
 
 		result := ResultJSON{}
@@ -102,7 +102,7 @@ func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
 		content := useDB.DB_origin(twiID, img)
 
 		r := map[string]ImgJSON{}
-		r["Image"] = ImgJSON{TwiID: content[0], FName: content[1]}
+		r["Image"] = ImgJSON{content[0], content[1]}
 
 		Rw.WriteJson(r)
 	} else {
