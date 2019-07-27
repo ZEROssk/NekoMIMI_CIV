@@ -13,7 +13,7 @@ import(
 type ResultJSON struct {
 	TwiID	string `json:"TwitterID"`
 	PNum	string `json:"PageNumber"`
-	List	[]ImgJSON
+	List	[]ImgJSON `json:"Thumbnail"`
 }
 
 type ImgJSON struct {
@@ -41,15 +41,13 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 			Sprintf("%d", get_by_n),
 		)
 
-		list		:= []ImgJSON{}
+		list := []ImgJSON{}
 		for i := 0; i < len(content); i++ {
 			list = append(list, ImgJSON{TwiID: content[i][0], FName: content[i][1]})
 		}
 
-		result		:= ResultJSON{}
-		// result.List = map[string][]ImgJSON{}
+		result := ResultJSON{}
 		result.PNum = Sprintf("%d", PNum)
-
 		result.List = list
 
 		Rw.WriteJson(&result)
@@ -78,15 +76,17 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 			Sprintf("%d", get_by_n),
 		)
 
-		r := map[string][]ImgJSON{}
 		list := []ImgJSON{}
-
 		for i := 0; i < len(content); i++ {
 			list = append(list, ImgJSON{TwiID: content[i][0], FName: content[i][1]})
 		}
-		r["Thumbnail"] = list
 
-		Rw.WriteJson(r)
+		result := ResultJSON{}
+		result.TwiID = twiID
+		result.PNum = Sprintf("%d", PNum)
+		result.List = list
+
+		Rw.WriteJson(&result)
 	} else {
 		rest.Error(Rw, "Page number & TwitterID is required", 400)
 	}
