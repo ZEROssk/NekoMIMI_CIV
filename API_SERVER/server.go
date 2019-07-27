@@ -38,7 +38,7 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 		r := map[string][]ImgJSON{}
 		list := []ImgJSON{}
 
-		for i := 0; i < get_by_n; i++ {
+		for i := 0; i < len(content); i++ {
 			list = append(list, ImgJSON{TwiID: content[i][0], FName: content[i][1]})
 		}
 		r["Image"] = list
@@ -72,7 +72,7 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 		r := map[string][]ImgJSON{}
 		list := []ImgJSON{}
 
-		for i := 0; i < get_by_n; i++ {
+		for i := 0; i < len(content); i++ {
 			list = append(list, ImgJSON{TwiID: content[i][0], FName: content[i][1]})
 		}
 		r["Image"] = list
