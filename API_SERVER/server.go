@@ -10,7 +10,12 @@ import(
 	"github.com/ant0ine/go-json-rest/rest"
 )
 
-type ResultJSON struct {
+type ResultJSON-home struct {
+	PNum	string `json:"PageNumber"`
+	List	[]ImgJSON `json:"Thumbnail"`
+}
+
+type ResultJSON-search struct {
 	TwiID	string `json:"TwitterID"`
 	PNum	string `json:"PageNumber"`
 	List	[]ImgJSON `json:"Thumbnail"`
@@ -46,7 +51,7 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 			list = append(list, ImgJSON{content[i][0], content[i][1]})
 		}
 
-		result := ResultJSON{}
+		result := ResultJSON-home{}
 		result.PNum = Sprintf("%d", PNum)
 		result.List = list
 
@@ -81,7 +86,7 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 			list = append(list, ImgJSON{content[i][0], content[i][1]})
 		}
 
-		result := ResultJSON{}
+		result := ResultJSON-search{}
 		result.TwiID = twiID
 		result.PNum = Sprintf("%d", PNum)
 		result.List = list
