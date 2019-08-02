@@ -28,6 +28,7 @@
         "Server": "host-name",
         "Status": "up"
     },
+	"PageLimit": "MaxPage",
     "PageNumber": "PageNum",
     "Thumbnail": [
         {
@@ -53,6 +54,7 @@
         "Status": "up"
     },
     "TwitterID": "TwiID",
+	"PageLimit": "MaxPage",
     "PageNumber": "PageNum",
     "Thumbnail": [
         {
