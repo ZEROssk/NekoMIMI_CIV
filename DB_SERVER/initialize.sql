@@ -3,16 +3,16 @@ GRANT INSERT,SELECT,DELETE ON `api_data_db`.* TO `api`@`%`;
 
 CREATE DATABASE IF NOT EXISTS `api_data_db`;
 
-CREATE TABLE IF NOT EXISTS `api_data_db`.`twi_data` (
+CREATE TABLE IF NOT EXISTS `api_data_db`.`twimg_data` (
 	`ID`		INT			NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	`TwiID`	VARCHAR(15)	NOT NULL,
+	`TwiID`		VARCHAR(15)	NOT NULL,
 	`FileName`	VARCHAR(62)	NOT NULL,
 	`CreatedAt`	TIMESTAMP	NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 USE api_data_db;
 
-INSERT INTO twi_data (TwiID, FileName) VALUES
+INSERT INTO twimg_data (TwiID, FileName) VALUES
 ('aaa','test-01'),
 ('aaa','test-02'),
 ('abb','test-03'),
