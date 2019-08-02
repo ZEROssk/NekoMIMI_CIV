@@ -1,7 +1,6 @@
 package useDB
 
 import(
-	//."fmt"
 	"os"
 
 	"database/sql"
@@ -41,47 +40,65 @@ func Login_DB() {
 	}
 }
 
-func DB_home(p string, begin string, end string) [][]string {
-	rows, err := db.Query("SELECT*FROM twi_data LIMIT ?, ?", begin, end)
-	if err != nil {
-		panic(err.Error())
-	}
-
+func DB_home(p string, begin string, end string) ([][]string, int) {
+	var v Data
+	var m int
 	s := [][]string{}
 
+	rows, err := db.Query("SELECT*FROM twimg_data LIMIT ?, ?", begin, end)
+	if err != nil {
+		panic(err.Error())
+	} else {
+		rows := db.QueryRow("SELECT MAX(id) FROM twimg_data")
+
+		err := rows.Scan(&v.ID)
+		if err != nil {
+			panic(err.Error())
+		}
+		m = v.ID
+	}
+
 	for rows.Next() {
-		var v Data
 		err := rows.Scan(&v.ID, &v.TwiID, &v.Img, &v.CreatedAt)
 		if err != nil {
 			panic(err.Error())
 		}
 		s = append(s, []string{"TwiID : " + v.TwiID, "Image : " + v.Img})
 	}
-	return s
+	return s, m
 }
 
-func DB_search(t string, begin string, end string) [][]string {
-	rows, err := db.Query("SELECT*FROM twi_data WHERE TwiID=? LIMIT ?, ?", t, begin, end)
-	if err != nil {
-		panic(err.Error())
-	}
-
+func DB_search(t string, begin string, end string) ([][]string, int) {
+	var v Data
+	var m int
 	s := [][]string{}
 
+	rows, err := db.Query("SELECT*FROM twimg_data WHERE TwiID=? LIMIT ?, ?", t, begin, end)
+	if err != nil {
+		panic(err.Error())
+	} else {
+		rows := db.QueryRow("SELECT MAX(id) FROM twimg_data")
+
+		err := rows.Scan(&v.ID)
+		if err != nil {
+			panic(err.Error())
+		}
+		m = v.ID
+	}
+
 	for rows.Next() {
-		var v Data
 		err := rows.Scan(&v.ID, &v.TwiID, &v.Img, &v.CreatedAt)
 		if err != nil {
 			panic(err.Error())
 		}
 		s = append(s, []string{"TwiID : " + v.TwiID, "Image : " + v.Img})
 	}
-	return s
+	return s, m
 }
 
 func DB_origin(t string, f string) []string {
 	var v Data
-	rows := db.QueryRow("SELECT*FROM twi_data WHERE TwiID=? AND FileName=?", t, f)
+	rows := db.QueryRow("SELECT*FROM twimg_data WHERE TwiID=? AND FileName=?", t, f)
 
 	e := rows.Scan(&v.ID, &v.TwiID, &v.Img, &v.CreatedAt)
 	if e != nil {

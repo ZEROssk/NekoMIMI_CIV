@@ -54,9 +54,9 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 		}
 
 		result := ResultJSONhome{}
-		result.PLimit = Pl
-		result.PNum = Sprintf("%d", PNum)
-		result.List = list
+		result.PLimit	= Sprintf("%d", Pl)
+		result.PNum		= Sprintf("%d", PNum)
+		result.List		= list
 
 		Rw.WriteJson(&result)
 	} else {
@@ -90,10 +90,10 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 		}
 
 		result := ResultJSONsearch{}
-		result.TwiID = twiID
-		result.PLimit = Pl
-		result.PNum = Sprintf("%d", PNum)
-		result.List = list
+		result.TwiID	= twiID
+		result.PLimit	= Sprintf("%d", Pl)
+		result.PNum		= Sprintf("%d", PNum)
+		result.List		= list
 
 		Rw.WriteJson(&result)
 	} else {
