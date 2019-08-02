@@ -10,20 +10,22 @@ import(
 	"github.com/ant0ine/go-json-rest/rest"
 )
 
-type ResultJSON-home struct {
-	PNum	string `json:"PageNumber"`
-	List	[]ImgJSON `json:"Thumbnail"`
+type ResultJSONhome struct {
+	PLimit	string		`json:"PageLimit"`
+	PNum	string		`json:"PageNumber"`
+	List	[]ImgJSON	`json:"Thumbnail"`
 }
 
-type ResultJSON-search struct {
-	TwiID	string `json:"TwitterID"`
-	PNum	string `json:"PageNumber"`
-	List	[]ImgJSON `json:"Thumbnail"`
+type ResultJSONsearch struct {
+	TwiID	string		`json:"TwitterID"`
+	PLimit	string		`json:"PageLimit"`
+	PNum	string		`json:"PageNumber"`
+	List	[]ImgJSON	`json:"Thumbnail"`
 }
 
 type ImgJSON struct {
-	TwiID	string `json:"TwitterID"`
-	FName	string `json:"FileName"`
+	TwiID	string		`json:"TwitterID"`
+	FName	string		`json:"FileName"`
 }
 
 var get_by_n int = 10
@@ -40,7 +42,7 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 	if PNum != 0 {
 		start := (get_by_n*PNum)-get_by_n
 
-		content := useDB.DB_home(
+		content, Pl := useDB.DB_home(
 			Sprintf("%d", PNum),
 			Sprintf("%d", start),
 			Sprintf("%d", get_by_n),
@@ -51,7 +53,8 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 			list = append(list, ImgJSON{content[i][0], content[i][1]})
 		}
 
-		result := ResultJSON-home{}
+		result := ResultJSONhome{}
+		result.PLimit = Pl
 		result.PNum = Sprintf("%d", PNum)
 		result.List = list
 
@@ -75,7 +78,7 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 	if PNum != 0 && twiID != "" {
 		start := (get_by_n*PNum)-get_by_n
 
-		content := useDB.DB_search(
+		content, Pl := useDB.DB_search(
 			twiID,
 			Sprintf("%d", start),
 			Sprintf("%d", get_by_n),
@@ -86,8 +89,9 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 			list = append(list, ImgJSON{content[i][0], content[i][1]})
 		}
 
-		result := ResultJSON-search{}
+		result := ResultJSONsearch{}
 		result.TwiID = twiID
+		result.PLimit = Pl
 		result.PNum = Sprintf("%d", PNum)
 		result.List = list
 
