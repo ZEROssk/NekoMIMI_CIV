@@ -91,6 +91,13 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 			Sprintf("%d", get_by_n),
 		)
 
+		var a int
+		if (Pl % get_by_n) != 0 {
+			a = (Pl / get_by_n) + 1
+		} else {
+			a = Pl / get_by_n
+		}
+
 		list := []ImgJSON{}
 		for i := 0; i < len(content); i++ {
 			list = append(list, ImgJSON{content[i][0], content[i][1]})
@@ -98,7 +105,7 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 
 		result := ResultJSONsearch{}
 		result.TwiID	= twiID
-		result.PLimit	= Sprintf("%d", Pl)
+		result.PLimit	= Sprintf("%d", a)
 		result.PNum		= Sprintf("%d", PNum)
 		result.List		= list
 

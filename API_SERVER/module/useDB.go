@@ -49,7 +49,7 @@ func DB_home(p string, begin string, end string) ([][]string, int) {
 	if err != nil {
 		panic(err.Error())
 	} else {
-		rows := db.QueryRow("SELECT MAX(id) FROM twimg_data")
+		rows := db.QueryRow("SELECT COUNT(*) FROM twimg_data;")
 
 		err := rows.Scan(&v.ID)
 		if err != nil {
@@ -77,7 +77,7 @@ func DB_search(t string, begin string, end string) ([][]string, int) {
 	if err != nil {
 		panic(err.Error())
 	} else {
-		rows := db.QueryRow("SELECT MAX(id) FROM twimg_data")
+		rows := db.QueryRow("SELECT COUNT(*) FROM twimg_data WHERE TwiID=? ", t)
 
 		err := rows.Scan(&v.ID)
 		if err != nil {
