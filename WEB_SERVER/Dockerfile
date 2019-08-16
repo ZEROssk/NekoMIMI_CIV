@@ -1,0 +1,5 @@
+FROM golang:latest
+
+RUN apt-get update
+
+CMD []
