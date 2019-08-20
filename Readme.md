@@ -4,6 +4,7 @@
 - ~ユーザー認証の実装~
 - webフロントの実装
   - UIなんもわからん
+  - React Vue.js Angular
 - サーバーサイドの実装
   - APIサーバーとDBサーバーの連携
     - DB
@@ -11,10 +12,15 @@
 	  - TABLE TwitterID・FileNAME・ID・CreateDATE(2019/07/13時点)  
 	- API
 	  - APIはページ番号を整数値でのみ受け取る。(1.1などはエラーを返す)
+	    - 0の場合はまだ未定だが、多分自動的に1ページ目になるようにする
 	  - 検索用APIの作成
-- Twitterのユーザー名周りは [ここ](https://help.twitter.com/ja/managing-your-account/twitter-username-rules) 参考に制限する
+	  - オリジナル画像表示用のAPI
+- Twitterのユーザー名周りは [ここ](https://help.twitter.com/ja/managing-your-account/twitter-username-rules) 参考にテーブル設計する
 ---
 #### 要件メモとか
+##### WEB
+- React
+
 ##### API
 - rootページ(変更の可能性あり)
   - `URL: https://host-name/image_viewer`
@@ -23,11 +29,6 @@
   - `API: GET https://host-name:port/api/v1/twimg/page?p={PageNum}`  
 ```json
 {
-    "Headers": {
-        "Version": "v1",
-        "Server": "host-name",
-        "Status": "up"
-    },
     "PageLimit": "MaxPage",
     "PageNumber": "PageNum",
     "Thumbnail": [
@@ -48,11 +49,6 @@
   - `API: GET https://host-name:port/api/v1/twimg/search?tid={TwitterID}&p={PageNum}`  
 ```json
 {
-    "Headers": {
-        "Version": "v1",
-        "Server": "host-name",
-        "Status": "up"
-    },
     "TwitterID": "TwiID",
     "PageLimit": "MaxPage",
     "PageNumber": "PageNum",
@@ -74,11 +70,6 @@
   - `API: GET https://host-name:port/api/v1/twimg/original?tid={TwitterID}&fname={FileName}`  
 ```json
 {
-    "Headers": {
-        "Version": "v1",
-        "Server": "host-name",
-        "Status": "up"
-    },
     "Image": {
         "TwitterID": "TwiID",
         "FileName": "NAME",
