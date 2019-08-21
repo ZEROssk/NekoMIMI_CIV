@@ -1,5 +1,4 @@
-FROM golang:latest
+FROM node:8.15.3-alpine
 
-RUN apt-get update
+WORKDIR /usr/src/app
 
-CMD []
