@@ -1,6 +1,4 @@
-FROM node:8.15.3-alpine
+FROM debian:latest
 
-WORKDIR /usr/src/app
-
-RUN npm i -g create-react-app
+RUN sudo apt-get update
 
