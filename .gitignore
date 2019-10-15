@@ -10,3 +10,13 @@
 # ./IMAGE/*
 ./IMAGE/*
 
+# ./*.DS_Store
+*.DS_Store
+
+# image
+*.jpg
+*.png
+
+# nginx.conf
+nginx.conf
+
