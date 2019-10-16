@@ -1,16 +1,16 @@
 CREATE USER `api`@`%`;
-GRANT INSERT,SELECT,DELETE ON `api_data_db`.* TO `api`@`%`;
+GRANT INSERT,SELECT,DELETE ON `civ_api`.* TO `api`@`%`;
 
-CREATE DATABASE IF NOT EXISTS `api_data_db`;
+CREATE DATABASE IF NOT EXISTS `civ_api`;
 
-CREATE TABLE IF NOT EXISTS `api_data_db`.`twimg_data` (
+CREATE TABLE IF NOT EXISTS `civ_api`.`twimg_data` (
 	`ID`		INT			NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`TwiID`		VARCHAR(15)	NOT NULL,
 	`FileName`	VARCHAR(62)	NOT NULL,
 	`CreatedAt`	TIMESTAMP	NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-USE api_data_db;
+USE civ_api;
 
 INSERT INTO twimg_data (TwiID, FileName) VALUES
 ('aaa','test-01'),

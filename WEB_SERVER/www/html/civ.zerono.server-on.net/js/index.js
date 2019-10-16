@@ -5,6 +5,24 @@ document.addEventListener("DOMContentLoaded", function() {
 	let rootContainer = document.getElementById("root-container");
 
 	addContent(rootContainer);
+
+	const pNum = "1";
+
+	//fetch(`http://civ_qpi:5200/api/v1/twimg/page?p=${pNum}`)
+	fetch(`http://civ.zerono.server-on.net:8888/api`)
+		.then(response => {
+			console.log(response.status); 
+
+			if (!response.ok) {
+				console.error("Server error", response);
+			} else {
+				response.json().then(userInfo => {
+					console.log(userInfo);
+				});
+			}
+		}).catch(error => {
+			console.error("Network error", error);
+		});
 });
 
 function open_OriginalImg() {
