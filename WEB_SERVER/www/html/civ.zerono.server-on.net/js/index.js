@@ -8,21 +8,40 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	const pNum = "1";
 
-	//fetch(`http://civ_qpi:5200/api/v1/twimg/page?p=${pNum}`)
-	fetch(`http://civ.zerono.server-on.net:8888/api`)
-		.then(response => {
-			console.log(response.status); 
 
-			if (!response.ok) {
-				console.error("Server error", response);
-			} else {
-				response.json().then(userInfo => {
-					console.log(userInfo);
-				});
+	var requestAjax = function(endpoint, callback) {
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function(){
+			if (this.readyState==4 && this.status==200) {
+				callback(this.response);
 			}
-		}).catch(error => {
-			console.error("Network error", error);
-		});
+		};
+		xhr.responseType = 'json';
+		xhr.open('GET',endpoint,true);
+		xhr.send();
+	};
+
+	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg/page?p=${pNum}`, function(response){
+		console.log(response);
+	});
+
+	//fetch(`http://civ_qpi:5200/api/v1/twimg/page?p=${pNum}`)
+	// fetch(`http://civ.zerono.server-on.net/api/v1/twimg/page?p=${pNum}`)
+	// 	.then(response => {
+	// 		console.log(response.status);
+	// 		console.log(response);
+	//
+	// 		if (!response.ok) {
+	// 			console.error("Server error", response);
+	// 		} else {
+	// 			response.json().then(userInfo => {
+	// 				console.log(userInfo);
+	// 			});
+	// 		}
+	// 	}).catch(error => {
+	// 		console.error("Network error", error);
+	// 	});
+
 });
 
 function open_OriginalImg() {
@@ -46,7 +65,7 @@ function addContent(rootC) {
 	for(let i=0; i<thumbnail_list.length; i++) {
 		let thumbnail =
 			'<div class="content-thumbnail" target="_blank">'+
-				'<img class="thumbnail-img" onclick="open_OriginalImg()" src="../IMAGE/'+ thumbnail_list[i] +'"/>'+
+			'<img class="thumbnail-img" onclick="open_OriginalImg()" src="../IMAGE/'+ thumbnail_list[i] +'"/>'+
 			'</div>'
 		;
 
