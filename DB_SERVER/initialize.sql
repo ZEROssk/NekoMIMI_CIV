@@ -49,5 +49,5 @@ INSERT INTO twimg_data (TwiID, FileName) VALUES
 ('abb','test-34'),
 ('abb','test-35'),
 ('abb','test-36'),
-('abb','test-37'),
+('abb','test-37');
 
