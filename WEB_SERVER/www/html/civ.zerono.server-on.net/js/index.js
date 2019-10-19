@@ -25,23 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		console.log(response);
 	});
 
-	//fetch(`http://civ_qpi:5200/api/v1/twimg/page?p=${pNum}`)
-	// fetch(`http://civ.zerono.server-on.net/api/v1/twimg/page?p=${pNum}`)
-	// 	.then(response => {
-	// 		console.log(response.status);
-	// 		console.log(response);
-	//
-	// 		if (!response.ok) {
-	// 			console.error("Server error", response);
-	// 		} else {
-	// 			response.json().then(userInfo => {
-	// 				console.log(userInfo);
-	// 			});
-	// 		}
-	// 	}).catch(error => {
-	// 		console.error("Network error", error);
-	// 	});
-
+	// http://civ_qpi:5200/api/v1/twimg/page?p=${pNum}
 });
 
 function open_OriginalImg() {
@@ -57,7 +41,6 @@ function addContent(rootC) {
 	media.setAttribute('id', 'media');
 	content.appendChild(media);
 
-
 	let imgContainer = document.createElement("div");
 	imgContainer.setAttribute('id', 'img-container');
 	media.appendChild(imgContainer);
@@ -65,7 +48,7 @@ function addContent(rootC) {
 	for(let i=0; i<thumbnail_list.length; i++) {
 		let thumbnail =
 			'<div class="content-thumbnail" target="_blank">'+
-			'<img class="thumbnail-img" onclick="open_OriginalImg()" src="../IMAGE/'+ thumbnail_list[i] +'"/>'+
+				'<img class="thumbnail-img" onclick="open_OriginalImg()" src="../IMAGE/'+ thumbnail_list[i] +'"/>'+
 			'</div>'
 		;
 

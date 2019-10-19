@@ -63,7 +63,7 @@ func DB_home(p string, begin string, end string) ([][]string, int) {
 		if err != nil {
 			panic(err.Error())
 		}
-		s = append(s, []string{"TwiID : " + v.TwiID, "Image : " + v.Img})
+		s = append(s, []string{v.TwiID, v.Img})
 	}
 	return s, m
 }
@@ -91,7 +91,7 @@ func DB_search(t string, begin string, end string) ([][]string, int) {
 		if err != nil {
 			panic(err.Error())
 		}
-		s = append(s, []string{"TwiID : " + v.TwiID, "Image : " + v.Img})
+		s = append(s, []string{v.TwiID, v.Img})
 	}
 	return s, m
 }
