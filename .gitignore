@@ -21,3 +21,5 @@
 # nginx.conf
 nginx.conf
 
+# initialize.sql
+*sql
