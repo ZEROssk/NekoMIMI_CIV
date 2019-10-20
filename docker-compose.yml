@@ -27,6 +27,8 @@ services:
         ports:
             - "$API_SERVER_PORT"
         container_name: civ_api
+        volumes:
+            - ./IMAGE:/go/Content
         environment:
             MYSQL_DB: $MYSQL_DB
             MYSQL_TABLE: $MYSQL_TABLE

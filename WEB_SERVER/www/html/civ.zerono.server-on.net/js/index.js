@@ -24,8 +24,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg/page?p=${pNum}`, function(response){
 		console.log(response);
 	});
-
-	// http://civ_qpi:5200/api/v1/twimg/page?p=${pNum}
 });
 
 function open_OriginalImg() {
