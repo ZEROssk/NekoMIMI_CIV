@@ -6,7 +6,8 @@ import(
 	"net/http"
 	"strconv"
 
-	"./module"
+	"./package_useDB"
+	"./package_checkDB"
 	"github.com/ant0ine/go-json-rest/rest"
 )
 
@@ -134,7 +135,9 @@ func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
 }
 
 func main() {
-	useDB.Login_DB()
+	useDB.LoginDB()
+	checkDB.CheckDB()
+
 	api := rest.NewApi()
 	api.Use(rest.DefaultDevStack...)
 	router, err := rest.MakeRouter(

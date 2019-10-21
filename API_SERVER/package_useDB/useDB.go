@@ -26,7 +26,7 @@ func getENV(p string) string {
 	return env
 }
 
-func Login_DB() {
+func LoginDB() {
 	dbNAME	= getENV("MYSQL_DB")
 	dbUSER	= getENV("MYSQL_USER")
 	dbPORT	= getENV("MYSQL_PORT")
