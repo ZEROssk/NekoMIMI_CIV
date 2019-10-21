@@ -29,7 +29,7 @@ type ImgJSON struct {
 	FName	string		`json:"FileName"`
 }
 
-var get_by_n int = 10
+var get_by_n int = 30
 
 // https://host-name:port/api/v1/twimg/page?p={PageNum}
 func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
