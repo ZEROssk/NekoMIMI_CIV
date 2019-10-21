@@ -46,7 +46,7 @@ function addContent(rootC) {
 	for(let i=0; i<thumbnail_list.length; i++) {
 		let thumbnail =
 			'<div class="content-thumbnail" target="_blank">'+
-				'<img class="thumbnail-img" onclick="open_OriginalImg()" src="../IMAGE/'+ thumbnail_list[i] +'"/>'+
+				'<img class="thumbnail-img" onclick="open_OriginalImg()" src="../IMAGE/Twitter/'+ thumbnail_list[i] +'"/>'+
 			'</div>'
 		;
 
