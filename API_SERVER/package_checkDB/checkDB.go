@@ -38,24 +38,14 @@ func LoginDB() {
 	}
 }
 
-func makeFileList() []string {
-	fList := []string{}
-
-	path := "/go/Content/Twitter"
-	files, _ := ioutil.ReadDir(path)
-	for _, f := range files {
-		fList = append(fList, f.Name())
-	}
-	return fList
-}
-
 func addFirstData() {
-	fileList := makeFileList()
+	path := "/go/Content/Twitter"
 	rep := regexp.MustCompile(`\s*-\s*`)
 
-	for _, FName := range fileList {
-		ID := rep.Split(FName, -1)
-		_, err := db.Exec("INSERT INTO twimg_data (TwiID, FileName) VALUES (?,?)", ID[2], FName)
+	files, _ := ioutil.ReadDir(path)
+	for _, f := range files {
+		ID := rep.Split(f.Name(), -1)
+		_, err := db.Exec("INSERT INTO twimg_data (TwiID, FileName) VALUES (?,?)", ID[2], f.Name())
 		if err != nil {
 			panic(err.Error())
 		}
