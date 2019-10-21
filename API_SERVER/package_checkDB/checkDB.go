@@ -55,7 +55,7 @@ func addFirstData() {
 
 	for _, FName := range fileList {
 		ID := rep.Split(FName, -1)
-		_, err := db.Exec("INSERT INTO twimg_data (TwiID, FileName) VALUES ('?','?');", ID[2], FName)
+		_, err := db.Exec("INSERT INTO twimg_data (TwiID, FileName) VALUES (?,?)", ID[2], FName)
 		if err != nil {
 			panic(err.Error())
 		}
