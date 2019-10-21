@@ -25,7 +25,7 @@ func getENV(p string) string {
 	return env
 }
 
-func LoginDB() {
+func loginDB() {
 	dbNAME	= getENV("MYSQL_DB")
 	dbUSER	= getENV("MYSQL_USER")
 	dbPORT	= getENV("MYSQL_PORT")
@@ -38,11 +38,15 @@ func LoginDB() {
 	}
 }
 
-func addFirstData() {
-	path := "/go/Content/Twitter"
+func readDir(p string) []os.FileInfo {
+	files, _ := ioutil.ReadDir(p)
+	return files
+}
+
+func insertDB(p string) {
 	rep := regexp.MustCompile(`\s*-\s*`)
 
-	files, _ := ioutil.ReadDir(path)
+	files := readDir(p)
 	for _, f := range files {
 		ID := rep.Split(f.Name(), -1)
 		_, err := db.Exec("INSERT INTO twimg_data (TwiID, FileName) VALUES (?,?)", ID[2], f.Name())
@@ -53,7 +57,8 @@ func addFirstData() {
 }
 
 func CheckDB() {
-	LoginDB()
+	loginDB()
+	path := "/go/Content/Twitter"
 	var v Data
 	var r int
 
@@ -64,7 +69,15 @@ func CheckDB() {
 	}
 	r = v.Rec
 	if r == 0 {
-		addFirstData()
+		insertDB(path)
+	} else if r != len(readDir(path)) {
+		// for _, f := range files {
+		// 	ID := rep.Split(f.Name(), -1)
+			_, err := db.Exec("INSERT INTO twimg_data (TwiID, FileName) VALUES (?,?)", "test", "a")
+			if err != nil {
+				panic(err.Error())
+			}
+		//}
 	}
 }
 
