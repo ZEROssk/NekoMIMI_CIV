@@ -7,4 +7,6 @@ RUN apt-get update && \
 
 ADD ./ /go
 
-CMD ["go", "run", "server.go"]
+RUN go build server.go
+
+CMD ["./server"]

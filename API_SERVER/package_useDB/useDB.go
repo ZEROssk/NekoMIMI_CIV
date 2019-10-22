@@ -99,9 +99,9 @@ func DB_origin(t string, f string) []string {
 	var v Data
 	rows := db.QueryRow("SELECT*FROM twimg_data WHERE TwiID=? AND FileName=?", t, f)
 
-	e := rows.Scan(&v.ID, &v.TwiID, &v.Img, &v.CreatedAt)
-	if e != nil {
-		panic(e.Error())
+	err := rows.Scan(&v.ID, &v.TwiID, &v.Img, &v.CreatedAt)
+	if err != nil {
+		panic(err.Error())
 	}
 	s := []string{v.TwiID, v.Img}
 

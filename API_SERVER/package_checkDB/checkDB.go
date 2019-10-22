@@ -2,6 +2,7 @@ package checkDB
 
 import(
 	"os"
+	"time"
 	"regexp"
 	"io/ioutil"
 	"database/sql"
@@ -18,6 +19,7 @@ var (
 
 type Data struct {
 	Rec	int
+	StStamp string
 }
 
 func getENV(p string) string {
@@ -43,10 +45,9 @@ func readDir(p string) []os.FileInfo {
 	return files
 }
 
-func insertDB(p string) {
+func insertDB(files []os.FileInfo) {
 	rep := regexp.MustCompile(`\s*-\s*`)
 
-	files := readDir(p)
 	for _, f := range files {
 		ID := rep.Split(f.Name(), -1)
 		_, err := db.Exec("INSERT INTO twimg_data (TwiID, FileName) VALUES (?,?)", ID[2], f.Name())
@@ -59,6 +60,7 @@ func insertDB(p string) {
 func CheckDB() {
 	loginDB()
 	path := "/go/Content/Twitter"
+	const tformat = "2006-01-02 15:04:05"
 	var v Data
 	var r int
 
@@ -69,15 +71,22 @@ func CheckDB() {
 	}
 	r = v.Rec
 	if r == 0 {
-		insertDB(path)
+		insertDB(readDir(path))
 	} else if r != len(readDir(path)) {
-		// for _, f := range files {
-		// 	ID := rep.Split(f.Name(), -1)
-			_, err := db.Exec("INSERT INTO twimg_data (TwiID, FileName) VALUES (?,?)", "test", "a")
-			if err != nil {
-				panic(err.Error())
+		rows := db.QueryRow("select CreatedAt from twimg_data where CreatedAt=(select max(CreatedAt) from twimg_data)")
+		err := rows.Scan(&v.StStamp)
+		if err != nil {
+			panic(err.Error())
+		}
+		rTStamp, _ := time.Parse(tformat, v.StStamp)
+
+		files := readDir(path)
+		for _, f := range files {
+			fTStamp, _ := time.Parse(tformat, f.ModTime().Format(tformat))
+			if fTStamp.After(rTStamp) == true {
+				insertDB([]os.FileInfo{f})
 			}
-		//}
+		}
 	}
 }
 
