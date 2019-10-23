@@ -4,36 +4,9 @@ let thumbnail_list = ['Twitter-1174215925614223360-hirame_sa-EEunKGoW4AAJVaB.jpg
 document.addEventListener("DOMContentLoaded", function() {
 	let rootContainer = document.getElementById("root-container");
 
-	addContent(rootContainer);
-
-	const pNum = "1";
-
-
-	var requestAjax = function(endpoint, callback) {
-		var xhr = new XMLHttpRequest();
-		xhr.onreadystatechange = function(){
-			if (this.readyState==4 && this.status==200) {
-				callback(this.response);
-			}
-		};
-		xhr.responseType = 'json';
-		xhr.open('GET',endpoint,true);
-		xhr.send();
-	};
-
-	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg/page?p=${pNum}`, function(response){
-		console.log(response);
-	});
-});
-
-function open_OriginalImg() {
-	console.log("click!");
-}
-
-function addContent(rootC) {
 	let content = document.createElement("div");
 	content.setAttribute('id', 'content');
-	rootC.appendChild(content);
+	rootContainer.appendChild(content);
 
 	let media = document.createElement("div");
 	media.setAttribute('id', 'media');
@@ -43,14 +16,41 @@ function addContent(rootC) {
 	imgContainer.setAttribute('id', 'img-container');
 	media.appendChild(imgContainer);
 
-	for(let i=0; i<thumbnail_list.length; i++) {
-		let thumbnail =
-			'<div class="content-thumbnail" target="_blank">'+
-				'<img class="thumbnail-img" onclick="open_OriginalImg()" src="../IMAGE/Twitter/'+ thumbnail_list[i] +'"/>'+
-			'</div>'
-		;
+	addContent();
+});
 
-		document.getElementById('img-container').insertAdjacentHTML('beforeend', thumbnail);
-	}
+function requestAjax(endpoint, callback) {
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function(){
+		if (this.readyState==4 && this.status==200) {
+			callback(this.response);
+		}
+	};
+	xhr.responseType = 'json';
+	xhr.open('GET',endpoint,true);
+	xhr.send();
+};
+
+function open_OriginalImg() {
+	console.log("click!");
+}
+
+function addContent() {
+	const pNum = 1;
+	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg/page?p=${pNum}`, function(response){
+		console.log(response);
+		//json = JSON.parse(response);
+		//console.log(json.Thumbnail.length)
+	
+		for(let i=0; i<thumbnail_list.length; i++) {
+			let thumbnail =
+				'<div class="content-thumbnail" target="_blank">'+
+					'<img class="thumbnail-img" onclick="open_OriginalImg()" src="../IMAGE/Twitter/'+ thumbnail_list[i] +'"/>'+
+				'</div>'
+			;
+
+			document.getElementById('img-container').insertAdjacentHTML('beforeend', thumbnail);
+		}
+	});
 }
 

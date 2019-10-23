@@ -12,15 +12,15 @@ import(
 )
 
 type ResultJSONhome struct {
-	PLimit	string		`json:"PageLimit"`
-	PNum	string		`json:"PageNumber"`
+	PLimit	int			`json:"PageLimit"`
+	PNum	int			`json:"PageNumber"`
 	List	[]ImgJSON	`json:"Thumbnail"`
 }
 
 type ResultJSONsearch struct {
 	TwiID	string		`json:"TwitterID"`
-	PLimit	string		`json:"PageLimit"`
-	PNum	string		`json:"PageNumber"`
+	PLimit	int			`json:"PageLimit"`
+	PNum	int			`json:"PageNumber"`
 	List	[]ImgJSON	`json:"Thumbnail"`
 }
 
@@ -62,8 +62,8 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 		}
 
 		result := ResultJSONhome{}
-		result.PLimit	= Sprintf("%d", a)
-		result.PNum		= Sprintf("%d", PNum)
+		result.PLimit	= a
+		result.PNum		= PNum
 		result.List		= list
 
 		Rw.WriteJson(&result)
@@ -106,8 +106,8 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 
 		result := ResultJSONsearch{}
 		result.TwiID	= twiID
-		result.PLimit	= Sprintf("%d", a)
-		result.PNum		= Sprintf("%d", PNum)
+		result.PLimit	= a
+		result.PNum		= PNum
 		result.List		= list
 
 		Rw.WriteJson(&result)
