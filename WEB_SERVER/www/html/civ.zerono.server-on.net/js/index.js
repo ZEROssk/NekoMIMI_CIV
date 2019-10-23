@@ -38,14 +38,11 @@ function open_OriginalImg() {
 function addContent() {
 	const pNum = 1;
 	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg/page?p=${pNum}`, function(response){
-		console.log(response);
-		//json = JSON.parse(response);
-		//console.log(json.Thumbnail.length)
 	
-		for(let i=0; i<thumbnail_list.length; i++) {
+		for(let i=0; i<response.Thumbnail.length; i++) {
 			let thumbnail =
 				'<div class="content-thumbnail" target="_blank">'+
-					'<img class="thumbnail-img" onclick="open_OriginalImg()" src="../IMAGE/Twitter/'+ thumbnail_list[i] +'"/>'+
+					'<img class="thumbnail-img" onclick="open_OriginalImg()" src="../IMAGE/Twitter/'+ response.Thumbnail[i].FileName +'"/>'+
 				'</div>'
 			;
 
