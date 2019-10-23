@@ -1,8 +1,12 @@
-'usestrict'
-let thumbnail_list = ['Twitter-1174215925614223360-hirame_sa-EEunKGoW4AAJVaB.jpg','Twitter-1174214910642991104-riosi_RRR-EEumO9zXYAAuPc8.jpg','Twitter-1173645323442372608-hiraga_matsuri-EEmgMhrU8AY2G91.jpg','Twitter-1173588320120557568-herumonnnulu-EElruLEU8AIdTnF.jpg','Twitter-1173243158664110086-TYBAyosizawa-EEgybnDU8AEuby2.jpg']
+'usestrict';
+
+(function() {
+	console.log(location.pathname)
+	console.log(location.search)
+})();
 
 document.addEventListener("DOMContentLoaded", function() {
-	addContent();
+	addThumbnail();
 });
 
 function requestAjax(endpoint, callback) {
@@ -21,14 +25,15 @@ function open_OriginalImg() {
 	console.log("click!");
 }
 
-function addContent() {
+function addThumbnail() {
 	const pNum = 1;
-	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg/page?p=${pNum}&get=30`, function(response){
+	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg/thumbnail?p=${pNum}&get=30`, function(response){
 	
 		for(let i=0; i<response.Thumbnail.length; i++) {
+			let img = response.Thumbnail[i].FileName
 			let thumbnail =
 				'<div class="content-thumbnail" target="_blank">'+
-					'<img class="thumbnail-img" onclick="open_OriginalImg()" src="../IMAGE/Twitter/'+ response.Thumbnail[i].FileName +'"/>'+
+					`<img class="thumbnail-img" onclick="open_OriginalImg()" src="../IMAGE/Twitter/${img}"/>`+
 				'</div>'
 			;
 

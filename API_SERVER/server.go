@@ -31,7 +31,7 @@ type ImgJSON struct {
 
 var NumberAcquired int = 50
 
-// https://host-name:port/api/v1/twimg/page?p={PageNum}&get={NumberAcquired}
+// https://host-name:port/api/v1/twimg/thumbnail?p={PageNum}&get={NumberAcquired}
 func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 	v := req.URL.Query()
 
@@ -152,7 +152,7 @@ func main() {
 	api := rest.NewApi()
 	api.Use(rest.DefaultDevStack...)
 	router, err := rest.MakeRouter(
-		rest.Get("/api/v1/twimg/page", API_twimg),
+		rest.Get("/api/v1/twimg/thumbnail", API_twimg),
 		rest.Get("/api/v1/twimg/search", API_twimg_search),
 		rest.Get("/api/v1/twimg/original", API_twimg_original),
 	)
