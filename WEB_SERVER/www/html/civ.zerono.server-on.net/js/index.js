@@ -37,7 +37,7 @@ function open_OriginalImg() {
 
 function addContent() {
 	const pNum = 1;
-	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg/page?p=${pNum}`, function(response){
+	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg/page?p=${pNum}&get=30`, function(response){
 	
 		for(let i=0; i<response.Thumbnail.length; i++) {
 			let thumbnail =
