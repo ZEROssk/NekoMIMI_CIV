@@ -29,31 +29,36 @@ type ImgJSON struct {
 	FName	string		`json:"FileName"`
 }
 
-var get_by_n int = 30
+var NumberAcquired int = 50
 
-// https://host-name:port/api/v1/twimg/page?p={PageNum}
+// https://host-name:port/api/v1/twimg/page?p={PageNum}&get={NumberAcquired}
 func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 	v := req.URL.Query()
+
 	PNum, err := strconv.Atoi(v.Get("p"))
 	if err != nil {
-		rest.Error(Rw, err.Error(), http.StatusInternalServerError)
-		return
+		PNum = 1
+	}
+
+	NumA, err := strconv.Atoi(v.Get("get"))
+	if err != nil {
+		NumA = NumberAcquired
 	}
 
 	if PNum != 0 {
-		start := (get_by_n*PNum)-get_by_n
+		start := (NumA*PNum)-NumA
 
 		content, Pl := useDB.DB_home(
 			Sprintf("%d", PNum),
 			Sprintf("%d", start),
-			Sprintf("%d", get_by_n),
+			Sprintf("%d", NumA),
 		)
 
 		var a int
-		if (Pl % get_by_n) != 0 {
-			a = (Pl / get_by_n) + 1
+		if (Pl % NumA) != 0 {
+			a = (Pl / NumA) + 1
 		} else {
-			a = Pl / get_by_n
+			a = Pl / NumA
 		}
 
 		list := []ImgJSON{}
@@ -72,31 +77,36 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 	}
 }
 
-// https://host-name:port/api/v1/twimg/search?tid={TwiID}&p={PageNum}
+// https://host-name:port/api/v1/twimg/search?tid={TwiID}&p={PageNum}&get={NumberAcquired}
 func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 	v := req.URL.Query()
+
 	twiID := v.Get("tid")
 
 	PNum, err := strconv.Atoi(v.Get("p"))
 	if err != nil {
-		rest.Error(Rw, err.Error(), http.StatusInternalServerError)
-		return
+		PNum = 1
+	}
+
+	NumA, err := strconv.Atoi(v.Get("get"))
+	if err != nil {
+		NumA = NumberAcquired
 	}
 
 	if PNum != 0 && twiID != "" {
-		start := (get_by_n*PNum)-get_by_n
+		start := (NumA*PNum)-NumA
 
 		content, Pl := useDB.DB_search(
 			twiID,
 			Sprintf("%d", start),
-			Sprintf("%d", get_by_n),
+			Sprintf("%d", NumA),
 		)
 
 		var a int
-		if (Pl % get_by_n) != 0 {
-			a = (Pl / get_by_n) + 1
+		if (Pl % NumA) != 0 {
+			a = (Pl / NumA) + 1
 		} else {
-			a = Pl / get_by_n
+			a = Pl / NumA
 		}
 
 		list := []ImgJSON{}
@@ -119,6 +129,7 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 // https://host-name:port/api/v1/twimg/original?tid={TwiID}&fname={FileName}
 func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
 	v := req.URL.Query()
+
 	twiID := v.Get("tid")
 	img := v.Get("fname")
 
