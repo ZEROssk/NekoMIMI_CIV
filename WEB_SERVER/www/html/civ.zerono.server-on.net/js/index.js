@@ -1,12 +1,17 @@
 'usestrict';
 
-(function() {
-	console.log(location.pathname)
-	console.log(location.search)
-})();
+let path = location.pathname + location.search
+var searchId
 
 document.addEventListener("DOMContentLoaded", function() {
-	addThumbnail();
+	if (location.pathname == "/original") {
+		addOriginalImg(path);
+	}
+	addThumbnailImg(path);
+
+	document.getElementById("search-btn").addEventListener("click", function(){
+		onSearchButtonClick();
+	});
 });
 
 function requestAjax(endpoint, callback) {
@@ -21,19 +26,33 @@ function requestAjax(endpoint, callback) {
 	xhr.send();
 };
 
-function open_OriginalImg() {
-	console.log("click!");
+function onSearchButtonClick() {
+	searchId = document.getElementById("input-keyword").value;
+	window.location.href = `/search?tid=${searchId}`;
 }
 
-function addThumbnail() {
-	const pNum = 1;
-	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg/thumbnail?p=${pNum}&get=30`, function(response){
+function addOriginalImg(url) {
+	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg${url}`, function(response){
+
+		let img = response.Image.FileName
+		let original =
+			'<div class="content-thumbnail" target="_blank">'+
+				`<img class="thumbnail-img" onclick="addOriginalImg()" src="../IMAGE/Twitter/${img}"/>`+
+			'</div>'
+		;
+
+		document.getElementById('img-container').insertAdjacentHTML('beforeend', original);
+	});
+}
+
+function addThumbnailImg(url) {
+	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg${url}`, function(response){
 	
-		for(let i=0; i<response.Thumbnail.length; i++) {
+		for(let i=0; i < response.Thumbnail.length; i++) {
 			let img = response.Thumbnail[i].FileName
 			let thumbnail =
 				'<div class="content-thumbnail" target="_blank">'+
-					`<img class="thumbnail-img" onclick="open_OriginalImg()" src="../IMAGE/Twitter/${img}"/>`+
+					`<img class="thumbnail-img" onclick="addOriginalImg()" src="../IMAGE/Twitter/${img}"/>`+
 				'</div>'
 			;
 

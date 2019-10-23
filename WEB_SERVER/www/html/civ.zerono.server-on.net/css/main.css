@@ -28,13 +28,9 @@ body {
 
 #search-container {
 	display: flex;
-	margin-right: 10%;
+	margin-right: 5%;
 	margin-left: auto;
-}
-
-#search-box {
-	display: flex;
-	width: 150px;
+	width: 20%;
 }
 
 #input-keyword {
@@ -88,6 +84,7 @@ body {
 }
 
 .content-thumbnail:hover {
+	cursor : pointer;
 	background: #e0e0e0;
 }
 
