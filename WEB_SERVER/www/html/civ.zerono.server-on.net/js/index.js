@@ -6,9 +6,11 @@ var searchId
 document.addEventListener("DOMContentLoaded", function() {
 	if (location.pathname == "/original") {
 		addOriginalImg(path);
+	} else if (path == "/") {
+		addHome()
+	} else {
+		addThumbnailImg(path);
 	}
-	addThumbnailImg(path);
-
 });
 
 function requestAjax(endpoint, callback) {
@@ -22,6 +24,22 @@ function requestAjax(endpoint, callback) {
 	xhr.open('GET',endpoint,true);
 	xhr.send();
 };
+
+function addHome() {
+	let media = document.getElementById('media');
+	media.textContent = null;
+
+	let home = document.createElement('div');
+	home.setAttribute('id', 'home');
+	media.appendChild(home);
+
+	let homeContent =
+		'<li>HOME</li>'+
+		'<li><a href="/thumbnail?p=1&get=20">Thumbnail page</a></li>'
+	;
+
+	home.insertAdjacentHTML('beforeend', homeContent);
+}
 
 function onSearchButtonClick() {
 	if(window.event.keyCode == 13) {
