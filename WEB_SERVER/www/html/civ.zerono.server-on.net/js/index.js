@@ -30,10 +30,6 @@ function onSearchButtonClick() {
 	}
 }
 
-function originalImg() {
-	window.location.href = `/original?tid=${tId}&fname=${fName}`;
-}
-
 function addOriginalImg(url) {
 	let originalImg = document.getElementById('img-container');
 	originalImg.id = "original-img-container";
