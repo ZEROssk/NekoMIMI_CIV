@@ -1,0 +1,14 @@
+#original-img-container {
+	padding: 1em;
+}
+
+.content-original {
+	text-align: center;
+}
+
+.content-original img {
+	object-fit: contain;
+	width: 100%;
+	height: 100%;
+}
+

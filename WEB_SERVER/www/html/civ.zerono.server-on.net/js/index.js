@@ -35,7 +35,7 @@ function addHome() {
 
 	let homeContent =
 		'<li>HOME</li>'+
-		'<li><a href="/thumbnail?p=1&get=20">Thumbnail page</a></li>'
+		'<li><a href="/thumbnail?p=1&get=50">Thumbnail page</a></li>'
 	;
 
 	home.insertAdjacentHTML('beforeend', homeContent);
