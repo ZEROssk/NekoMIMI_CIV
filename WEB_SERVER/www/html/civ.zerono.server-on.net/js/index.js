@@ -34,8 +34,10 @@ function addHome() {
 	media.appendChild(home);
 
 	let homeContent =
-		'<li>HOME</li>'+
-		'<li><a href="/thumbnail?p=1&get=50">Thumbnail page</a></li>'
+		'<p>HOME</p>'+
+		'<ul>'+
+			'<li><a href="/thumbnail?p=1">Thumbnail page</a></li>'+
+		'<ul>'
 	;
 
 	home.insertAdjacentHTML('beforeend', homeContent);
