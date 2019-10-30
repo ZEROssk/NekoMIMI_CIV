@@ -50,11 +50,17 @@ function onSearchButtonClick() {
 	}
 }
 
-function addOriginalImg(url) {
-	let originalImg = document.getElementById('img-container');
-	originalImg.id = "original-img-container";
+function addOriginalImg(v) {
+	let orImg = document.getElementById('img-container');
+	orImg.id = "original-img-container";
 
-	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg${url}`, function(response){
+	let hisback =
+		'<button id="hisback" class="fa" onclick="history.back()">&#xf137</button>'
+	;
+
+	orImg.parentNode.insertAdjacentHTML('beforebegin', hisback)
+
+	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg${v}`, function(response){
 
 		let img = response.Image.FileName
 		let original =
@@ -63,12 +69,12 @@ function addOriginalImg(url) {
 			'</div>'
 		;
 
-		document.getElementById('original-img-container').insertAdjacentHTML('beforeend', original);
+		orImg.insertAdjacentHTML('beforeend', original);
 	});
 }
 
-function addThumbnailImg(url) {
-	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg${url}`, function(response){
+function addThumbnailImg(v) {
+	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg${v}`, function(response){
 	
 		for(let i=0; i < response.Thumbnail.length; i++) {
 			let img = response.Thumbnail[i].FileName
