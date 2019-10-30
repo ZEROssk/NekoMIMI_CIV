@@ -84,6 +84,7 @@ function addThumbnailImg(v) {
 					`<a href="/original?tid=${tid}&fname=${img}">`+
 						`<img class="thumbnail-img" src="../IMAGE/Twitter/${img}"/>`+
 					'</a>'+
+					`<div>${tid}</div>`+
 				'</div>'
 			;
 
