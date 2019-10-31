@@ -9,6 +9,7 @@
 }
 
 .content-thumbnail {
+	position: relative;
 	text-align: center;
 	padding: 1ex;
 	border-radius: 5%;
@@ -23,5 +24,14 @@
 	object-fit: contain;
 	width: 100%;
 	height: 100%;
+}
+
+#twi-id-hover {
+	display: none;
+}
+
+.content-thumbnail:hover #twi-id-hover {
+	display: block;
+	color: #000000;
 }
 
