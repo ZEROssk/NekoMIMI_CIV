@@ -6,6 +6,8 @@ var searchId
 document.addEventListener("DOMContentLoaded", function() {
 	if (location.pathname == "/original") {
 		addOriginalImg(path);
+	} else if (location.pathname == "/search") {
+		addSearchThumbnailImg(path);
 	} else if (path == "/") {
 		addHome()
 	} else {
@@ -75,7 +77,7 @@ function addOriginalImg(v) {
 
 function addThumbnailImg(v) {
 	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg${v}`, function(response){
-	
+
 		for(let i=0; i < response.Thumbnail.length; i++) {
 			let img = response.Thumbnail[i].FileName
 			let tid = response.Thumbnail[i].TwitterID
@@ -86,6 +88,30 @@ function addThumbnailImg(v) {
 					'</a>'+
 					`<a id="twi-id-link" href="/search?tid=${tid}">`+
 						`<span id="twi-id-hover">${tid}</span>`+
+					'</a>'+
+				'</div>'
+			;
+
+			document.getElementById('img-container').insertAdjacentHTML('beforeend', thumbnail);
+		}
+	});
+}
+
+function addSearchThumbnailImg(v) {
+	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg${v}`, function(response){
+		let tid = response.TwitterID
+		let displayID =
+			`<p>${tid}</p>`
+		;
+
+		document.getElementById('img-container').insertAdjacentHTML('beforebegin', displayID);
+	
+		for(let i=0; i < response.Thumbnail.length; i++) {
+			let img = response.Thumbnail[i].FileName
+			let thumbnail =
+				'<div class="content-thumbnail" target="_blank">'+
+					`<a href="/original?tid=${tid}&fname=${img}">`+
+						`<img class="thumbnail-img" src="../IMAGE/Twitter/${img}"/>`+
 					'</a>'+
 				'</div>'
 			;
