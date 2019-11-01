@@ -83,8 +83,8 @@ function addThumbnailImg(v) {
 				'<div class="content-thumbnail" target="_blank">'+
 					`<a href="/original?tid=${tid}&fname=${img}">`+
 						`<img class="thumbnail-img" src="../IMAGE/Twitter/${img}"/>`+
-						`<span id="twi-id-hover">${tid}</span>`+
 					'</a>'+
+					`<span id="twi-id-hover">${tid}</span>`+
 				'</div>'
 			;
 
