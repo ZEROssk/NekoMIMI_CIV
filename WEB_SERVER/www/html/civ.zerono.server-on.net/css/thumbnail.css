@@ -4,7 +4,7 @@
 	grid-auto-rows: 300px;
 	justify-content: center;
 	padding-top: 1em;
-	padding-bottom: 1em;
+	padding-bottom: 2em;
 	grid-gap: 1em;
 }
 
@@ -26,13 +26,14 @@
 	height: 100%;
 }
 
-#twi-id-hover {
+#twi-id-link {
 	display: none;
+	text-decoration: none;
 }
 
-.content-thumbnail:hover #twi-id-hover {
+.content-thumbnail:hover #twi-id-link {
 	display: block;
 	font-family: 'Lato', sans-serif;
-	color: #000000;
+	color: #524e4d;
 }
 
