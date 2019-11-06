@@ -38,10 +38,34 @@
 }
 
 #select-ID {
-	padding-left: 5ex;
-	padding-bottom: 1ex;
+	padding-left: 15ex;
+	padding-bottom: 1em;
+}
+
+#select-ID a {
+	position: relative;
+	display: inline-block;
 	font-size: 3em;
 	font-family: 'Lato', sans-serif;
+	text-decoration: none;
 	color: #ffffff;
+}
+
+#select-ID a::after {
+	position: absolute;
+	bottom: -4px;
+	left: 0;
+	width: 100%;
+	height: 5px;
+	content: '';
+	background: #ffffff;
+	border-radius: 3px / 3px;
+	transform: scale(0, 1);
+	transform-origin: center top;
+	transition: transform .4s;
+}
+
+#select-ID a:hover::after {
+	transform: scale(1, 1);
 }
 

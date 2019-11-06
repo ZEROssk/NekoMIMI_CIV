@@ -17,7 +17,7 @@ body {
 	align-items: center;
 	font-family: 'Lato', sans-serif;
 	font-weight: bold;
-	color: white;
+	color: #ffffff;
 	background: #192f60;
 }
 
@@ -30,7 +30,7 @@ body {
 #logo a {
 	position: relative;
 	display: inline-block;
-	color: white;
+	color: #ffffff;
 	text-decoration: none;
 }
 

@@ -101,7 +101,9 @@ function addSearchThumbnailImg(v) {
 	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg${v}`, function(response){
 		let tid = response.TwitterID
 		let displayID =
-			`<div id="select-ID">${tid}</div>`
+			'<div id="select-ID">'+
+				`<a href="https://twitter.com/${tid}" target="_blank">@${tid}</a>`+
+			'</div>'
 		;
 
 		document.getElementById('media').insertAdjacentHTML('beforebegin', displayID);
