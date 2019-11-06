@@ -101,10 +101,10 @@ function addSearchThumbnailImg(v) {
 	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg${v}`, function(response){
 		let tid = response.TwitterID
 		let displayID =
-			`<p>${tid}</p>`
+			`<div id="select-ID">${tid}</div>`
 		;
 
-		document.getElementById('img-container').insertAdjacentHTML('beforebegin', displayID);
+		document.getElementById('media').insertAdjacentHTML('beforebegin', displayID);
 	
 		for(let i=0; i < response.Thumbnail.length; i++) {
 			let img = response.Thumbnail[i].FileName
