@@ -77,6 +77,14 @@ function addOriginalImg(v) {
 
 function addThumbnailImg(v) {
 	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg${v}`, function(response){
+		let plimit = response.PageLimit
+		let plimi =
+			'<div id="pagination">'+
+				`<div id="pagination-data">${plimit}</div>`+
+			'</div>'
+		;
+
+		document.getElementById('media').insertAdjacentHTML('afterend', plimi);
 
 		for(let i=0; i < response.Thumbnail.length; i++) {
 			let img = response.Thumbnail[i].FileName
@@ -99,10 +107,11 @@ function addThumbnailImg(v) {
 
 function addSearchThumbnailImg(v) {
 	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg${v}`, function(response){
+		let plimit = response.PageLimit
 		let tid = response.TwitterID
 		let displayID =
 			'<div id="select-ID">'+
-				`<a href="https://twitter.com/${tid}" target="_blank">@${tid}</a>`+
+				`<a href="https://twitter.com/${tid}" target="_blank">@${tid} ${plimit}</a>`+
 			'</div>'
 		;
 

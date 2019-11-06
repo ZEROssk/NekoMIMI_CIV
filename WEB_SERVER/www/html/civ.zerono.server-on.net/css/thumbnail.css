@@ -69,3 +69,14 @@
 	transform: scale(1, 1);
 }
 
+#pagination {
+	font-size: 1em;
+	font-family: 'Lato', sans-serif;
+	text-decoration: none;
+	color: #ffffff;
+}
+
+#pagination-data {
+	margin: 0 auto;
+}
+
