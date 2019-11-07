@@ -35,13 +35,20 @@ function onSearchButtonClick() {
 }
 
 function addPagination(p) {
-	let pnn =
-		'<div id="pagination">'+
-			`<a id="pagination-data" href="/thumbnail?p=${p}">${p}</a>`+
-		'</div>'
+	let pnnContainer =
+		'<div id="pagination-container"></div>'
 	;
+	document.getElementById('media').insertAdjacentHTML('afterend', pnnContainer);
 
-	document.getElementById('media').insertAdjacentHTML('afterend', pnn);
+	let back =
+		`<a id="pagination-back" href="/thumbnail?p=${p-1}">戻る</a>`
+	;
+	document.getElementById('pagination-container').insertAdjacentHTML('afterbegin', back);
+
+	let next =
+		`<a id="pagination-next" href="/thumbnail?p=${p+1}">次</a>`
+	;
+	document.getElementById('pagination-container').insertAdjacentHTML('beforeend', next);
 }
 
 function addHome() {
@@ -87,7 +94,7 @@ function addOriginalImg(v) {
 
 function addThumbnailImg(v) {
 	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg${v}`, function(response){
-		let page = response.PageLimit
+		let page = response.PageNumber
 		addPagination(page);
 
 		for(let i=0; i < response.Thumbnail.length; i++) {
