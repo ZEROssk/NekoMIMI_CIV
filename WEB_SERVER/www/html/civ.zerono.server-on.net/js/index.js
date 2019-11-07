@@ -27,6 +27,23 @@ function requestAjax(endpoint, callback) {
 	xhr.send();
 };
 
+function onSearchButtonClick() {
+	if(window.event.keyCode == 13) {
+		searchId = document.getElementById("input-keyword").value;
+		window.location.href = `/search?tid=${searchId}`;
+	}
+}
+
+function addPagination(p) {
+	let pnn =
+		'<div id="pagination">'+
+			`<a id="pagination-data" href="/thumbnail?p=${p}">${p}</a>`+
+		'</div>'
+	;
+
+	document.getElementById('media').insertAdjacentHTML('afterend', pnn);
+}
+
 function addHome() {
 	let media = document.getElementById('media');
 	media.textContent = null;
@@ -43,13 +60,6 @@ function addHome() {
 	;
 
 	home.insertAdjacentHTML('beforeend', homeContent);
-}
-
-function onSearchButtonClick() {
-	if(window.event.keyCode == 13) {
-		searchId = document.getElementById("input-keyword").value;
-		window.location.href = `/search?tid=${searchId}`;
-	}
 }
 
 function addOriginalImg(v) {
@@ -77,14 +87,8 @@ function addOriginalImg(v) {
 
 function addThumbnailImg(v) {
 	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg${v}`, function(response){
-		let plimit = response.PageLimit
-		let plimi =
-			'<div id="pagination">'+
-				`<div id="pagination-data">${plimit}</div>`+
-			'</div>'
-		;
-
-		document.getElementById('media').insertAdjacentHTML('afterend', plimi);
+		let page = response.PageLimit
+		addPagination(page);
 
 		for(let i=0; i < response.Thumbnail.length; i++) {
 			let img = response.Thumbnail[i].FileName
@@ -107,7 +111,7 @@ function addThumbnailImg(v) {
 
 function addSearchThumbnailImg(v) {
 	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg${v}`, function(response){
-		let plimit = response.PageLimit
+		let page = response.PageLimit
 		let tid = response.TwitterID
 		let displayID =
 			'<div id="select-ID">'+
@@ -116,6 +120,7 @@ function addSearchThumbnailImg(v) {
 		;
 
 		document.getElementById('media').insertAdjacentHTML('beforebegin', displayID);
+		addPagination(page);
 	
 		for(let i=0; i < response.Thumbnail.length; i++) {
 			let img = response.Thumbnail[i].FileName

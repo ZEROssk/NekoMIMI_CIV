@@ -76,7 +76,9 @@
 	color: #ffffff;
 }
 
-#pagination-data {
+#pagination a {
 	margin: 0 auto;
+	width: 70%;
+	text-align: center;
 }
 
