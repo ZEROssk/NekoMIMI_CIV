@@ -50,7 +50,7 @@ function addPagination(p, limit) {
 	let pnnNumber =
 		`<a id="pnn-number">${p}</a>`
 	;
-	document.getElementById('pnn-container').insertAdjacentHTML('afterbegin', pnnNumber);
+	document.getElementById('pnn-back').insertAdjacentHTML('afterend', pnnNumber);
 
 	if(`${p+1}` <= limit) {
 		let next =
