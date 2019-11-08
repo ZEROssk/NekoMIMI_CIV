@@ -69,16 +69,31 @@
 	transform: scale(1, 1);
 }
 
-#pagination-container {
+#pnn-container {
+	margin: 0 auto;
+	width: 70%;
+	text-align: center;
 	font-size: 1em;
 	font-family: 'Lato', sans-serif;
 	text-decoration: none;
 	color: #ffffff;
 }
 
-#pagination a {
-	margin: 0 auto;
-	width: 70%;
-	text-align: center;
+#pnn-container a {
+	margin-top: 2%;
+}
+
+.pnn-button {
+	color: #ffffff;
+	font-size: 2em;
+}
+
+.pnn-button:hover {
+	cursor: pointer;
+	color: #c0c0c0;
+}
+
+#pnn-number {
+	font-size: 2em;
 }
 

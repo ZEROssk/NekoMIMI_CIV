@@ -34,21 +34,30 @@ function onSearchButtonClick() {
 	}
 }
 
-function addPagination(p) {
+function addPagination(p, limit) {
 	let pnnContainer =
-		'<div id="pagination-container"></div>'
+		'<div id="pnn-container"></div>'
 	;
 	document.getElementById('media').insertAdjacentHTML('afterend', pnnContainer);
 
-	let back =
-		`<a id="pagination-back" href="/thumbnail?p=${p-1}">戻る</a>`
-	;
-	document.getElementById('pagination-container').insertAdjacentHTML('afterbegin', back);
+	if(`${p-1}` != 0) {
+		let back =
+			`<a id="pnn-back" class="fa pnn-button" href="/thumbnail?p=${p-1}">&#xf137</a>`
+		;
+		document.getElementById('pnn-container').insertAdjacentHTML('afterbegin', back);
+	} 
 
-	let next =
-		`<a id="pagination-next" href="/thumbnail?p=${p+1}">次</a>`
+	let pnnNumber =
+		`<a id="pnn-number">${p}</a>`
 	;
-	document.getElementById('pagination-container').insertAdjacentHTML('beforeend', next);
+	document.getElementById('pnn-container').insertAdjacentHTML('afterbegin', pnnNumber);
+
+	if(`${p+1}` <= limit) {
+		let next =
+			`<a id="pnn-next" class="fa pnn-button" href="/thumbnail?p=${p+1}">&#xf138</a>`
+		;
+		document.getElementById('pnn-container').insertAdjacentHTML('beforeend', next);
+	}
 }
 
 function addHome() {
@@ -95,7 +104,8 @@ function addOriginalImg(v) {
 function addThumbnailImg(v) {
 	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg${v}`, function(response){
 		let page = response.PageNumber
-		addPagination(page);
+		let limit = response.PageLimit
+		addPagination(page, limit);
 
 		for(let i=0; i < response.Thumbnail.length; i++) {
 			let img = response.Thumbnail[i].FileName
@@ -119,6 +129,7 @@ function addThumbnailImg(v) {
 function addSearchThumbnailImg(v) {
 	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg${v}`, function(response){
 		let page = response.PageLimit
+		let limit = response.PageLimit
 		let tid = response.TwitterID
 		let displayID =
 			'<div id="select-ID">'+
@@ -127,7 +138,7 @@ function addSearchThumbnailImg(v) {
 		;
 
 		document.getElementById('media').insertAdjacentHTML('beforebegin', displayID);
-		addPagination(page);
+		addPagination(page, limit);
 	
 		for(let i=0; i < response.Thumbnail.length; i++) {
 			let img = response.Thumbnail[i].FileName
