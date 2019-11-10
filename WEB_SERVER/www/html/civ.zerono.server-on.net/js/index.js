@@ -45,12 +45,17 @@ function addPagination(p, limit) {
 			`<a id="pnn-back" class="fa pnn-button" href="/thumbnail?p=${p-1}">&#xf137</a>`
 		;
 		document.getElementById('pnn-container').insertAdjacentHTML('afterbegin', back);
-	} 
-
-	let pnnNumber =
-		`<a id="pnn-number">${p}</a>`
-	;
-	document.getElementById('pnn-back').insertAdjacentHTML('afterend', pnnNumber);
+	
+		let pnnNumber =
+			`<a id="pnn-number">${p}</a>`
+		;
+		document.getElementById('pnn-back').insertAdjacentHTML('afterend', pnnNumber);
+	} else {
+		let pnnNumber =
+			`<a id="pnn-number">${p}</a>`
+		;
+		document.getElementById('pnn-container').insertAdjacentHTML('afterbegin', pnnNumber);
+	}
 
 	if(`${p+1}` <= limit) {
 		let next =
