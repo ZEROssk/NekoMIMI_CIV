@@ -46,15 +46,35 @@ function addPagination(p, limit) {
 		;
 		document.getElementById('pnn-container').insertAdjacentHTML('afterbegin', back);
 	
-		let pnnNumber =
-			`<a id="pnn-number">${p}</a>`
-		;
-		document.getElementById('pnn-back').insertAdjacentHTML('afterend', pnnNumber);
-	} else {
-		let pnnNumber =
-			`<a id="pnn-number">${p}</a>`
-		;
-		document.getElementById('pnn-container').insertAdjacentHTML('afterbegin', pnnNumber);
+	}
+
+	for(let i=4; i > 0; i--) {
+		let pNumber = p-i;
+		if(pNumber > 0) {
+			let pnnNumber =
+				`<a id="pnn-number" href="/thumbnail?p=${pNumber}">${pNumber}</a>`
+			;
+			document.getElementById('pnn-container').insertAdjacentHTML('beforeend', pnnNumber);
+		} else {
+			continue;
+		}
+	}
+
+	for(let i=0; i < 5; i++) {
+		let pNumber = p+i;
+		if(pNumber == p) {
+			let nowP =
+				`<a id="pnn-now">${p}</a>`
+			;
+			document.getElementById('pnn-container').insertAdjacentHTML('beforeend', nowP);
+		} else if(pNumber <= limit) {
+			let pnnNumber =
+				`<a id="pnn-number" href="/thumbnail?p=${pNumber}">${pNumber}</a>`
+			;
+			document.getElementById('pnn-container').insertAdjacentHTML('beforeend', pnnNumber);
+		} else {
+			break;
+		}
 	}
 
 	if(`${p+1}` <= limit) {

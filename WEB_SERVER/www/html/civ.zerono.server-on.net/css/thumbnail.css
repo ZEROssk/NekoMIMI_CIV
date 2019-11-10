@@ -73,9 +73,9 @@
 	margin: 0 auto;
 	width: 70%;
 	text-align: center;
-	font-size: 1em;
 	font-family: 'Lato', sans-serif;
 	color: #ffffff;
+	font-size: 1em;
 }
 
 #pnn-container a {
@@ -83,6 +83,7 @@
 }
 
 .pnn-button {
+	margin: 1%;
 	color: #ffffff;
 	font-size: 2em;
 	text-decoration: none;
@@ -94,6 +95,22 @@
 }
 
 #pnn-number {
+	margin: 1%;
+	border-radius: 50% 50%;
+	border: solid 1px #ffffff;
+	color: #ffffff;
+	font-size: 2em;
+	text-decoration: none;
+}
+
+#pnn-number:hover {
+	cursor: pointer;
+	color: #c0c0c0;
+}
+
+#pnn-now {
+	margin: 1%;
+	color: #c0c0c0;
 	font-size: 2em;
 }
 
