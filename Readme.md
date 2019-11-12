@@ -16,6 +16,13 @@
 	  - 検索用APIの作成
 	  - オリジナル画像表示用のAPI
 - Twitterのユーザー名周りは [ここ](https://help.twitter.com/ja/managing-your-account/twitter-username-rules) 参考にテーブル設計する
+
+- ToDo
+  - 表示量の変更
+  - サムネイル画像表示サイズの変更(3段階ほど)
+  - 画像アップロード
+  - 削除機能
+  - サムネイル画像生成
 ---
 #### 要件メモとか
 ##### WEB
