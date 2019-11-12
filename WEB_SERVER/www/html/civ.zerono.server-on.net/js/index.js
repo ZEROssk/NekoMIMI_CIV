@@ -40,11 +40,13 @@ function addPagination(p, limit) {
 	;
 	document.getElementById('media').insertAdjacentHTML('afterend', pnnContainer);
 
+	let pnnContent = document.getElementById('pnn-container');
+
 	if(`${p-1}` != 0) {
 		let back =
 			`<a id="pnn-back" class="fa pnn-button" href="/thumbnail?p=${p-1}">&#xf137</a>`
 		;
-		document.getElementById('pnn-container').insertAdjacentHTML('afterbegin', back);
+		pnnContent.insertAdjacentHTML('afterbegin', back);
 	
 	}
 
@@ -54,7 +56,7 @@ function addPagination(p, limit) {
 			let pnnNumber =
 				`<a id="pnn-number" href="/thumbnail?p=${pNumber}">${pNumber}</a>`
 			;
-			document.getElementById('pnn-container').insertAdjacentHTML('beforeend', pnnNumber);
+			pnnContent.insertAdjacentHTML('beforeend', pnnNumber);
 		} else {
 			continue;
 		}
@@ -66,12 +68,12 @@ function addPagination(p, limit) {
 			let nowP =
 				`<a id="pnn-now">${p}</a>`
 			;
-			document.getElementById('pnn-container').insertAdjacentHTML('beforeend', nowP);
+			pnnContent.insertAdjacentHTML('beforeend', nowP);
 		} else if(pNumber <= limit) {
 			let pnnNumber =
 				`<a id="pnn-number" href="/thumbnail?p=${pNumber}">${pNumber}</a>`
 			;
-			document.getElementById('pnn-container').insertAdjacentHTML('beforeend', pnnNumber);
+			pnnContent.insertAdjacentHTML('beforeend', pnnNumber);
 		} else {
 			break;
 		}
@@ -81,7 +83,7 @@ function addPagination(p, limit) {
 		let next =
 			`<a id="pnn-next" class="fa pnn-button" href="/thumbnail?p=${p+1}">&#xf138</a>`
 		;
-		document.getElementById('pnn-container').insertAdjacentHTML('beforeend', next);
+		pnnContent.insertAdjacentHTML('beforeend', next);
 	}
 }
 
@@ -158,7 +160,7 @@ function addSearchThumbnailImg(v) {
 		let tid = response.TwitterID
 		let displayID =
 			'<div id="select-ID">'+
-				`<a href="https://twitter.com/${tid}" target="_blank">@${tid} ${plimit}</a>`+
+				`<a href="https://twitter.com/${tid}" target="_blank">@${tid} ${limit}</a>`+
 			'</div>'
 		;
 
