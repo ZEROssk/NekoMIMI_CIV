@@ -30,11 +30,12 @@ function requestAjax(endpoint, callback) {
 function onSearchButtonClick() {
 	if(window.event.keyCode == 13) {
 		searchId = document.getElementById("input-keyword").value;
-		window.location.href = `/search?tid=${searchId}`;
+		window.location.href = `/search?tid=${searchId}&get=100`;
 	}
 }
 
 function addPagination(p, limit) {
+	let nAcquired = 100;
 	let pnnContainer =
 		'<div id="pnn-container"></div>'
 	;
@@ -44,7 +45,7 @@ function addPagination(p, limit) {
 
 	if(`${p-1}` != 0) {
 		let back =
-			`<a id="pnn-back" class="fa pnn-button" href="/thumbnail?p=${p-1}">&#xf137</a>`
+			`<a id="pnn-back" class="fa pnn-button" href="/thumbnail?p=${p-1}&get=${nAcquired}">&#xf137</a>`
 		;
 		pnnContent.insertAdjacentHTML('afterbegin', back);
 	
@@ -54,7 +55,7 @@ function addPagination(p, limit) {
 		let pNumber = p-i;
 		if(pNumber > 0) {
 			let pnnNumber =
-				`<a id="pnn-number" href="/thumbnail?p=${pNumber}">${pNumber}</a>`
+				`<a id="pnn-number" href="/thumbnail?p=${pNumber}&get=${nAcquired}">${pNumber}</a>`
 			;
 			pnnContent.insertAdjacentHTML('beforeend', pnnNumber);
 		} else {
@@ -71,7 +72,7 @@ function addPagination(p, limit) {
 			pnnContent.insertAdjacentHTML('beforeend', nowP);
 		} else if(pNumber <= limit) {
 			let pnnNumber =
-				`<a id="pnn-number" href="/thumbnail?p=${pNumber}">${pNumber}</a>`
+				`<a id="pnn-number" href="/thumbnail?p=${pNumber}&get=${nAcquired}">${pNumber}</a>`
 			;
 			pnnContent.insertAdjacentHTML('beforeend', pnnNumber);
 		} else {
@@ -81,7 +82,7 @@ function addPagination(p, limit) {
 
 	if(`${p+1}` <= limit) {
 		let next =
-			`<a id="pnn-next" class="fa pnn-button" href="/thumbnail?p=${p+1}">&#xf138</a>`
+			`<a id="pnn-next" class="fa pnn-button" href="/thumbnail?p=${p+1}&get=${nAcquired}">&#xf138</a>`
 		;
 		pnnContent.insertAdjacentHTML('beforeend', next);
 	}
@@ -98,7 +99,7 @@ function addHome() {
 	let homeContent =
 		'<p>HOME</p>'+
 		'<ul>'+
-			'<li><a href="/thumbnail?p=1">Thumbnail page</a></li>'+
+			'<li><a href="/thumbnail?p=1&get=100">Thumbnail page</a></li>'+
 		'<ul>'
 	;
 
@@ -142,7 +143,7 @@ function addThumbnailImg(v) {
 					`<a href="/original?tid=${tid}&fname=${img}">`+
 						`<img class="thumbnail-img" src="../IMAGE/Twitter/${img}"/>`+
 					'</a>'+
-					`<a id="twi-id-link" href="/search?tid=${tid}">`+
+					`<a id="twi-id-link" href="/search?tid=${tid}&get=100">`+
 						`<span id="twi-id-hover">${tid}</span>`+
 					'</a>'+
 				'</div>'
@@ -160,7 +161,7 @@ function addSearchThumbnailImg(v) {
 		let tid = response.TwitterID
 		let displayID =
 			'<div id="select-ID">'+
-				`<a href="https://twitter.com/${tid}" target="_blank">@${tid} ${limit}</a>`+
+				`<a href="https://twitter.com/${tid}" target="_blank">@${tid}</a>`+
 			'</div>'
 		;
 
