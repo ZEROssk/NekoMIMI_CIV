@@ -2,7 +2,7 @@
 
 let path = location.pathname + location.search
 var searchId
-var nAcquired = 100;
+var nAcquired;
 
 document.addEventListener("DOMContentLoaded", function() {
 	if (location.pathname == "/original") {
@@ -33,6 +33,12 @@ function onSearchButtonClick() {
 		searchId = document.getElementById("input-keyword").value;
 		window.location.href = `/search?tid=${searchId}&get=${nAcquired}`;
 	}
+}
+
+function updateNAcquired(n) {
+	nAcquired = n;
+	console.log(n);
+	console.log(nAcquired);
 }
 
 function addPagination(p, limit) {
@@ -137,20 +143,19 @@ function addThumbnailImg(v) {
 
 		let change_nAcquired =
 			'<div id="nAcquired-bt-container">'+
-				`<a href="/thumbnail?p=1&get=50">`+
-					'<button id="nAcquired-bt">50</button>'+
+				`<a href="/thumbnail?p=${page}&get=50">`+
+					'<button id="nAcquired-bt" onclick="updateNAcquired(50)">50</button>'+
 				'</a>'+
-				`<a href="/thumbnail?p=1&get=100">`+
-					'<button id="nAcquired-bt">100</button>'+
+				`<a href="/thumbnail?p=${page}&get=100">`+
+					'<button id="nAcquired-bt" onclick="updateNAcquired(100)">100</button>'+
 				'</a>'+
-				`<a href="/thumbnail?p=1&get=150">`+
-					'<button id="nAcquired-bt">150</button>'+
+				`<a href="/thumbnail?p=${page}&get=150">`+
+					'<button id="nAcquired-bt" onclick="updateNAcquired(150)">150</button>'+
 				'</a>'+
 			'</div>'
 		;
 
 		document.getElementById('media').insertAdjacentHTML('beforebegin', change_nAcquired);
-
 
 		for(let i=0; i < response.Thumbnail.length; i++) {
 			let img = response.Thumbnail[i].FileName

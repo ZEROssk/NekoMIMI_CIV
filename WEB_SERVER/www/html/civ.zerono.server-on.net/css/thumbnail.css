@@ -115,12 +115,12 @@
 }
 
 #nAcquired-bt-container {
-	margin: 0 auto;
+	padding-left: 75%;
 	padding-bottom: 1%;
-	width: 80%;
 }
 
 #nAcquired-bt {
+	margin: 1%;
 	width: 2.5em;
 	height: 2.5em;
 	border-style: none;
@@ -130,5 +130,6 @@
 	background: #ffffff;
 	font-family: 'Lato';
 	font-size: 1em;
+	cursor: pointer;
 }
 
