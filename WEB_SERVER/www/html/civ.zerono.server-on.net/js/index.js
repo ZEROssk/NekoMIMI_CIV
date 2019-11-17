@@ -2,6 +2,7 @@
 
 let path = location.pathname + location.search
 var searchId
+var nAcquired = 100;
 
 document.addEventListener("DOMContentLoaded", function() {
 	if (location.pathname == "/original") {
@@ -30,12 +31,11 @@ function requestAjax(endpoint, callback) {
 function onSearchButtonClick() {
 	if(window.event.keyCode == 13) {
 		searchId = document.getElementById("input-keyword").value;
-		window.location.href = `/search?tid=${searchId}&get=100`;
+		window.location.href = `/search?tid=${searchId}&get=${nAcquired}`;
 	}
 }
 
 function addPagination(p, limit) {
-	let nAcquired = 100;
 	let pnnContainer =
 		'<div id="pnn-container"></div>'
 	;
@@ -99,7 +99,7 @@ function addHome() {
 	let homeContent =
 		'<p>HOME</p>'+
 		'<ul>'+
-			'<li><a href="/thumbnail?p=1&get=100">Thumbnail page</a></li>'+
+			`<li><a href="/thumbnail?p=1&get=${nAcquired}">Thumbnail page</a></li>`+
 		'<ul>'
 	;
 
@@ -135,6 +135,23 @@ function addThumbnailImg(v) {
 		let limit = response.PageLimit
 		addPagination(page, limit);
 
+		let change_nAcquired =
+			'<div id="nAcquired-bt-container">'+
+				`<a href="/thumbnail?p=1&get=50">`+
+					'<button id="nAcquired-bt">50</button>'+
+				'</a>'+
+				`<a href="/thumbnail?p=1&get=100">`+
+					'<button id="nAcquired-bt">100</button>'+
+				'</a>'+
+				`<a href="/thumbnail?p=1&get=150">`+
+					'<button id="nAcquired-bt">150</button>'+
+				'</a>'+
+			'</div>'
+		;
+
+		document.getElementById('media').insertAdjacentHTML('beforebegin', change_nAcquired);
+
+
 		for(let i=0; i < response.Thumbnail.length; i++) {
 			let img = response.Thumbnail[i].FileName
 			let tid = response.Thumbnail[i].TwitterID
@@ -143,7 +160,7 @@ function addThumbnailImg(v) {
 					`<a href="/original?tid=${tid}&fname=${img}">`+
 						`<img class="thumbnail-img" src="../IMAGE/Twitter/${img}"/>`+
 					'</a>'+
-					`<a id="twi-id-link" href="/search?tid=${tid}&get=100">`+
+					`<a id="twi-id-link" href="/search?tid=${tid}&get=${nAcquired}">`+
 						`<span id="twi-id-hover">${tid}</span>`+
 					'</a>'+
 				'</div>'

@@ -114,3 +114,21 @@
 	font-size: 2.5em;
 }
 
+#nAcquired-bt-container {
+	margin: 0 auto;
+	padding-bottom: 1%;
+	width: 80%;
+}
+
+#nAcquired-bt {
+	width: 2.5em;
+	height: 2.5em;
+	border-style: none;
+	border-radius: 50%;
+	text-align: center;
+	text-decoration: none;
+	background: #ffffff;
+	font-family: 'Lato';
+	font-size: 1em;
+}
+
