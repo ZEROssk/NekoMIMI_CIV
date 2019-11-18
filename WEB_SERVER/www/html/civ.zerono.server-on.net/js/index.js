@@ -37,13 +37,9 @@ function onSearchButtonClick() {
 function addNAcquiredButton(p) {
 	let change_nAcquired =
 		'<div id="nAcquired-bt-container">'+
-			`<a href="/thumbnail?p=${p}&get=50">`+
-				'<button id="nAcquired-bt">50</button>'+
-			'</a>'+
-				`<button id="nAcquired-bt">100</button>`+
-			`<a href="/thumbnail?p=${p}&get=150">`+
-				'<button id="nAcquired-bt">150</button>'+
-			'</a>'+
+			`<button id="nAcquired-bt" onClick="location.href='/thumbnail?p=${p}&get=50'">50</button>`+
+			`<button id="nAcquired-bt" onClick="location.href='/thumbnail?p=${p}&get=100'">100</button>`+
+			`<button id="nAcquired-bt" onClick="location.href='/thumbnail?p=${p}&get=150'">150</button>`+
 		'</div>'
 	;
 
@@ -114,7 +110,7 @@ function addHome() {
 	let homeContent =
 		'<p>HOME</p>'+
 		'<ul>'+
-			`<li><a href="/thumbnail?p=1&get=${numberAcquired.val()}">Thumbnail page</a></li>`+
+			'<li><a href="/thumbnail?p=1&get=50">Thumbnail page</a></li>'+
 		'<ul>'
 	;
 
@@ -160,7 +156,7 @@ function addThumbnailImg(v) {
 					`<a href="/original?tid=${tid}&fname=${img}">`+
 						`<img class="thumbnail-img" src="../IMAGE/Twitter/${img}"/>`+
 					'</a>'+
-					`<a id="twi-id-link" href="/search?tid=${tid}&get=${numberAcquired.val()}">`+
+					`<a id="twi-id-link" href="/search?tid=${tid}&get=${nA}">`+
 						`<span id="twi-id-hover">${tid}</span>`+
 					'</a>'+
 				'</div>'
