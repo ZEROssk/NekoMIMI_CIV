@@ -1,8 +1,7 @@
 'usestrict';
 
-let path = location.pathname + location.search
-var searchId
-var nAcquired;
+let path = location.pathname + location.search;
+var searchId;
 
 document.addEventListener("DOMContentLoaded", function() {
 	if (location.pathname == "/original") {
@@ -31,17 +30,27 @@ function requestAjax(endpoint, callback) {
 function onSearchButtonClick() {
 	if(window.event.keyCode == 13) {
 		searchId = document.getElementById("input-keyword").value;
-		window.location.href = `/search?tid=${searchId}&get=${nAcquired}`;
+		window.location.href = `/search?tid=${searchId}&get=${numberAcquired.val()}`;
 	}
 }
 
-function updateNAcquired(n) {
-	nAcquired = n;
-	console.log(n);
-	console.log(nAcquired);
+function addNAcquiredButton(p) {
+	let change_nAcquired =
+		'<div id="nAcquired-bt-container">'+
+			`<a href="/thumbnail?p=${p}&get=50">`+
+				'<button id="nAcquired-bt">50</button>'+
+			'</a>'+
+				`<button id="nAcquired-bt">100</button>`+
+			`<a href="/thumbnail?p=${p}&get=150">`+
+				'<button id="nAcquired-bt">150</button>'+
+			'</a>'+
+		'</div>'
+	;
+
+	document.getElementById('media').insertAdjacentHTML('beforebegin', change_nAcquired);
 }
 
-function addPagination(p, limit) {
+function addPagination(p, limit, numA) {
 	let pnnContainer =
 		'<div id="pnn-container"></div>'
 	;
@@ -51,7 +60,7 @@ function addPagination(p, limit) {
 
 	if(`${p-1}` != 0) {
 		let back =
-			`<a id="pnn-back" class="fa pnn-button" href="/thumbnail?p=${p-1}&get=${nAcquired}">&#xf137</a>`
+			`<a id="pnn-back" class="fa pnn-button" href="/thumbnail?p=${p-1}&get=${numA}">&#xf137</a>`
 		;
 		pnnContent.insertAdjacentHTML('afterbegin', back);
 	
@@ -61,7 +70,7 @@ function addPagination(p, limit) {
 		let pNumber = p-i;
 		if(pNumber > 0) {
 			let pnnNumber =
-				`<a id="pnn-number" href="/thumbnail?p=${pNumber}&get=${nAcquired}">${pNumber}</a>`
+				`<a id="pnn-number" href="/thumbnail?p=${pNumber}&get=${numA}">${pNumber}</a>`
 			;
 			pnnContent.insertAdjacentHTML('beforeend', pnnNumber);
 		} else {
@@ -78,7 +87,7 @@ function addPagination(p, limit) {
 			pnnContent.insertAdjacentHTML('beforeend', nowP);
 		} else if(pNumber <= limit) {
 			let pnnNumber =
-				`<a id="pnn-number" href="/thumbnail?p=${pNumber}&get=${nAcquired}">${pNumber}</a>`
+				`<a id="pnn-number" href="/thumbnail?p=${pNumber}&get=${numA}">${pNumber}</a>`
 			;
 			pnnContent.insertAdjacentHTML('beforeend', pnnNumber);
 		} else {
@@ -88,7 +97,7 @@ function addPagination(p, limit) {
 
 	if(`${p+1}` <= limit) {
 		let next =
-			`<a id="pnn-next" class="fa pnn-button" href="/thumbnail?p=${p+1}&get=${nAcquired}">&#xf138</a>`
+			`<a id="pnn-next" class="fa pnn-button" href="/thumbnail?p=${p+1}&get=${numA}">&#xf138</a>`
 		;
 		pnnContent.insertAdjacentHTML('beforeend', next);
 	}
@@ -105,7 +114,7 @@ function addHome() {
 	let homeContent =
 		'<p>HOME</p>'+
 		'<ul>'+
-			`<li><a href="/thumbnail?p=1&get=${nAcquired}">Thumbnail page</a></li>`+
+			`<li><a href="/thumbnail?p=1&get=${numberAcquired.val()}">Thumbnail page</a></li>`+
 		'<ul>'
 	;
 
@@ -139,23 +148,9 @@ function addThumbnailImg(v) {
 	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg${v}`, function(response){
 		let page = response.PageNumber
 		let limit = response.PageLimit
-		addPagination(page, limit);
-
-		let change_nAcquired =
-			'<div id="nAcquired-bt-container">'+
-				`<a href="/thumbnail?p=${page}&get=50">`+
-					'<button id="nAcquired-bt" onclick="updateNAcquired(50)">50</button>'+
-				'</a>'+
-				`<a href="/thumbnail?p=${page}&get=100">`+
-					'<button id="nAcquired-bt" onclick="updateNAcquired(100)">100</button>'+
-				'</a>'+
-				`<a href="/thumbnail?p=${page}&get=150">`+
-					'<button id="nAcquired-bt" onclick="updateNAcquired(150)">150</button>'+
-				'</a>'+
-			'</div>'
-		;
-
-		document.getElementById('media').insertAdjacentHTML('beforebegin', change_nAcquired);
+		let nA = response.NumberAcquired
+		addPagination(page, limit, nA);
+		addNAcquiredButton(page);
 
 		for(let i=0; i < response.Thumbnail.length; i++) {
 			let img = response.Thumbnail[i].FileName
@@ -165,7 +160,7 @@ function addThumbnailImg(v) {
 					`<a href="/original?tid=${tid}&fname=${img}">`+
 						`<img class="thumbnail-img" src="../IMAGE/Twitter/${img}"/>`+
 					'</a>'+
-					`<a id="twi-id-link" href="/search?tid=${tid}&get=${nAcquired}">`+
+					`<a id="twi-id-link" href="/search?tid=${tid}&get=${numberAcquired.val()}">`+
 						`<span id="twi-id-hover">${tid}</span>`+
 					'</a>'+
 				'</div>'
@@ -180,6 +175,7 @@ function addSearchThumbnailImg(v) {
 	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg${v}`, function(response){
 		let page = response.PageLimit
 		let limit = response.PageLimit
+		let nA = response.NumberAcquired
 		let tid = response.TwitterID
 		let displayID =
 			'<div id="select-ID">'+
@@ -188,7 +184,8 @@ function addSearchThumbnailImg(v) {
 		;
 
 		document.getElementById('media').insertAdjacentHTML('beforebegin', displayID);
-		addPagination(page, limit);
+		addPagination(page, limit, nA);
+		addNAcquiredButton(page);
 	
 		for(let i=0; i < response.Thumbnail.length; i++) {
 			let img = response.Thumbnail[i].FileName
