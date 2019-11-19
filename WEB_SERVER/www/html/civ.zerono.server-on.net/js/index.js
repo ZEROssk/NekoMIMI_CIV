@@ -231,7 +231,7 @@ function addThumbnailImg(v) {
 
 function addSearchThumbnailImg(v) {
 	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg${v}`, function(response){
-		let page = response.PageLimit
+		let page = response.PageNumber
 		let limit = response.PageLimit
 		let nA = response.NumberAcquired
 		let imgList = response.Thumbnail
