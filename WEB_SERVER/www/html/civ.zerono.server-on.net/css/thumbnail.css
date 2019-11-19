@@ -135,11 +135,17 @@
 }
 
 #nAcquired-bt-container {
-	margin-right: 15%;
-	margin-left: auto;
+	margin-left: 15%;
 }
 
-#menu-bt-content {
+#changeImgSize-bt-container {
+}
+
+#menu-bt-content-ci {
+	display: flex;
+}
+
+#menu-bt-content-na {
 	display: flex;
 }
 

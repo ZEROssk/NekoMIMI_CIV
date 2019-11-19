@@ -52,56 +52,56 @@ function addChangeImgSizeButton(p, nA) {
 	let pa = location.pathname;
 	let change_imgSize =
 		'<div id="changeImgSize-bt-container">'+
-			'<div id="menu-bt-content">'+
+			'<div id="menu-bt-content-ci">'+
 				`<button id="menu-bt" onClick="location.href='${pa}?p=${p}&get=${nA}&s=small'">small</button>`+
 				`<button id="menu-bt" onClick="location.href='${pa}?p=${p}&get=${nA}&s=midiam'">midiam</button>`+
 				`<button id="menu-bt" onClick="location.href='${pa}?p=${p}&get=${nA}&s=large'">large</button>`+
 			'</div>'+
 		'</div>'
 	;
-	document.getElementById('menu-container').insertAdjacentHTML('beforeend', change_imgSize);
+	document.getElementById('change-button-container').insertAdjacentHTML('beforeend', change_imgSize);
 }
 
 function addNAcquiredButton(p, s) {
 	let pa = location.pathname;
 	let change_nAcquired =
 		'<div id="nAcquired-bt-container">'+
-			'<div id="menu-bt-content">'+
+			'<div id="menu-bt-content-na">'+
 				`<button id="menu-bt" onClick="location.href='${pa}?p=${p}&get=50&s=${s}'">50</button>`+
 				`<button id="menu-bt" onClick="location.href='${pa}?p=${p}&get=100&s=${s}'">100</button>`+
 				`<button id="menu-bt" onClick="location.href='${pa}?p=${p}&get=150&s=${s}'">150</button>`+
 			'</div>'+
 		'</div>'
 	;
-	document.getElementById('menu-container').insertAdjacentHTML('beforeend', change_nAcquired);
+	document.getElementById('change-button-container').insertAdjacentHTML('beforeend', change_nAcquired);
 }
 
 function addChangeImgSizeButtonSearch(id, p, nA) {
 	let pa = location.pathname;
 	let change_imgSize =
 		'<div id="changeImgSize-bt-container">'+
-			'<div id="menu-bt-content">'+
+			'<div id="menu-bt-content-ci">'+
 				`<button id="menu-bt" onClick="location.href='${pa}?tid=${id}&p=${p}&get=${nA}&s=small'">small</button>`+
 				`<button id="menu-bt" onClick="location.href='${pa}?tid=${id}&p=${p}&get=${nA}&s=midiam'">midiam</button>`+
 				`<button id="menu-bt" onClick="location.href='${pa}?tid=${id}&p=${p}&get=${nA}&s=large'">large</button>`+
 			'</div>'+
 		'</div>'
 	;
-	document.getElementById('menu-container').insertAdjacentHTML('beforeend', change_imgSize);
+	document.getElementById('change-button-container').insertAdjacentHTML('beforeend', change_imgSize);
 }
 
 function addNAcquiredButtonSearch(id, p, s) {
 	let pa = location.pathname;
 	let change_nAcquired =
 		'<div id="nAcquired-bt-container">'+
-			'<div id="menu-bt-content">'+
+			'<div id="menu-bt-content-na">'+
 				`<button id="menu-bt" onClick="location.href='${pa}?tid=${id}&p=${p}&get=50&s=${s}'">50</button>`+
 				`<button id="menu-bt" onClick="location.href='${pa}?tid=${id}&p=${p}&get=100&s=${s}'">100</button>`+
 				`<button id="menu-bt" onClick="location.href='${pa}?tid=${id}&p=${p}&get=150&s=${s}'">150</button>`+
 			'</div>'+
 		'</div>'
 	;
-	document.getElementById('menu-container').insertAdjacentHTML('beforeend', change_nAcquired);
+	document.getElementById('change-button-container').insertAdjacentHTML('beforeend', change_nAcquired);
 }
 
 function addPagination(p, limit, numA, s) {
