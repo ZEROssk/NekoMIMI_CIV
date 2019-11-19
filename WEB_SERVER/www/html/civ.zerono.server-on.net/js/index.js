@@ -52,29 +52,29 @@ function addChangeImgSizeButton(p, nA) {
 	let change_imgSize =
 		'<div id="changeImgSize-bt-container">'+
 			'<div id="menu-bt-content">'+
-				`<button id="menu-bt" onClick="location.href='/thumbnail?p=${p}&get=${nA}&s=small">small</button>`+
-				`<button id="menu-bt" onClick="location.href='/thumbnail?p=${p}&get=${nA}&s=media">midiam</button>`+
-				`<button id="menu-bt" onClick="location.href='/thumbnail?p=${p}&get=${nA}&s=large">large</button>`+
+				`<button id="menu-bt" onClick="location.href='/thumbnail?p=${p}&get=${nA}&s=small'">small</button>`+
+				`<button id="menu-bt" onClick="location.href='/thumbnail?p=${p}&get=${nA}&s=midiam'">midiam</button>`+
+				`<button id="menu-bt" onClick="location.href='/thumbnail?p=${p}&get=${nA}&s=large'">large</button>`+
 			'</div>'+
 		'</div>'
 	;
 	document.getElementById('menu-container').insertAdjacentHTML('beforeend', change_imgSize);
 }
 
-function addNAcquiredButton(p) {
+function addNAcquiredButton(p, s) {
 	let change_nAcquired =
 		'<div id="nAcquired-bt-container">'+
 			'<div id="menu-bt-content">'+
-				`<button id="menu-bt" onClick="location.href='/thumbnail?p=${p}&get=50'">50</button>`+
-				`<button id="menu-bt" onClick="location.href='/thumbnail?p=${p}&get=100'">100</button>`+
-				`<button id="menu-bt" onClick="location.href='/thumbnail?p=${p}&get=150'">150</button>`+
+				`<button id="menu-bt" onClick="location.href='/thumbnail?p=${p}&get=50&s=${s}'">50</button>`+
+				`<button id="menu-bt" onClick="location.href='/thumbnail?p=${p}&get=100&s=${s}'">100</button>`+
+				`<button id="menu-bt" onClick="location.href='/thumbnail?p=${p}&get=150&s=${s}'">150</button>`+
 			'</div>'+
 		'</div>'
 	;
 	document.getElementById('menu-container').insertAdjacentHTML('beforeend', change_nAcquired);
 }
 
-function addPagination(p, limit, numA) {
+function addPagination(p, limit, numA, s) {
 	let pnnContainer =
 		'<div id="pnn-container"></div>'
 	;
@@ -84,7 +84,7 @@ function addPagination(p, limit, numA) {
 
 	if(`${p-1}` != 0) {
 		let back =
-			`<a id="pnn-back" class="fa pnn-button" href="/thumbnail?p=${p-1}&get=${numA}">&#xf137</a>`
+			`<a id="pnn-back" class="fa pnn-button" href="/thumbnail?p=${p-1}&get=${numA}&s=${s}">&#xf137</a>`
 		;
 		pnnContent.insertAdjacentHTML('afterbegin', back);
 	
@@ -94,7 +94,7 @@ function addPagination(p, limit, numA) {
 		let pNumber = p-i;
 		if(pNumber > 0) {
 			let pnnNumber =
-				`<a id="pnn-number" href="/thumbnail?p=${pNumber}&get=${numA}">${pNumber}</a>`
+				`<a id="pnn-number" href="/thumbnail?p=${pNumber}&get=${numA}&s=${s}">${pNumber}</a>`
 			;
 			pnnContent.insertAdjacentHTML('beforeend', pnnNumber);
 		} else {
@@ -111,7 +111,7 @@ function addPagination(p, limit, numA) {
 			pnnContent.insertAdjacentHTML('beforeend', nowP);
 		} else if(pNumber <= limit) {
 			let pnnNumber =
-				`<a id="pnn-number" href="/thumbnail?p=${pNumber}&get=${numA}">${pNumber}</a>`
+				`<a id="pnn-number" href="/thumbnail?p=${pNumber}&get=${numA}&s=${s}">${pNumber}</a>`
 			;
 			pnnContent.insertAdjacentHTML('beforeend', pnnNumber);
 		} else {
@@ -121,7 +121,7 @@ function addPagination(p, limit, numA) {
 
 	if(`${p+1}` <= limit) {
 		let next =
-			`<a id="pnn-next" class="fa pnn-button" href="/thumbnail?p=${p+1}&get=${numA}">&#xf138</a>`
+			`<a id="pnn-next" class="fa pnn-button" href="/thumbnail?p=${p+1}&get=${numA}&s=${s}">&#xf138</a>`
 		;
 		pnnContent.insertAdjacentHTML('beforeend', next);
 	}
@@ -195,8 +195,8 @@ function addThumbnailImg(v) {
 
 		changeImgSize(imgSize);
 		addChangeImgSizeButton(page, nA);
-		addNAcquiredButton(page);
-		addPagination(page, limit, nA);
+		addNAcquiredButton(page, imgSize);
+		addPagination(page, limit, nA, imgSize);
 
 		for(let i=0; i < imgList.length; i++) {
 			let img = imgList[i].FileName
@@ -233,8 +233,8 @@ function addSearchThumbnailImg(v) {
 
 		changeImgSize(imgSize);
 		addChangeImgSizeButton(page, nA);
-		addNAcquiredButton(page);
-		addPagination(page, limit, nA);
+		addNAcquiredButton(page, imgSize);
+		addPagination(page, limit, nA, imgSize);
 	
 		for(let i=0; i < imgList.length; i++) {
 			let img = imgList[i].FileName
