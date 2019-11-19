@@ -115,12 +115,17 @@
 }
 
 #nAcquired-bt-container {
-	padding-left: 75%;
-	padding-bottom: 1%;
+	margin-right: 15%;
+	margin-left: auto;
+}
+
+#nA-content {
+	display: flex;
 }
 
 #nAcquired-bt {
-	margin: 1%;
+	flex-shrink: 0;
+	margin: 5%;
 	width: 2.5em;
 	height: 2.5em;
 	border-style: none;

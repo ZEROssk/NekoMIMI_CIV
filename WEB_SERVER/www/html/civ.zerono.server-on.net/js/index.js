@@ -37,13 +37,15 @@ function onSearchButtonClick() {
 function addNAcquiredButton(p) {
 	let change_nAcquired =
 		'<div id="nAcquired-bt-container">'+
-			`<button id="nAcquired-bt" onClick="location.href='/thumbnail?p=${p}&get=50'">50</button>`+
-			`<button id="nAcquired-bt" onClick="location.href='/thumbnail?p=${p}&get=100'">100</button>`+
-			`<button id="nAcquired-bt" onClick="location.href='/thumbnail?p=${p}&get=150'">150</button>`+
+			'<div id="nA-content">'+
+				`<button id="nAcquired-bt" onClick="location.href='/thumbnail?p=${p}&get=50'">50</button>`+
+				`<button id="nAcquired-bt" onClick="location.href='/thumbnail?p=${p}&get=100'">100</button>`+
+				`<button id="nAcquired-bt" onClick="location.href='/thumbnail?p=${p}&get=150'">150</button>`+
+			'</div>'+
 		'</div>'
 	;
 
-	document.getElementById('media').insertAdjacentHTML('beforebegin', change_nAcquired);
+	document.getElementById('menu-container').insertAdjacentHTML('beforeend', change_nAcquired);
 }
 
 function addPagination(p, limit, numA) {
@@ -179,7 +181,7 @@ function addSearchThumbnailImg(v) {
 			'</div>'
 		;
 
-		document.getElementById('media').insertAdjacentHTML('beforebegin', displayID);
+		document.getElementById('menu-container').insertAdjacentHTML('afterbegin', displayID);
 		addPagination(page, limit, nA);
 		addNAcquiredButton(page);
 	
