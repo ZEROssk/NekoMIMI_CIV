@@ -51,8 +51,11 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 		NumA = NumberAcquired
 	}
 
-	if size == "" {
-		size = ImageSize
+	switch size {
+		case "small": ImageSize = size
+		case "midiam" : ImageSize = size
+		case "large" : ImageSize = size
+		default: size = ImageSize
 	}
 
 	if PNum != 0 {
@@ -106,8 +109,11 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 		NumA = NumberAcquired
 	}
 
-	if size == "" {
-		size = ImageSize
+	switch size {
+		case "small": ImageSize = size
+		case "midiam" : ImageSize = size
+		case "large" : ImageSize = size
+		default: size = ImageSize
 	}
 
 	if PNum != 0 && twiID != "" {
