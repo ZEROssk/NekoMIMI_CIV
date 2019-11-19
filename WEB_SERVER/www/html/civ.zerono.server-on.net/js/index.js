@@ -1,7 +1,6 @@
 'usestrict';
 
-let path = location.pathname + location.search;
-var searchId;
+var path = location.pathname + location.search;
 
 document.addEventListener("DOMContentLoaded", function() {
 	if (location.pathname == "/original") {
@@ -29,22 +28,49 @@ function requestAjax(endpoint, callback) {
 
 function onSearchButtonClick() {
 	if(window.event.keyCode == 13) {
-		searchId = document.getElementById("input-keyword").value;
+		let searchId = document.getElementById("input-keyword").value;
 		window.location.href = `/search?tid=${searchId}&get=50`;
 	}
+}
+
+function changeImgSize(size) {
+	let imgCon = document.getElementById(`img-container`);
+	switch(size) {
+		case 'small':
+			imgCon.className = "img-size-small";
+			break;
+		case 'midiam':
+			imgCon.className = "img-size-midiam";
+			break;
+		case 'large':
+			imgCon.className = "img-size-large";
+			break;
+	}
+}
+
+function addChangeImgSizeButton(p, nA) {
+	let change_imgSize =
+		'<div id="changeImgSize-bt-container">'+
+			'<div id="menu-bt-content">'+
+				`<button id="menu-bt" onClick="location.href='/thumbnail?p=${p}&get=${nA}&s=small">small</button>`+
+				`<button id="menu-bt" onClick="location.href='/thumbnail?p=${p}&get=${nA}&s=media">midiam</button>`+
+				`<button id="menu-bt" onClick="location.href='/thumbnail?p=${p}&get=${nA}&s=large">large</button>`+
+			'</div>'+
+		'</div>'
+	;
+	document.getElementById('menu-container').insertAdjacentHTML('beforeend', change_imgSize);
 }
 
 function addNAcquiredButton(p) {
 	let change_nAcquired =
 		'<div id="nAcquired-bt-container">'+
-			'<div id="nA-content">'+
-				`<button id="nAcquired-bt" onClick="location.href='/thumbnail?p=${p}&get=50'">50</button>`+
-				`<button id="nAcquired-bt" onClick="location.href='/thumbnail?p=${p}&get=100'">100</button>`+
-				`<button id="nAcquired-bt" onClick="location.href='/thumbnail?p=${p}&get=150'">150</button>`+
+			'<div id="menu-bt-content">'+
+				`<button id="menu-bt" onClick="location.href='/thumbnail?p=${p}&get=50'">50</button>`+
+				`<button id="menu-bt" onClick="location.href='/thumbnail?p=${p}&get=100'">100</button>`+
+				`<button id="menu-bt" onClick="location.href='/thumbnail?p=${p}&get=150'">150</button>`+
 			'</div>'+
 		'</div>'
 	;
-
 	document.getElementById('menu-container').insertAdjacentHTML('beforeend', change_nAcquired);
 }
 
@@ -120,7 +146,7 @@ function addHome() {
 }
 
 function addOriginalImg(v) {
-	let orImg = document.getElementById('img-container-midiam');
+	let orImg = document.getElementById('img-container');
 	orImg.id = "original-img-container";
 
 	let hisback =
@@ -137,9 +163,26 @@ function addOriginalImg(v) {
 				`<img class="original-img" src="../IMAGE/Twitter/${img}"/>`+
 			'</div>'
 		;
-
 		orImg.insertAdjacentHTML('beforeend', original);
 	});
+}
+
+function resizeImg(imgs, nA) {
+	for(let i=0; i < imgs.length; i++) {
+		let img = imgs[i].FileName
+		let tid = imgs[i].TwitterID
+		let thumbnail =
+			'<div class="content-thumbnail" target="_blank">'+
+				`<a href="/original?tid=${tid}&fname=${img}">`+
+					`<img class="thumbnail-img" src="../IMAGE/Twitter/${img}"/>`+
+				'</a>'+
+				`<a id="twi-id-link" href="/search?tid=${tid}&get=${nA}">`+
+					`<span id="twi-id-hover">${tid}</span>`+
+				'</a>'+
+			'</div>'
+		;
+		document.getElementById('img-container').insertAdjacentHTML('beforeend', thumbnail);
+	}
 }
 
 function addThumbnailImg(v) {
@@ -147,12 +190,17 @@ function addThumbnailImg(v) {
 		let page = response.PageNumber
 		let limit = response.PageLimit
 		let nA = response.NumberAcquired
-		addPagination(page, limit, nA);
-		addNAcquiredButton(page);
+		let imgList = response.Thumbnail
+		let imgSize = response.ImgSize
 
-		for(let i=0; i < response.Thumbnail.length; i++) {
-			let img = response.Thumbnail[i].FileName
-			let tid = response.Thumbnail[i].TwitterID
+		changeImgSize(imgSize);
+		addChangeImgSizeButton(page, nA);
+		addNAcquiredButton(page);
+		addPagination(page, limit, nA);
+
+		for(let i=0; i < imgList.length; i++) {
+			let img = imgList[i].FileName
+			let tid = imgList[i].TwitterID
 			let thumbnail =
 				'<div class="content-thumbnail" target="_blank">'+
 					`<a href="/original?tid=${tid}&fname=${img}">`+
@@ -163,8 +211,7 @@ function addThumbnailImg(v) {
 					'</a>'+
 				'</div>'
 			;
-
-			document.getElementById('img-container-midiam').insertAdjacentHTML('beforeend', thumbnail);
+			document.getElementById('img-container').insertAdjacentHTML('beforeend', thumbnail);
 		}
 	});
 }
@@ -174,19 +221,23 @@ function addSearchThumbnailImg(v) {
 		let page = response.PageLimit
 		let limit = response.PageLimit
 		let nA = response.NumberAcquired
+		let imgList = response.Thumbnail
+
 		let tid = response.TwitterID
 		let displayID =
 			'<div id="select-ID">'+
 				`<a href="https://twitter.com/${tid}" target="_blank">@${tid}</a>`+
 			'</div>'
 		;
-
 		document.getElementById('menu-container').insertAdjacentHTML('afterbegin', displayID);
-		addPagination(page, limit, nA);
+
+		changeImgSize(imgSize);
+		addChangeImgSizeButton(page, nA);
 		addNAcquiredButton(page);
+		addPagination(page, limit, nA);
 	
-		for(let i=0; i < response.Thumbnail.length; i++) {
-			let img = response.Thumbnail[i].FileName
+		for(let i=0; i < imgList.length; i++) {
+			let img = imgList[i].FileName
 			let thumbnail =
 				'<div class="content-thumbnail" target="_blank">'+
 					`<a href="/original?tid=${tid}&fname=${img}">`+
@@ -194,8 +245,7 @@ function addSearchThumbnailImg(v) {
 					'</a>'+
 				'</div>'
 			;
-
-			document.getElementById('img-container-midiam').insertAdjacentHTML('beforeend', thumbnail);
+			document.getElementById('img-container').insertAdjacentHTML('beforeend', thumbnail);
 		}
 	});
 }
