@@ -15,6 +15,7 @@ type ResultJSONhome struct {
 	PLimit	int			`json:"PageLimit"`
 	PNum	int			`json:"PageNumber"`
 	NAcq	int			`json:"NumberAcquired"`
+	Size	string		`json:"ImgSize"`
 	List	[]ImgJSON	`json:"Thumbnail"`
 }
 
@@ -23,6 +24,7 @@ type ResultJSONsearch struct {
 	PLimit	int			`json:"PageLimit"`
 	PNum	int			`json:"PageNumber"`
 	NAcq	int			`json:"NumberAcquired"`
+	Size	string		`json:"ImgSize"`
 	List	[]ImgJSON	`json:"Thumbnail"`
 }
 
@@ -32,10 +34,12 @@ type ImgJSON struct {
 }
 
 var NumberAcquired int = 50
+var ImageSize string = "midiam"
 
-// https://host-name:port/api/v1/twimg/thumbnail?p={PageNum}&get={NumberAcquired}
+// https://host-name:port/api/v1/twimg/thumbnail?p={PageNum}&get={NumberAcquired}&s={ImageSize}
 func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 	v := req.URL.Query()
+	size := v.Get("s")
 
 	PNum, err := strconv.Atoi(v.Get("p"))
 	if err != nil {
@@ -45,6 +49,10 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 	NumA, err := strconv.Atoi(v.Get("get"))
 	if err != nil {
 		NumA = NumberAcquired
+	}
+
+	if size == "" {
+		size = ImageSize
 	}
 
 	if PNum != 0 {
@@ -72,6 +80,7 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 		result.PLimit	= a
 		result.PNum		= PNum
 		result.NAcq		= NumA
+		result.Size		= size
 		result.List		= list
 
 		Rw.WriteJson(&result)
@@ -80,9 +89,10 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 	}
 }
 
-// https://host-name:port/api/v1/twimg/search?tid={TwiID}&p={PageNum}&get={NumberAcquired}
+// https://host-name:port/api/v1/twimg/search?tid={TwiID}&p={PageNum}&get={NumberAcquired}&s={ImageSize}
 func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 	v := req.URL.Query()
+	size := v.Get("s")
 
 	twiID := v.Get("tid")
 
@@ -94,6 +104,10 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 	NumA, err := strconv.Atoi(v.Get("get"))
 	if err != nil {
 		NumA = NumberAcquired
+	}
+
+	if size == "" {
+		size = ImageSize
 	}
 
 	if PNum != 0 && twiID != "" {
@@ -122,6 +136,7 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 		result.PLimit	= a
 		result.PNum		= PNum
 		result.NAcq		= NumA
+		result.Size		= size
 		result.List		= list
 
 		Rw.WriteJson(&result)
