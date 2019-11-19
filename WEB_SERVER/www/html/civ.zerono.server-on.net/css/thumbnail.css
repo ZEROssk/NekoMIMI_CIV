@@ -1,7 +1,27 @@
-#img-container {
+#img-container-small {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, 300px);
-	grid-auto-rows: 300px;
+	grid-template-columns: repeat(auto-fill, 128px);
+	grid-auto-rows: 128px;
+	justify-content: center;
+	padding-top: 1em;
+	padding-bottom: 2em;
+	grid-gap: 1em;
+}
+
+#img-container-midiam {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 256px);
+	grid-auto-rows: 256px;
+	justify-content: center;
+	padding-top: 1em;
+	padding-bottom: 2em;
+	grid-gap: 1em;
+}
+
+#img-container-large {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 512px);
+	grid-auto-rows: 512px;
 	justify-content: center;
 	padding-top: 1em;
 	padding-bottom: 2em;

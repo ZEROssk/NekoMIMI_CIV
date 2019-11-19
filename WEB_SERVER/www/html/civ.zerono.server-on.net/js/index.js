@@ -30,7 +30,7 @@ function requestAjax(endpoint, callback) {
 function onSearchButtonClick() {
 	if(window.event.keyCode == 13) {
 		searchId = document.getElementById("input-keyword").value;
-		window.location.href = `/search?tid=${searchId}&get=${numberAcquired.val()}`;
+		window.location.href = `/search?tid=${searchId}&get=50`;
 	}
 }
 
@@ -120,7 +120,7 @@ function addHome() {
 }
 
 function addOriginalImg(v) {
-	let orImg = document.getElementById('img-container');
+	let orImg = document.getElementById('img-container-midiam');
 	orImg.id = "original-img-container";
 
 	let hisback =
@@ -164,7 +164,7 @@ function addThumbnailImg(v) {
 				'</div>'
 			;
 
-			document.getElementById('img-container').insertAdjacentHTML('beforeend', thumbnail);
+			document.getElementById('img-container-midiam').insertAdjacentHTML('beforeend', thumbnail);
 		}
 	});
 }
@@ -195,7 +195,7 @@ function addSearchThumbnailImg(v) {
 				'</div>'
 			;
 
-			document.getElementById('img-container').insertAdjacentHTML('beforeend', thumbnail);
+			document.getElementById('img-container-midiam').insertAdjacentHTML('beforeend', thumbnail);
 		}
 	});
 }
