@@ -49,12 +49,13 @@ function changeImgSize(size) {
 }
 
 function addChangeImgSizeButton(p, nA) {
+	let pa = location.pathname;
 	let change_imgSize =
 		'<div id="changeImgSize-bt-container">'+
 			'<div id="menu-bt-content">'+
-				`<button id="menu-bt" onClick="location.href='/thumbnail?p=${p}&get=${nA}&s=small'">small</button>`+
-				`<button id="menu-bt" onClick="location.href='/thumbnail?p=${p}&get=${nA}&s=midiam'">midiam</button>`+
-				`<button id="menu-bt" onClick="location.href='/thumbnail?p=${p}&get=${nA}&s=large'">large</button>`+
+				`<button id="menu-bt" onClick="location.href='${pa}?p=${p}&get=${nA}&s=small'">small</button>`+
+				`<button id="menu-bt" onClick="location.href='${pa}?p=${p}&get=${nA}&s=midiam'">midiam</button>`+
+				`<button id="menu-bt" onClick="location.href='${pa}?p=${p}&get=${nA}&s=large'">large</button>`+
 			'</div>'+
 		'</div>'
 	;
@@ -62,12 +63,41 @@ function addChangeImgSizeButton(p, nA) {
 }
 
 function addNAcquiredButton(p, s) {
+	let pa = location.pathname;
 	let change_nAcquired =
 		'<div id="nAcquired-bt-container">'+
 			'<div id="menu-bt-content">'+
-				`<button id="menu-bt" onClick="location.href='/thumbnail?p=${p}&get=50&s=${s}'">50</button>`+
-				`<button id="menu-bt" onClick="location.href='/thumbnail?p=${p}&get=100&s=${s}'">100</button>`+
-				`<button id="menu-bt" onClick="location.href='/thumbnail?p=${p}&get=150&s=${s}'">150</button>`+
+				`<button id="menu-bt" onClick="location.href='${pa}?p=${p}&get=50&s=${s}'">50</button>`+
+				`<button id="menu-bt" onClick="location.href='${pa}?p=${p}&get=100&s=${s}'">100</button>`+
+				`<button id="menu-bt" onClick="location.href='${pa}?p=${p}&get=150&s=${s}'">150</button>`+
+			'</div>'+
+		'</div>'
+	;
+	document.getElementById('menu-container').insertAdjacentHTML('beforeend', change_nAcquired);
+}
+
+function addChangeImgSizeButtonSearch(id, p, nA) {
+	let pa = location.pathname;
+	let change_imgSize =
+		'<div id="changeImgSize-bt-container">'+
+			'<div id="menu-bt-content">'+
+				`<button id="menu-bt" onClick="location.href='${pa}?tid=${id}&p=${p}&get=${nA}&s=small'">small</button>`+
+				`<button id="menu-bt" onClick="location.href='${pa}?tid=${id}&p=${p}&get=${nA}&s=midiam'">midiam</button>`+
+				`<button id="menu-bt" onClick="location.href='${pa}?tid=${id}&p=${p}&get=${nA}&s=large'">large</button>`+
+			'</div>'+
+		'</div>'
+	;
+	document.getElementById('menu-container').insertAdjacentHTML('beforeend', change_imgSize);
+}
+
+function addNAcquiredButtonSearch(id, p, s) {
+	let pa = location.pathname;
+	let change_nAcquired =
+		'<div id="nAcquired-bt-container">'+
+			'<div id="menu-bt-content">'+
+				`<button id="menu-bt" onClick="location.href='${pa}?tid=${id}&p=${p}&get=50&s=${s}'">50</button>`+
+				`<button id="menu-bt" onClick="location.href='${pa}?tid=${id}&p=${p}&get=100&s=${s}'">100</button>`+
+				`<button id="menu-bt" onClick="location.href='${pa}?tid=${id}&p=${p}&get=150&s=${s}'">150</button>`+
 			'</div>'+
 		'</div>'
 	;
@@ -75,6 +105,7 @@ function addNAcquiredButton(p, s) {
 }
 
 function addPagination(p, limit, numA, s) {
+	let pa = location.pathname;
 	let pnnContainer =
 		'<div id="pnn-container"></div>'
 	;
@@ -84,7 +115,7 @@ function addPagination(p, limit, numA, s) {
 
 	if(`${p-1}` != 0) {
 		let back =
-			`<a id="pnn-back" class="fa pnn-button" href="/thumbnail?p=${p-1}&get=${numA}&s=${s}">&#xf137</a>`
+			`<a id="pnn-back" class="fa pnn-button" href="${pa}?p=${p-1}&get=${numA}&s=${s}">&#xf137</a>`
 		;
 		pnnContent.insertAdjacentHTML('afterbegin', back);
 	
@@ -94,7 +125,7 @@ function addPagination(p, limit, numA, s) {
 		let pNumber = p-i;
 		if(pNumber > 0) {
 			let pnnNumber =
-				`<a id="pnn-number" href="/thumbnail?p=${pNumber}&get=${numA}&s=${s}">${pNumber}</a>`
+				`<a id="pnn-number" href="${pa}?p=${pNumber}&get=${numA}&s=${s}">${pNumber}</a>`
 			;
 			pnnContent.insertAdjacentHTML('beforeend', pnnNumber);
 		} else {
@@ -111,7 +142,7 @@ function addPagination(p, limit, numA, s) {
 			pnnContent.insertAdjacentHTML('beforeend', nowP);
 		} else if(pNumber <= limit) {
 			let pnnNumber =
-				`<a id="pnn-number" href="/thumbnail?p=${pNumber}&get=${numA}&s=${s}">${pNumber}</a>`
+				`<a id="pnn-number" href="${pa}?p=${pNumber}&get=${numA}&s=${s}">${pNumber}</a>`
 			;
 			pnnContent.insertAdjacentHTML('beforeend', pnnNumber);
 		} else {
@@ -121,7 +152,7 @@ function addPagination(p, limit, numA, s) {
 
 	if(`${p+1}` <= limit) {
 		let next =
-			`<a id="pnn-next" class="fa pnn-button" href="/thumbnail?p=${p+1}&get=${numA}&s=${s}">&#xf138</a>`
+			`<a id="pnn-next" class="fa pnn-button" href="${pa}?p=${p+1}&get=${numA}&s=${s}">&#xf138</a>`
 		;
 		pnnContent.insertAdjacentHTML('beforeend', next);
 	}
@@ -167,24 +198,6 @@ function addOriginalImg(v) {
 	});
 }
 
-function resizeImg(imgs, nA) {
-	for(let i=0; i < imgs.length; i++) {
-		let img = imgs[i].FileName
-		let tid = imgs[i].TwitterID
-		let thumbnail =
-			'<div class="content-thumbnail" target="_blank">'+
-				`<a href="/original?tid=${tid}&fname=${img}">`+
-					`<img class="thumbnail-img" src="../IMAGE/Twitter/${img}"/>`+
-				'</a>'+
-				`<a id="twi-id-link" href="/search?tid=${tid}&get=${nA}">`+
-					`<span id="twi-id-hover">${tid}</span>`+
-				'</a>'+
-			'</div>'
-		;
-		document.getElementById('img-container').insertAdjacentHTML('beforeend', thumbnail);
-	}
-}
-
 function addThumbnailImg(v) {
 	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg${v}`, function(response){
 		let page = response.PageNumber
@@ -206,7 +219,7 @@ function addThumbnailImg(v) {
 					`<a href="/original?tid=${tid}&fname=${img}">`+
 						`<img class="thumbnail-img" src="../IMAGE/Twitter/${img}"/>`+
 					'</a>'+
-					`<a id="twi-id-link" href="/search?tid=${tid}&get=${nA}">`+
+					`<a id="twi-id-link" href="/search?tid=${tid}&p=1&get=${nA}">`+
 						`<span id="twi-id-hover">${tid}</span>`+
 					'</a>'+
 				'</div>'
@@ -222,6 +235,7 @@ function addSearchThumbnailImg(v) {
 		let limit = response.PageLimit
 		let nA = response.NumberAcquired
 		let imgList = response.Thumbnail
+		let imgSize = response.ImgSize
 
 		let tid = response.TwitterID
 		let displayID =
@@ -232,8 +246,8 @@ function addSearchThumbnailImg(v) {
 		document.getElementById('menu-container').insertAdjacentHTML('afterbegin', displayID);
 
 		changeImgSize(imgSize);
-		addChangeImgSizeButton(page, nA);
-		addNAcquiredButton(page, imgSize);
+		addChangeImgSizeButtonSearch(tid, page, nA);
+		addNAcquiredButtonSearch(tid, page, imgSize);
 		addPagination(page, limit, nA, imgSize);
 	
 		for(let i=0; i < imgList.length; i++) {
