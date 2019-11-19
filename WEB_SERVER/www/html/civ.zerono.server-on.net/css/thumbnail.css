@@ -126,15 +126,15 @@
 #nAcquired-bt {
 	flex-shrink: 0;
 	margin: 5%;
-	width: 2.5em;
-	height: 2.5em;
-	border-style: none;
+	width: 3em;
+	height: 3em;
+	border: solid 2px #ffffff;
 	border-radius: 50%;
 	text-align: center;
-	text-decoration: none;
-	background: #ffffff;
+	background: none;
 	font-family: 'Lato';
-	font-size: 1em;
+	font-size: 100%;
+	color: #ffffff;
 	cursor: pointer;
 }
 
