@@ -51,11 +51,12 @@ function changeImgSize(size) {
 function addChangeImgSizeButton(p, nA) {
 	let pa = location.pathname;
 	let change_imgSize =
-		'<div id="changeImgSize-bt-container">'+
-			'<div id="menu-bt-content-ci">'+
-				`<a id="menu-bt-ci" href="${pa}?p=${p}&get=${nA}&s=small">Small</a>`+
-				`<a id="menu-bt-ci" href="${pa}?p=${p}&get=${nA}&s=midiam">Midiam</a>`+
-				`<a id="menu-bt-ci" href="${pa}?p=${p}&get=${nA}&s=large">Large</a>`+
+		'<div id="cis-bt-menu" class="dropdown">'+
+			'<div class="dropbtn">ImageSize</div>'+
+			'<div id="cis-bt-content" class="dropdown-content">'+
+				`<a href="${pa}?p=${p}&get=${nA}&s=small">Small</a>`+
+				`<a href="${pa}?p=${p}&get=${nA}&s=midiam">Midiam</a>`+
+				`<a href="${pa}?p=${p}&get=${nA}&s=large">Large</a>`+
 			'</div>'+
 		'</div>'
 	;
@@ -65,11 +66,12 @@ function addChangeImgSizeButton(p, nA) {
 function addNAcquiredButton(p, s) {
 	let pa = location.pathname;
 	let change_nAcquired =
-		'<div id="nAcquired-bt-container">'+
-			'<div id="menu-bt-content-na">'+
-				`<a id="menu-bt-na" href="${pa}?p=${p}&get=50&s=${s}">50</a>`+
-				`<a id="menu-bt-na" href="${pa}?p=${p}&get=100&s=${s}">100</a>`+
-				`<a id="menu-bt-na" href="${pa}?p=${p}&get=150&s=${s}">150</a>`+
+		'<div id="na-bt-menu" class="dropdown">'+
+			'<div class="dropbtn">NumberAcquired</div>'+
+			'<div id="na-bt-content" class="dropdown-content">'+
+				`<a href="${pa}?p=${p}&get=50&s=${s}">50</a>`+
+				`<a href="${pa}?p=${p}&get=100&s=${s}">100</a>`+
+				`<a href="${pa}?p=${p}&get=150&s=${s}">150</a>`+
 			'</div>'+
 		'</div>'
 	;
@@ -79,11 +81,12 @@ function addNAcquiredButton(p, s) {
 function addChangeImgSizeButtonSearch(id, p, nA) {
 	let pa = location.pathname;
 	let change_imgSize =
-		'<div id="changeImgSize-bt-container">'+
-			'<div id="menu-bt-content-ci">'+
-				`<a id="menu-bt-ci" href="${pa}?tid=${id}&p=${p}&get=${nA}&s=small">Small</a>`+
-				`<a id="menu-bt-ci" href="${pa}?tid=${id}&p=${p}&get=${nA}&s=midiam">Midiam</a>`+
-				`<a id="menu-bt-ci" href="${pa}?tid=${id}&p=${p}&get=${nA}&s=large">Large</a>`+
+		'<div id="cis-bt-menu" class="dropdown">'+
+			'<div class="dropbtn">ImageSize</div>'+
+			'<div id="cis-bt-content" class="dropdown-content">'+
+				`<a href="${pa}?tid=${id}&p=${p}&get=${nA}&s=small">Small</a>`+
+				`<a href="${pa}?tid=${id}&p=${p}&get=${nA}&s=midiam">Midiam</a>`+
+				`<a href="${pa}?tid=${id}&p=${p}&get=${nA}&s=large">Large</a>`+
 			'</div>'+
 		'</div>'
 	;
@@ -93,11 +96,12 @@ function addChangeImgSizeButtonSearch(id, p, nA) {
 function addNAcquiredButtonSearch(id, p, s) {
 	let pa = location.pathname;
 	let change_nAcquired =
-		'<div id="nAcquired-bt-container">'+
-			'<div id="menu-bt-content-na">'+
-				`<a id="menu-bt-na" href="${pa}?tid=${id}&p=${p}&get=50&s=${s}">50</a>`+
-				`<a id="menu-bt-na" href="${pa}?tid=${id}&p=${p}&get=100&s=${s}">100</a>`+
-				`<a id="menu-bt-na" href="${pa}?tid=${id}&p=${p}&get=150&s=${s}">150</a>`+
+		'<div id="na-bt-menu" class="dropdown">'+
+			'<div class="dropbtn">NumberAcquired</div>'+
+			'<div id="na-bt-content" class="dropdown-content">'+
+				`<a href="${pa}?tid=${id}&p=${p}&get=50&s=${s}">50</a>`+
+				`<a href="${pa}?tid=${id}&p=${p}&get=100&s=${s}">100</a>`+
+				`<a href="${pa}?tid=${id}&p=${p}&get=150&s=${s}">150</a>`+
 			'</div>'+
 		'</div>'
 	;
