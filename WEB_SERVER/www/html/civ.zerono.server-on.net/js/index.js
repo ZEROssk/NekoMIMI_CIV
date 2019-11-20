@@ -223,8 +223,13 @@ function addSearchThumbnailImg(v) {
 		let nA = response.NumberAcquired;
 		let imgList = response.Thumbnail;
 		let imgSize = response.ImgSize;
-
 		let tid = response.TwitterID;
+
+		let hisback =
+			'<button id="hisback" class="fa" onclick="history.back()">&#xf137</button>'
+		;
+		document.getElementById('media').insertAdjacentHTML('beforebegin', hisback);
+
 		let displayID =
 			'<div id="select-ID">'+
 				`<a href="https://twitter.com/${tid}" target="_blank">@${tid}</a>`+
