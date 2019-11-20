@@ -58,11 +58,11 @@ function addChangeImgSizeButton(id, p, nA) {
 
 	let change_imgSize =
 		'<div id="cis-bt-menu" class="dropdown">'+
-			'<div class="dropbtn">ImageSize</div>'+
+			'<div class="menu-root">ImageSize<div id="icon" class="fa">&#xf078</div></div>'+
 			'<div id="cis-bt-content" class="dropdown-content">'+
 				`<a href="${u}small">Small</a>`+
 				`<a href="${u}midiam">Midiam</a>`+
-				`<a href="${u}large">Large</a>`+
+				`<a id="last-menu" href="${u}large">Large</a>`+
 			'</div>'+
 		'</div>'
 	;
@@ -79,11 +79,11 @@ function addNAcquiredButton(id, p, s) {
 
 	let change_nAcquired =
 		'<div id="na-bt-menu" class="dropdown">'+
-			'<div class="dropbtn">NumberAcquired</div>'+
+			'<div class="menu-root">NumberAcquired<div id="icon" class="fa">&#xf078</div></div>'+
 			'<div id="na-bt-content" class="dropdown-content">'+
 				`<a href="${u}50">50</a>`+
 				`<a href="${u}100">100</a>`+
-				`<a href="${u}150">150</a>`+
+				`<a id="last-menu" href="${u}150">150</a>`+
 			'</div>'+
 		'</div>'
 	;
