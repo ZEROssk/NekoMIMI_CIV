@@ -53,9 +53,9 @@ function addChangeImgSizeButton(p, nA) {
 	let change_imgSize =
 		'<div id="changeImgSize-bt-container">'+
 			'<div id="menu-bt-content-ci">'+
-				`<button id="menu-bt" class="fa" onClick="location.href='${pa}?p=${p}&get=${nA}&s=small'">&#xf0c8</button>`+
-				`<button id="menu-bt" class="fa" onClick="location.href='${pa}?p=${p}&get=${nA}&s=midiam'">&#xf0c8</button>`+
-				`<button id="menu-bt" class="fa" onClick="location.href='${pa}?p=${p}&get=${nA}&s=large'">&#xf0c8</button>`+
+				`<a id="menu-bt-ci" href="${pa}?p=${p}&get=${nA}&s=small">Small</a>`+
+				`<a id="menu-bt-ci" href="${pa}?p=${p}&get=${nA}&s=midiam">Midiam</a>`+
+				`<a id="menu-bt-ci" href="${pa}?p=${p}&get=${nA}&s=large">Large</a>`+
 			'</div>'+
 		'</div>'
 	;
@@ -67,9 +67,9 @@ function addNAcquiredButton(p, s) {
 	let change_nAcquired =
 		'<div id="nAcquired-bt-container">'+
 			'<div id="menu-bt-content-na">'+
-				`<button id="menu-bt" onClick="location.href='${pa}?p=${p}&get=50&s=${s}'">50</button>`+
-				`<button id="menu-bt" onClick="location.href='${pa}?p=${p}&get=100&s=${s}'">100</button>`+
-				`<button id="menu-bt" onClick="location.href='${pa}?p=${p}&get=150&s=${s}'">150</button>`+
+				`<a id="menu-bt-na" href="${pa}?p=${p}&get=50&s=${s}">50</a>`+
+				`<a id="menu-bt-na" href="${pa}?p=${p}&get=100&s=${s}">100</a>`+
+				`<a id="menu-bt-na" href="${pa}?p=${p}&get=150&s=${s}">150</a>`+
 			'</div>'+
 		'</div>'
 	;
@@ -81,9 +81,9 @@ function addChangeImgSizeButtonSearch(id, p, nA) {
 	let change_imgSize =
 		'<div id="changeImgSize-bt-container">'+
 			'<div id="menu-bt-content-ci">'+
-				`<button id="menu-bt" class="fa" onClick="location.href='${pa}?tid=${id}&p=${p}&get=${nA}&s=small'">&#xf0c8</button>`+
-				`<button id="menu-bt" class="fa" onClick="location.href='${pa}?tid=${id}&p=${p}&get=${nA}&s=midiam'">&#xf0c8</button>`+
-				`<button id="menu-bt" class="fa" onClick="location.href='${pa}?tid=${id}&p=${p}&get=${nA}&s=large'">&#xf0c8</button>`+
+				`<a id="menu-bt-ci" href="${pa}?tid=${id}&p=${p}&get=${nA}&s=small">Small</a>`+
+				`<a id="menu-bt-ci" href="${pa}?tid=${id}&p=${p}&get=${nA}&s=midiam">Midiam</a>`+
+				`<a id="menu-bt-ci" href="${pa}?tid=${id}&p=${p}&get=${nA}&s=large">Large</a>`+
 			'</div>'+
 		'</div>'
 	;
@@ -95,9 +95,9 @@ function addNAcquiredButtonSearch(id, p, s) {
 	let change_nAcquired =
 		'<div id="nAcquired-bt-container">'+
 			'<div id="menu-bt-content-na">'+
-				`<button id="menu-bt" onClick="location.href='${pa}?tid=${id}&p=${p}&get=50&s=${s}'">50</button>`+
-				`<button id="menu-bt" onClick="location.href='${pa}?tid=${id}&p=${p}&get=100&s=${s}'">100</button>`+
-				`<button id="menu-bt" onClick="location.href='${pa}?tid=${id}&p=${p}&get=150&s=${s}'">150</button>`+
+				`<a id="menu-bt-na" href="${pa}?tid=${id}&p=${p}&get=50&s=${s}">50</a>`+
+				`<a id="menu-bt-na" href="${pa}?tid=${id}&p=${p}&get=100&s=${s}">100</a>`+
+				`<a id="menu-bt-na" href="${pa}?tid=${id}&p=${p}&get=150&s=${s}">150</a>`+
 			'</div>'+
 		'</div>'
 	;

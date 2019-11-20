@@ -134,11 +134,12 @@
 	font-size: 2.5em;
 }
 
-#nAcquired-bt-container {
-	margin-left: 15%;
+#changeImgSize-bt-container {
+	margin-right: 15%;
 }
 
-#changeImgSize-bt-container {
+#nAcquired-bt-container {
+	margin-left: 15%;
 }
 
 #menu-bt-content-ci {
@@ -149,17 +150,30 @@
 	display: flex;
 }
 
-#menu-bt {
+#menu-bt-ci {
+	display: flex;
 	flex-shrink: 0;
+	padding: 3%;
 	margin: 5%;
-	width: 3em;
-	height: 3em;
 	border: solid 2px #ffffff;
-	border-radius: 50%;
+	border-radius: 20%;
 	text-align: center;
 	background: none;
 	font-family: 'Lato';
-	font-size: 100%;
+	font-size: 1.5em;
+	text-decoration: none;
+	color: #ffffff;
+	cursor: pointer;
+}
+
+#menu-bt-na {
+	flex-shrink: 0;
+	margin: 5%;
+	text-align: center;
+	background: none;
+	font-family: 'Lato';
+	font-size: 1.5em;
+	text-decoration: none;
 	color: #ffffff;
 	cursor: pointer;
 }
