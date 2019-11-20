@@ -48,60 +48,42 @@ function changeImgSize(size) {
 	}
 }
 
-function addChangeImgSizeButton(p, nA) {
+function addChangeImgSizeButton(id, p, nA) {
 	let pa = location.pathname;
+	if(id == "") {
+		u = `${pa}?p=${p}&get=${nA}&s=`
+	} else {
+		u = `${pa}?tid=${id}&p=${p}&get=${nA}&s=`
+	}
+
 	let change_imgSize =
 		'<div id="cis-bt-menu" class="dropdown">'+
 			'<div class="dropbtn">ImageSize</div>'+
 			'<div id="cis-bt-content" class="dropdown-content">'+
-				`<a href="${pa}?p=${p}&get=${nA}&s=small">Small</a>`+
-				`<a href="${pa}?p=${p}&get=${nA}&s=midiam">Midiam</a>`+
-				`<a href="${pa}?p=${p}&get=${nA}&s=large">Large</a>`+
+				`<a href="${u}small">Small</a>`+
+				`<a href="${u}midiam">Midiam</a>`+
+				`<a href="${u}large">Large</a>`+
 			'</div>'+
 		'</div>'
 	;
 	document.getElementById('change-button-container').insertAdjacentHTML('beforeend', change_imgSize);
 }
 
-function addNAcquiredButton(p, s) {
+function addNAcquiredButton(id, p, s) {
 	let pa = location.pathname;
+	if(id == "") {
+		u = `${pa}?p=${p}&s=${s}&get=`
+	} else {
+		u = `${pa}?tid=${id}&p=${p}&s=${s}&get=`
+	}
+
 	let change_nAcquired =
 		'<div id="na-bt-menu" class="dropdown">'+
 			'<div class="dropbtn">NumberAcquired</div>'+
 			'<div id="na-bt-content" class="dropdown-content">'+
-				`<a href="${pa}?p=${p}&get=50&s=${s}">50</a>`+
-				`<a href="${pa}?p=${p}&get=100&s=${s}">100</a>`+
-				`<a href="${pa}?p=${p}&get=150&s=${s}">150</a>`+
-			'</div>'+
-		'</div>'
-	;
-	document.getElementById('change-button-container').insertAdjacentHTML('beforeend', change_nAcquired);
-}
-
-function addChangeImgSizeButtonSearch(id, p, nA) {
-	let pa = location.pathname;
-	let change_imgSize =
-		'<div id="cis-bt-menu" class="dropdown">'+
-			'<div class="dropbtn">ImageSize</div>'+
-			'<div id="cis-bt-content" class="dropdown-content">'+
-				`<a href="${pa}?tid=${id}&p=${p}&get=${nA}&s=small">Small</a>`+
-				`<a href="${pa}?tid=${id}&p=${p}&get=${nA}&s=midiam">Midiam</a>`+
-				`<a href="${pa}?tid=${id}&p=${p}&get=${nA}&s=large">Large</a>`+
-			'</div>'+
-		'</div>'
-	;
-	document.getElementById('change-button-container').insertAdjacentHTML('beforeend', change_imgSize);
-}
-
-function addNAcquiredButtonSearch(id, p, s) {
-	let pa = location.pathname;
-	let change_nAcquired =
-		'<div id="na-bt-menu" class="dropdown">'+
-			'<div class="dropbtn">NumberAcquired</div>'+
-			'<div id="na-bt-content" class="dropdown-content">'+
-				`<a href="${pa}?tid=${id}&p=${p}&get=50&s=${s}">50</a>`+
-				`<a href="${pa}?tid=${id}&p=${p}&get=100&s=${s}">100</a>`+
-				`<a href="${pa}?tid=${id}&p=${p}&get=150&s=${s}">150</a>`+
+				`<a href="${u}50">50</a>`+
+				`<a href="${u}100">100</a>`+
+				`<a href="${u}150">150</a>`+
 			'</div>'+
 		'</div>'
 	;
@@ -204,15 +186,16 @@ function addOriginalImg(v) {
 
 function addThumbnailImg(v) {
 	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg${v}`, function(response){
-		let page = response.PageNumber
-		let limit = response.PageLimit
-		let nA = response.NumberAcquired
-		let imgList = response.Thumbnail
-		let imgSize = response.ImgSize
+		let page = response.PageNumber;
+		let limit = response.PageLimit;
+		let nA = response.NumberAcquired;
+		let imgList = response.Thumbnail;
+		let imgSize = response.ImgSize;
+		let tid = "";
 
 		changeImgSize(imgSize);
-		addChangeImgSizeButton(page, nA);
-		addNAcquiredButton(page, imgSize);
+		addChangeImgSizeButton(tid, page, nA);
+		addNAcquiredButton(tid, page, imgSize);
 		addPagination(page, limit, nA, imgSize);
 
 		for(let i=0; i < imgList.length; i++) {
@@ -235,13 +218,13 @@ function addThumbnailImg(v) {
 
 function addSearchThumbnailImg(v) {
 	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg${v}`, function(response){
-		let page = response.PageNumber
-		let limit = response.PageLimit
-		let nA = response.NumberAcquired
-		let imgList = response.Thumbnail
-		let imgSize = response.ImgSize
+		let page = response.PageNumber;
+		let limit = response.PageLimit;
+		let nA = response.NumberAcquired;
+		let imgList = response.Thumbnail;
+		let imgSize = response.ImgSize;
 
-		let tid = response.TwitterID
+		let tid = response.TwitterID;
 		let displayID =
 			'<div id="select-ID">'+
 				`<a href="https://twitter.com/${tid}" target="_blank">@${tid}</a>`+
@@ -250,8 +233,8 @@ function addSearchThumbnailImg(v) {
 		document.getElementById('menu-container').insertAdjacentHTML('afterbegin', displayID);
 
 		changeImgSize(imgSize);
-		addChangeImgSizeButtonSearch(tid, page, nA);
-		addNAcquiredButtonSearch(tid, page, imgSize);
+		addChangeImgSizeButton(tid, page, nA);
+		addNAcquiredButton(tid, page, imgSize);
 		addPagination(page, limit, nA, imgSize);
 	
 		for(let i=0; i < imgList.length; i++) {
