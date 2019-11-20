@@ -53,9 +53,9 @@ function addChangeImgSizeButton(p, nA) {
 	let change_imgSize =
 		'<div id="changeImgSize-bt-container">'+
 			'<div id="menu-bt-content-ci">'+
-				`<button id="menu-bt" onClick="location.href='${pa}?p=${p}&get=${nA}&s=small'">small</button>`+
-				`<button id="menu-bt" onClick="location.href='${pa}?p=${p}&get=${nA}&s=midiam'">midiam</button>`+
-				`<button id="menu-bt" onClick="location.href='${pa}?p=${p}&get=${nA}&s=large'">large</button>`+
+				`<button id="menu-bt" class="fa" onClick="location.href='${pa}?p=${p}&get=${nA}&s=small'">&#xf0c8</button>`+
+				`<button id="menu-bt" class="fa" onClick="location.href='${pa}?p=${p}&get=${nA}&s=midiam'">&#xf0c8</button>`+
+				`<button id="menu-bt" class="fa" onClick="location.href='${pa}?p=${p}&get=${nA}&s=large'">&#xf0c8</button>`+
 			'</div>'+
 		'</div>'
 	;
@@ -81,9 +81,9 @@ function addChangeImgSizeButtonSearch(id, p, nA) {
 	let change_imgSize =
 		'<div id="changeImgSize-bt-container">'+
 			'<div id="menu-bt-content-ci">'+
-				`<button id="menu-bt" onClick="location.href='${pa}?tid=${id}&p=${p}&get=${nA}&s=small'">small</button>`+
-				`<button id="menu-bt" onClick="location.href='${pa}?tid=${id}&p=${p}&get=${nA}&s=midiam'">midiam</button>`+
-				`<button id="menu-bt" onClick="location.href='${pa}?tid=${id}&p=${p}&get=${nA}&s=large'">large</button>`+
+				`<button id="menu-bt" class="fa" onClick="location.href='${pa}?tid=${id}&p=${p}&get=${nA}&s=small'">&#xf0c8</button>`+
+				`<button id="menu-bt" class="fa" onClick="location.href='${pa}?tid=${id}&p=${p}&get=${nA}&s=midiam'">&#xf0c8</button>`+
+				`<button id="menu-bt" class="fa" onClick="location.href='${pa}?tid=${id}&p=${p}&get=${nA}&s=large'">&#xf0c8</button>`+
 			'</div>'+
 		'</div>'
 	;
