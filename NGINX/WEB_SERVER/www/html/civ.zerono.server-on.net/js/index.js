@@ -39,8 +39,8 @@ function changeImgSize(size) {
 		case 'small':
 			imgCon.className = "img-size-small";
 			break;
-		case 'midiam':
-			imgCon.className = "img-size-midiam";
+		case 'medium':
+			imgCon.className = "img-size-medium";
 			break;
 		case 'large':
 			imgCon.className = "img-size-large";
@@ -61,7 +61,7 @@ function addChangeImgSizeButton(id, p, nA) {
 			'<div class="menu-root">ImageSize<div id="icon" class="fa">&#xf078</div></div>'+
 			'<div id="cis-bt-content" class="dropdown-content">'+
 				`<a href="${u}small">Small</a>`+
-				`<a href="${u}midiam">Midiam</a>`+
+				`<a href="${u}medium">Medium</a>`+
 				`<a id="last-menu" href="${u}large">Large</a>`+
 			'</div>'+
 		'</div>'

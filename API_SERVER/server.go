@@ -34,7 +34,7 @@ type ImgJSON struct {
 }
 
 var NumberAcquired int = 50
-var ImageSize string = "midiam"
+var ImageSize string = "medium"
 
 // https://host-name:port/api/v1/twimg/thumbnail?p={PageNum}&get={NumberAcquired}&s={ImageSize}
 func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
@@ -53,7 +53,7 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 
 	switch size {
 		case "small": ImageSize = size
-		case "midiam" : ImageSize = size
+		case "medium" : ImageSize = size
 		case "large" : ImageSize = size
 		default: size = ImageSize
 	}
@@ -111,7 +111,7 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 
 	switch size {
 		case "small": ImageSize = size
-		case "midiam" : ImageSize = size
+		case "medium" : ImageSize = size
 		case "large" : ImageSize = size
 		default: size = ImageSize
 	}
