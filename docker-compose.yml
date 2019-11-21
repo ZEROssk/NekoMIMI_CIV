@@ -1,29 +1,6 @@
 version: '3.3'
 
 services:
-    nginx:
-        image: "nginx"
-        container_name: civ_web_test
-        ports:
-            - "80:80"
-        volumes:
-            - ./WEB_SERVER/nginx.conf:/etc/nginx/conf.d/nginx.conf
-            - ./WEB_SERVER/www/html:/var/www/html
-            - ./IMAGE:/var/www/html/civ.zerono.server-on.net/IMAGE
-        environment:
-            TZ: 'Asia/Tokyo'
-            NGINX_PORT: 80
-        networks:
-            - proxy
-        restart: always
-        depends_on:
-            - db
-            - api
-        logging:
-            options:
-                max-size: "10m"
-                max-file: "10"
-
     api:
         build: ./API_SERVER
         ports:
@@ -38,7 +15,7 @@ services:
             MYSQL_PORT: $MYSQL_SERVER_PORT
             TZ: 'Asia/Tokyo'
         networks:
-            - proxy
+            - nginx_reverse_proxy
             - backend
         restart: always
         depends_on:
@@ -60,6 +37,7 @@ volumes:
     db:
 
 networks:
-    proxy:
+    nginx_reverse_proxy:
+        external: true
     backend:
 
