@@ -7,9 +7,6 @@
 # ./*.sh
 *.sh
 
-# ./IMAGE/*
-./IMAGE/*
-
 # ./*.DS_Store
 *.DS_Store
 
@@ -22,4 +19,4 @@
 nginx.conf
 
 # initialize.sql
-#*.sql
+*.sql
