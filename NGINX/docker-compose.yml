@@ -10,7 +10,6 @@ services:
             - ./WEB_SERVER/nginx.conf:/etc/nginx/conf.d/nginx.conf
             - ./WEB_SERVER/www/html:/var/www/html
             - ./IMAGE:/var/www/html/civ.zerono.server-on.net/IMAGE
-            - ./IMAGE:/var/www/html/civ.zerono.cloud/IMAGE
         environment:
             TZ: 'Asia/Tokyo'
             NGINX_PORT: 80
