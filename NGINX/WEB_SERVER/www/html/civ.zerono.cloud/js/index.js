@@ -1,6 +1,7 @@
 'usestrict';
 
 var path = location.pathname + location.search;
+let api = "http://civ.zerono.cloud:8888/api/v1/twimg"
 
 document.addEventListener("DOMContentLoaded", function() {
 	if (location.pathname == "/original") {
@@ -172,7 +173,7 @@ function addOriginalImg(v) {
 
 	orImg.parentNode.insertAdjacentHTML('beforebegin', hisback)
 
-	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg${v}`, function(response){
+	requestAjax(`${api}${v}`, function(response){
 
 		let img = response.Image.FileName
 		let original =
@@ -185,7 +186,7 @@ function addOriginalImg(v) {
 }
 
 function addThumbnailImg(v) {
-	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg${v}`, function(response){
+	requestAjax(`${api}${v}`, function(response){
 		let page = response.PageNumber;
 		let limit = response.PageLimit;
 		let nA = response.NumberAcquired;
@@ -217,7 +218,7 @@ function addThumbnailImg(v) {
 }
 
 function addSearchThumbnailImg(v) {
-	requestAjax(`http://civ.zerono.server-on.net:8888/api/v1/twimg${v}`, function(response){
+	requestAjax(`${api}${v}`, function(response){
 		let page = response.PageNumber;
 		let limit = response.PageLimit;
 		let nA = response.NumberAcquired;
