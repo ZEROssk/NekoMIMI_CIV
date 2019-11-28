@@ -44,11 +44,11 @@ func DB_home(p string, begin string, end string) ([][]string, int) {
 	var m int
 	s := [][]string{}
 
-	rows, err := db.Query("SELECT*FROM twimg_data LIMIT ?, ?", begin, end)
+	rows, err := db.Query("SELECT*FROM "+dbTABLE+" LIMIT ?, ?", begin, end)
 	if err != nil {
 		panic(err.Error())
 	} else {
-		rows := db.QueryRow("SELECT COUNT(*) FROM twimg_data;")
+		rows := db.QueryRow("SELECT COUNT(*) FROM "+dbTABLE+";")
 
 		err := rows.Scan(&v.ID)
 		if err != nil {
@@ -72,11 +72,11 @@ func DB_search(t string, begin string, end string) ([][]string, int) {
 	var m int
 	s := [][]string{}
 
-	rows, err := db.Query("SELECT*FROM twimg_data WHERE TwiID=? LIMIT ?, ?", t, begin, end)
+	rows, err := db.Query("SELECT*FROM "+dbTABLE+" WHERE TwiID=? LIMIT ?, ?", t, begin, end)
 	if err != nil {
 		panic(err.Error())
 	} else {
-		rows := db.QueryRow("SELECT COUNT(*) FROM twimg_data WHERE TwiID=? ", t)
+		rows := db.QueryRow("SELECT COUNT(*) FROM "+dbTABLE+" WHERE TwiID=? ", t)
 
 		err := rows.Scan(&v.ID)
 		if err != nil {
@@ -97,7 +97,7 @@ func DB_search(t string, begin string, end string) ([][]string, int) {
 
 func DB_origin(t string, f string) []string {
 	var v Data
-	rows := db.QueryRow("SELECT*FROM twimg_data WHERE TwiID=? AND FileName=?", t, f)
+	rows := db.QueryRow("SELECT*FROM "+dbTABLE+" WHERE TwiID=? AND FileName=?", t, f)
 
 	err := rows.Scan(&v.ID, &v.TwiID, &v.Img, &v.CreatedAt)
 	if err != nil {
