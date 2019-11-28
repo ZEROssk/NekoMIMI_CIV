@@ -50,7 +50,7 @@ func insertDB(files []os.FileInfo) {
 
 	for _, f := range files {
 		ID := rep.Split(f.Name(), -1)
-		_, err := db.Exec("INSERT INTO twimg_data (TwiID, FileName) VALUES (?,?)", ID[2], f.Name())
+		_, err := db.Exec("INSERT INTO "+dbTABLE+" (TwiID, FileName) VALUES (?,?)", ID[2], f.Name())
 		if err != nil {
 			panic(err.Error())
 		}
@@ -64,7 +64,7 @@ func CheckDB() {
 	var v Data
 	var r int
 
-	rows := db.QueryRow("SELECT COUNT(*) FROM twimg_data;")
+	rows := db.QueryRow("SELECT COUNT(*) FROM "+dbTABLE+";")
 	err := rows.Scan(&v.Rec)
 	if err != nil {
 		panic(err.Error())
@@ -73,7 +73,7 @@ func CheckDB() {
 	if r == 0 {
 		insertDB(readDir(path))
 	} else if r != len(readDir(path)) {
-		rows := db.QueryRow("select CreatedAt from twimg_data where CreatedAt=(select max(CreatedAt) from twimg_data)")
+		rows := db.QueryRow("select CreatedAt from "+dbTABLE+" where CreatedAt=(select max(CreatedAt) from "+dbTABLE+")")
 		err := rows.Scan(&v.StStamp)
 		if err != nil {
 			panic(err.Error())
