@@ -125,6 +125,10 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 			Sprintf("%d", NumA),
 		)
 
+		if 0 == len(content) {
+			twiID = "ID ERROR"
+		}
+
 		var a int
 		if (Pl % NumA) != 0 {
 			a = (Pl / NumA) + 1
