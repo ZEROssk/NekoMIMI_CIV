@@ -1,13 +1,13 @@
 package main
 
 import(
-	."fmt"
+	//."fmt"
 	"log"
 	"net/http"
 	"strconv"
 
-	"./package_useDB"
-	"./package_checkDB"
+	"./useDB"
+	"./checkDB"
 	"github.com/ant0ine/go-json-rest/rest"
 )
 
@@ -36,7 +36,7 @@ type ImgJSON struct {
 var NumberAcquired int = 50
 var ImageSize string = "medium"
 
-// https://host-name:port/api/v1/twimg/thumbnail?p={PageNum}&get={NumberAcquired}&s={ImageSize}
+// /api/v1/twimg/thumbnail?p={PageNum}&get={NumberAcquired}&s={ImageSize}
 func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 	v := req.URL.Query()
 	size := v.Get("s")
@@ -92,7 +92,7 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 	}
 }
 
-// https://host-name:port/api/v1/twimg/search?tid={TwiID}&p={PageNum}&get={NumberAcquired}&s={ImageSize}
+// /api/v1/twimg/search?tid={TwiID}&p={PageNum}&get={NumberAcquired}&s={ImageSize}
 func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 	v := req.URL.Query()
 	size := v.Get("s")
@@ -155,7 +155,7 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 	}
 }
 
-// https://host-name:port/api/v1/twimg/original?tid={TwiID}&fname={FileName}
+// /api/v1/twimg/original?tid={TwiID}&fname={FileName}
 func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
 	v := req.URL.Query()
 
@@ -174,16 +174,102 @@ func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
 	}
 }
 
+// /api/v1/twimg/upload
+func API_twimg_upload(Rw rest.ResponseWriter, req *rest.Request) {
+	imgFileS, err := req.MultipartReader()
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	for {
+		imgFile, err := imgFileS.NextPart()
+		if err == io.EOF {
+			break
+		}
+
+		buffer := bytes.NewBuffer(nil)
+		imgFB := io.TeeReader(imgFile, buffer)
+
+		decImg, format, err := image.Decode(imgFB)
+		if err != nil {
+			log.Println(err)
+			return
+		} else {
+			reg := `^Twitter-[0-9]{19}-[a-zA-Z0-9\_]{1,}-[a-zA-Z0-9\_]{15}.(jpg|png)`
+			fNCheck := regexp.MustCompile(reg).Match([]byte(imgFile.FileName()))
+			fNCheck = true
+			if fNCheck == true {
+				//tID := strings.Split(imgFile.FileName(), "-")[2]
+
+				orImg, err := os.Create("./img/original/"+imgFile.FileName())
+				if err != nil {
+					log.Println(err)
+					return
+				}
+				defer orImg.Close()
+
+				io.Copy(orImg, buffer)
+
+				var rect image.Rectangle
+
+				maxSize := 256
+				imgWH := decImg.Bounds()
+				fImgY := float64(imgWH.Dy())
+				fImgX := float64(imgWH.Dx())
+				fMaxS := float64(maxSize)
+
+				if imgWH.Dy() > imgWH.Dx() {
+					x := int(fImgX/(fImgY/fMaxS))
+					rect = image.Rect(0, 0, x, maxSize)
+				} else if imgWH.Dy() < imgWH.Dx() {
+					y := int(fImgY/(fImgX/fMaxS))
+					rect = image.Rect(0, 0, maxSize, y)
+				} else if imgWH.Dy() == imgWH.Dx() {
+					rect = image.Rect(0, 0, maxSize, maxSize)
+				}
+
+				imgScale := image.NewRGBA(rect)
+				draw.BiLinear.Scale(imgScale, imgScale.Bounds(), decImg, imgWH, draw.Over, nil)
+
+				thImg, err := os.Create("./img/thumbnail/"+imgFile.FileName())
+				if err != nil {
+					log.Println(err)
+					return
+				}
+
+				switch format {
+				case "jpeg":
+					if err := jpeg.Encode(thImg, imgScale, &jpeg.Options{Quality: 100}); err != nil {
+						log.Println(err)
+						return
+					}
+				case "png":
+					if err := png.Encode(thImg, imgScale); err != nil {
+						log.Println(err)
+						return
+					}
+				}
+			} else {
+				log.Println("Error: unsuported file format")
+				return
+			}
+		}
+	}
+	log.Println("Successfully Uploaded Image!")
+}
+
 func main() {
 	useDB.LoginDB()
 	checkDB.CheckDB()
 
 	api := rest.NewApi()
-	api.Use(rest.DefaultDevStack...)
+	api.Use(rest.DefaultCommonStack...)
 	router, err := rest.MakeRouter(
 		rest.Get("/api/v1/twimg/thumbnail", API_twimg),
 		rest.Get("/api/v1/twimg/search", API_twimg_search),
 		rest.Get("/api/v1/twimg/original", API_twimg_original),
+		rest.Post("/api/v1/twimg/upload", API_twimg_upload),
 	)
 	if err != nil {
 		log.Fatal(err)
