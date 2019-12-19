@@ -5,7 +5,7 @@ import(
 	"io"
 	"log"
 	"regexp"
-	//"strings"
+	"strings"
 	"bytes"
 	"net/http"
 	"strconv"
@@ -206,11 +206,12 @@ func API_twimg_upload(Rw rest.ResponseWriter, req *rest.Request) {
 			fNCheck := regexp.MustCompile(reg).Match([]byte(imgFile.FileName()))
 			fNCheck = true
 			if fNCheck == true {
-				//tID := strings.Split(imgFile.FileName(), "-")[2]
+				tID := strings.Split(imgFile.FileName(), "-")[2]
 
 				saveIMG.SaveOrigin(imgFile.FileName(), buffer)
-
 				saveIMG.SaveThumbnail(decImg, imgFile.FileName(), format)
+
+				useDB.DBaddImg(tID, imgFile.FileName())
 			} else {
 				log.Println("Error: unsuported file format")
 				return
