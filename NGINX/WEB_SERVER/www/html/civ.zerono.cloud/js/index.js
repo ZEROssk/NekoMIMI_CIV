@@ -178,7 +178,7 @@ function addOriginalImg(v) {
 		let img = response.Image.FileName
 		let original =
 			'<div class="content-original" target="_blank">'+
-				`<img class="original-img" src="../IMAGE/Twitter/${img}"/>`+
+				`<img class="original-img" src="../IMAGE/ORIGIN/${img}"/>`+
 			'</div>'
 		;
 		orImg.insertAdjacentHTML('beforeend', original);
@@ -205,7 +205,7 @@ function addThumbnailImg(v) {
 			let thumbnail =
 				'<div class="content-thumbnail" target="_blank">'+
 					`<a href="/original?tid=${tid}&fname=${img}">`+
-						`<img class="thumbnail-img" src="../IMAGE/Twitter/${img}"/>`+
+						`<img class="thumbnail-img" src="../IMAGE/THUMBNAIL/${img}"/>`+
 					'</a>'+
 					`<a id="twi-id-link" href="/search?tid=${tid}&p=1&get=${nA}">`+
 						`<span id="twi-id-hover">${tid}</span>`+
@@ -248,7 +248,7 @@ function addSearchThumbnailImg(v) {
 			let thumbnail =
 				'<div class="content-thumbnail" target="_blank">'+
 					`<a href="/original?tid=${tid}&fname=${img}">`+
-						`<img class="thumbnail-img" src="../IMAGE/Twitter/${img}"/>`+
+						`<img class="thumbnail-img" src="../IMAGE/THUMBNAIL/${img}"/>`+
 					'</a>'+
 				'</div>'
 			;
