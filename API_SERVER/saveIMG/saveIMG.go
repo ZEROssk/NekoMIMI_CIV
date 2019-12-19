@@ -13,7 +13,7 @@ import(
 	"golang.org/x/image/draw"
 )
 
-func SaveOrigin(FName string, b byte){
+func SaveOrigin(FName string, b *bytes.Buffer) {
 	orImg, err := os.Create("./img/original/"+FName)
 	if err != nil {
 		log.Println(err)
@@ -24,7 +24,7 @@ func SaveOrigin(FName string, b byte){
 	io.Copy(orImg, b)
 }
 
-func SaveThumbnail(dImg img.image){
+func SaveThumbnail(dImg *image.YCbCr, format string) {
 	var rect image.Rectangle
 
 	maxSize := 256
