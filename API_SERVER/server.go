@@ -1,13 +1,19 @@
 package main
 
 import(
-	//."fmt"
+	."fmt"
+	"io"
 	"log"
+	"regexp"
+	//"strings"
+	"bytes"
 	"net/http"
 	"strconv"
+	"image"
 
 	"./useDB"
 	"./checkDB"
+	"./saveIMG"
 	"github.com/ant0ine/go-json-rest/rest"
 )
 
@@ -202,54 +208,9 @@ func API_twimg_upload(Rw rest.ResponseWriter, req *rest.Request) {
 			if fNCheck == true {
 				//tID := strings.Split(imgFile.FileName(), "-")[2]
 
-				orImg, err := os.Create("./img/original/"+imgFile.FileName())
-				if err != nil {
-					log.Println(err)
-					return
-				}
-				defer orImg.Close()
+				saveIMG.SaveOrigin(imgFile.FileName(), buffer)
 
-				io.Copy(orImg, buffer)
-
-				var rect image.Rectangle
-
-				maxSize := 256
-				imgWH := decImg.Bounds()
-				fImgY := float64(imgWH.Dy())
-				fImgX := float64(imgWH.Dx())
-				fMaxS := float64(maxSize)
-
-				if imgWH.Dy() > imgWH.Dx() {
-					x := int(fImgX/(fImgY/fMaxS))
-					rect = image.Rect(0, 0, x, maxSize)
-				} else if imgWH.Dy() < imgWH.Dx() {
-					y := int(fImgY/(fImgX/fMaxS))
-					rect = image.Rect(0, 0, maxSize, y)
-				} else if imgWH.Dy() == imgWH.Dx() {
-					rect = image.Rect(0, 0, maxSize, maxSize)
-				}
-
-				imgScale := image.NewRGBA(rect)
-				draw.BiLinear.Scale(imgScale, imgScale.Bounds(), decImg, imgWH, draw.Over, nil)
-
-				thImg, err := os.Create("./img/thumbnail/"+imgFile.FileName())
-				if err != nil {
-					log.Println(err)
-					return
-				}
-
-				switch format {
-				case "jpeg":
-					if err := jpeg.Encode(thImg, imgScale, &jpeg.Options{Quality: 100}); err != nil {
-						log.Println(err)
-						return
-					}
-				case "png":
-					if err := png.Encode(thImg, imgScale); err != nil {
-						log.Println(err)
-						return
-					}
-				}
+				saveIMG.SaveThumbnail(decImg, imgFile.FileName(), format)
 			} else {
 				log.Println("Error: unsuported file format")
 				return

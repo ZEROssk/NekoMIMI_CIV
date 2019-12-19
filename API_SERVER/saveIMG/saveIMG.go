@@ -4,7 +4,6 @@ import(
 	"io"
 	"os"
 	"log"
-	"regexp"
 	"bytes"
 	"image"
 	"image/jpeg"
@@ -24,7 +23,7 @@ func SaveOrigin(FName string, b *bytes.Buffer) {
 	io.Copy(orImg, b)
 }
 
-func SaveThumbnail(dImg *image.YCbCr, format string) {
+func SaveThumbnail(dImg image.Image, FName string, format string) {
 	var rect image.Rectangle
 
 	maxSize := 256
@@ -46,7 +45,7 @@ func SaveThumbnail(dImg *image.YCbCr, format string) {
 	imgScale := image.NewRGBA(rect)
 	draw.BiLinear.Scale(imgScale, imgScale.Bounds(), dImg, imgWH, draw.Over, nil)
 
-	thImg, err := os.Create("./img/thumbnail/"+imgFile.FileName())
+	thImg, err := os.Create("./img/thumbnail/"+FName)
 	if err != nil {
 		log.Println(err)
 		return
