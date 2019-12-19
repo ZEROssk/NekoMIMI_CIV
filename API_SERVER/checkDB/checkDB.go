@@ -14,10 +14,11 @@ func readDir(p string) []os.FileInfo {
 	return files
 }
 
-func insertDB(files []os.FileInfo) {
+func newIMG(files []os.FileInfo) {
 	for _, f := range files {
 		ID := strings.Split(f.Name(), "-")[2]
 		useDB.DBaddImg(ID, f.Name())
+		saveIMG.SaveThumbnail(decImg, f.Name(), format)
 	}
 }
 
@@ -26,7 +27,7 @@ func CheckDB(path string) {
 
 	r := useDB.DBcheckData()
 	if r == 0 {
-		insertDB(readDir(path))
+		newIMG(readDir(path))
 	} else if r != len(readDir(path)) {
 		StStamp := useDB.DBcheckCreatedAt()
 		rTStamp, _ := time.Parse(tformat, StStamp)
@@ -35,7 +36,7 @@ func CheckDB(path string) {
 		for _, f := range files {
 			fTStamp, _ := time.Parse(tformat, f.ModTime().Format(tformat))
 			if fTStamp.After(rTStamp) == true {
-				insertDB([]os.FileInfo{f})
+				newIMG([]os.FileInfo{f})
 			}
 		}
 	}
