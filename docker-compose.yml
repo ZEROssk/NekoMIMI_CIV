@@ -8,7 +8,6 @@ services:
         container_name: civ_api
         volumes:
             - ./NGINX/IMAGE:/go/Content
-            - ./img/:/go/img
         environment:
             MYSQL_DB: $MYSQL_DB
             MYSQL_TABLE: $MYSQL_TABLE

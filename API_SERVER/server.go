@@ -222,8 +222,9 @@ func API_twimg_upload(Rw rest.ResponseWriter, req *rest.Request) {
 }
 
 func main() {
+	path := "/go/Content/ORIGIN"
 	useDB.LoginDB()
-	checkDB.CheckDB()
+	checkDB.CheckDB(path)
 
 	api := rest.NewApi()
 	api.Use(rest.DefaultCommonStack...)

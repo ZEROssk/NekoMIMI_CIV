@@ -13,7 +13,7 @@ import(
 )
 
 func SaveOrigin(FName string, b *bytes.Buffer) {
-	orImg, err := os.Create("./img/original/"+FName)
+	orImg, err := os.Create("/go/Content/ORIGIN/"+FName)
 	if err != nil {
 		log.Println(err)
 		return
@@ -45,7 +45,7 @@ func SaveThumbnail(dImg image.Image, FName string, format string) {
 	imgScale := image.NewRGBA(rect)
 	draw.BiLinear.Scale(imgScale, imgScale.Bounds(), dImg, imgWH, draw.Over, nil)
 
-	thImg, err := os.Create("./img/thumbnail/"+FName)
+	thImg, err := os.Create("/go/Content/THUMBNAIL/"+FName)
 	if err != nil {
 		log.Println(err)
 		return

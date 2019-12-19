@@ -21,8 +21,7 @@ func insertDB(files []os.FileInfo) {
 	}
 }
 
-func CheckDB() {
-	path := "/go/Content/Twitter"
+func CheckDB(path string) {
 	const tformat = "2006-01-02 15:04:05"
 
 	r := useDB.DBcheckData()
