@@ -67,7 +67,7 @@ func API_twimg(Rw rest.ResponseWriter, req *rest.Request) {
 	if PNum != 0 {
 		start := (NumA*PNum)-NumA
 
-		content, Pl := useDB.DB_home(
+		content, Pl := useDB.DBhome(
 			Sprintf("%d", PNum),
 			Sprintf("%d", start),
 			Sprintf("%d", NumA),
@@ -125,7 +125,7 @@ func API_twimg_search(Rw rest.ResponseWriter, req *rest.Request) {
 	if PNum != 0 && twiID != "" {
 		start := (NumA*PNum)-NumA
 
-		content, Pl := useDB.DB_search(
+		content, Pl := useDB.DBsearch(
 			twiID,
 			Sprintf("%d", start),
 			Sprintf("%d", NumA),
@@ -169,7 +169,7 @@ func API_twimg_original(Rw rest.ResponseWriter, req *rest.Request) {
 	img := v.Get("fname")
 
 	if twiID != "" && img != "" {
-		content := useDB.DB_origin(twiID, img)
+		content := useDB.DBorigin(twiID, img)
 
 		r := map[string]ImgJSON{}
 		r["Image"] = ImgJSON{content[0], content[1]}

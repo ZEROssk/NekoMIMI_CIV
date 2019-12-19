@@ -21,6 +21,11 @@ type Data struct {
 	CreatedAt	string
 }
 
+type Check struct {
+	Rec	int
+	StStamp string
+}
+
 func getENV(p string) string {
 	env := os.Getenv(p)
 	return env
@@ -39,7 +44,7 @@ func LoginDB() {
 	}
 }
 
-func DB_home(p string, begin string, end string) ([][]string, int) {
+func DBhome(p string, begin string, end string) ([][]string, int) {
 	var v Data
 	var m int
 	s := [][]string{}
@@ -67,7 +72,7 @@ func DB_home(p string, begin string, end string) ([][]string, int) {
 	return s, m
 }
 
-func DB_search(t string, begin string, end string) ([][]string, int) {
+func DBsearch(t string, begin string, end string) ([][]string, int) {
 	var v Data
 	var m int
 	s := [][]string{}
@@ -95,16 +100,45 @@ func DB_search(t string, begin string, end string) ([][]string, int) {
 	return s, m
 }
 
-func DB_origin(t string, f string) []string {
+func DBorigin(t string, f string) []string {
 	var v Data
-	rows := db.QueryRow("SELECT*FROM "+dbTABLE+" WHERE TwiID=? AND FileName=?", t, f)
+	row := db.QueryRow("SELECT*FROM "+dbTABLE+" WHERE TwiID=? AND FileName=?", t, f)
 
-	err := rows.Scan(&v.ID, &v.TwiID, &v.Img, &v.CreatedAt)
+	err := row.Scan(&v.ID, &v.TwiID, &v.Img, &v.CreatedAt)
 	if err != nil {
 		panic(err.Error())
 	}
 	s := []string{v.TwiID, v.Img}
 
 	return s
+}
+
+func DBaddImg(t string, f string) {
+	_, err := db.Exec("INSERT INTO "+dbTABLE+" (TwiID, FileName) VALUES (?,?)", t, f)
+	if err != nil {
+		panic(err.Error())
+	}
+}
+
+func DBcheckData() int {
+	var v Check
+
+	rows := db.QueryRow("SELECT COUNT(*) FROM "+dbTABLE+";")
+	err := rows.Scan(&v.Rec)
+	if err != nil {
+		panic(err.Error())
+	}
+	return v.Rec
+}
+
+func DBcheckCreatedAt() string {
+	var v Check
+
+	rows := db.QueryRow("select CreatedAt from "+dbTABLE+" where CreatedAt=(select max(CreatedAt) from "+dbTABLE+")")
+	err := rows.Scan(&v.StStamp)
+	if err != nil {
+		panic(err.Error())
+	}
+	return v.StStamp
 }
 
