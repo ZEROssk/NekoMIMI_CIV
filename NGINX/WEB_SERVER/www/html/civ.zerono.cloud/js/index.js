@@ -4,12 +4,14 @@ var path = location.pathname + location.search;
 let api = "http://civ.zerono.cloud:8888/api/v1/twimg"
 
 document.addEventListener("DOMContentLoaded", function() {
-	if (location.pathname == "/original") {
+	if (path == "/") {
+		addHome();
+	} else if (location.pathname == "/original") {
 		addOriginalImg(path);
 	} else if (location.pathname == "/search") {
 		addSearchThumbnailImg(path);
-	} else if (path == "/") {
-		addHome()
+	} else if (location.pathname == "/upload") {
+		addUpload();
 	} else {
 		addThumbnailImg(path);
 	}
@@ -157,7 +159,27 @@ function addHome() {
 		'<p>HOME</p>'+
 		'<ul>'+
 			'<li><a href="/thumbnail?p=1&get=50">Thumbnail page</a></li>'+
+			'<li><a href="/upload">Upload page</a></li>'+
 		'<ul>'
+	;
+
+	home.insertAdjacentHTML('beforeend', homeContent);
+}
+
+function addUpload() {
+	let media = document.getElementById('media');
+	media.textContent = null;
+
+	let home = document.createElement('div');
+	home.setAttribute('id', 'home');
+	media.appendChild(home);
+
+	let homeContent =
+		'<p>UPLOAD</p>'+
+		`<form enctype="multipart/form-data" action="${api}/upload" method="post">`+
+			'<input type="file" name="uploadIMG" multiple="multiple" accept="image/*">'+
+			'<input type="submit" value="Upload">'+
+		'</form>'
 	;
 
 	home.insertAdjacentHTML('beforeend', homeContent);
