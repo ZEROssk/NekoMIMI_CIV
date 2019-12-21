@@ -9,6 +9,8 @@ services:
         volumes:
             - ./WEB_SERVER/nginx.conf:/etc/nginx/conf.d/nginx.conf
             - ./WEB_SERVER/www/html:/var/www/html
+            - ./WEB_SERVER/zerono.cloud.pem:/etc/ssl/zerono.cloud.pem
+            - ./WEB_SERVER/zerono.cloud.key:/etc/ssl/zerono.cloud.key
             - ./IMAGE:/var/www/html/civ.zerono.cloud/IMAGE
         environment:
             TZ: 'Asia/Tokyo'

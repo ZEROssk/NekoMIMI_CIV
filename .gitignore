@@ -1,13 +1,13 @@
-# ./.env
+# .env
 .env
 
-# ./*.swp
+# *.swp
 *.swp
 
-# ./*.sh
+# *.sh
 *.sh
 
-# ./*.DS_Store
+# *.DS_Store
 *.DS_Store
 
 # image
@@ -15,8 +15,10 @@
 *.png
 *.part
 
-# nginx.conf
+# nginx
 nginx.conf
+*.key
+*.pem
 
 # initialize.sql
 *.sql
