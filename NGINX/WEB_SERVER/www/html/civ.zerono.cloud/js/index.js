@@ -178,10 +178,12 @@ function addUpload() {
 	let homeContent =
 		'<p>UPLOAD</p>'+
 		'<div id="upload-area">'+
-			'<p>ドロップ<p>'+
+			'<p>Drop or Click to Select Upload Image.<p>'+
 			'<div id="preview"></div>'+
 		'</div>'+
-		'<button type="button" id="post">post</button>'
+		'<div id="upload-button">'+
+			'<button id="post" class="fa" type="button">&#xf382</button>'+
+		'</div>'
 	;
 
 	home.insertAdjacentHTML('beforeend', homeContent);
@@ -196,7 +198,7 @@ function uploadPageFunc() {
 		e.stopPropagation();
 		e.preventDefault();
 
-		this.style.background = "#ff3399";
+		this.style.background = "#a9a9a9";
 	}, false);
 
 	uploadArea.addEventListener("dragleave", function(e) {
