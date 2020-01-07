@@ -177,6 +177,7 @@ function addUpload() {
 
 	let homeContent =
 		'<p>UPLOAD</p>'+
+		'<input id="upload-input" type="file" multiple="multiple" accept="image/*">'+
 		'<div id="upload-area">'+
 			'<p>Drop or Click to Select Upload Image.<p>'+
 			'<div id="preview"></div>'+
@@ -193,6 +194,7 @@ function uploadPageFunc() {
 	var uploadImgs = new FormData();
 	var uploadArea = document.getElementById("upload-area");
 	var preview = document.getElementById("preview");
+	var inputData = document.getElementById("upload-input");
 
 	uploadArea.addEventListener("dragover", function(e) {
 		e.stopPropagation();
@@ -206,6 +208,33 @@ function uploadPageFunc() {
 		e.preventDefault();
 
 		this.style.background = "#ffffff";
+	}, false);
+
+	uploadArea.addEventListener("click", function(e) {
+		e.stopPropagation();
+		e.preventDefault();
+
+		inputData.click();
+		inputData.onchange = function() {
+			var files = inputData.files;
+			for (var i = 0; i < files.length; i++) {
+				(function() {
+					var fr = new FileReader();
+					fr.onload = function() {
+						var div = document.createElement('div');
+
+						var img = document.createElement('img');
+						img.setAttribute('src', fr.result);
+						div.appendChild(img);
+
+						preview.appendChild(div);
+					};
+					fr.readAsDataURL(files[i]);
+				})();
+
+				uploadImgs.append("file", files[i]);
+			}
+		};
 	}, false);
 
 	uploadArea.addEventListener("drop", function(e) {

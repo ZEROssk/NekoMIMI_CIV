@@ -12,6 +12,10 @@
 	padding: 0;
 }
 
+#upload-input {
+	display: none;
+}
+
 #upload-area {
 	width: 100%;
 	margin: 1em auto 2%;
@@ -20,6 +24,11 @@
 	background: #ffffff;
 	font-size: 1em;
 	text-align: center;
+	cursor: pointer;
+}
+
+#upload-area:active {
+	background: #a9a9a9;
 }
 
 #upload-area p {
@@ -48,6 +57,8 @@
 	border-style: none;
 	background: none;
 	font-size: 2em;
+	color: #00008b;
+	cursor: pointer;
 }
 
 #post:active {
