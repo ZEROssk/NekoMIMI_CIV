@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		addSearchThumbnailImg(path);
 	} else if (location.pathname == "/upload") {
 		addUpload();
+		uploadPageFunc();
 	} else {
 		addThumbnailImg(path);
 	}
@@ -176,66 +177,69 @@ function addUpload() {
 
 	let homeContent =
 		'<p>UPLOAD</p>'+
-		`<form enctype="multipart/form-data" action="${api}/upload" method="post">`+
-			'<input type="file" name="uploadIMG" multiple="multiple" accept="image/*">'+
-			'<input type="submit" value="Upload">'+
-		'</form>'+
-		'<div id="drop_zone">ドロップ</div><div id="preview"></div><button type="button" id="post">post</button>'
+		'<div id="upload-area">'+
+			'<p>ドロップ<p>'+
+			'<div id="preview"></div>'+
+		'</div>'+
+		'<button type="button" id="post">post</button>'
 	;
 
 	home.insertAdjacentHTML('beforeend', homeContent);
 }
 
-var formData = new FormData();
-var dropZone = document.getElementById("drop_zone");
+function uploadPageFunc() {
+	var uploadImgs = new FormData();
+	var uploadArea = document.getElementById("upload-area");
+	var preview = document.getElementById("preview");
 
-dropZone.addEventListener("dragover", function(e) {
-	  e.stopPropagation();
-	  e.preventDefault();
+	uploadArea.addEventListener("dragover", function(e) {
+		e.stopPropagation();
+		e.preventDefault();
 
-	  this.style.background = "#ff3399";
-}, false);
+		this.style.background = "#ff3399";
+	}, false);
 
-dropZone.addEventListener("dragleave", function(e) {
-	  e.stopPropagation();
-	  e.preventDefault();
+	uploadArea.addEventListener("dragleave", function(e) {
+		e.stopPropagation();
+		e.preventDefault();
 
-	  this.style.background = "#ffffff";
-}, false);
+		this.style.background = "#ffffff";
+	}, false);
 
-dropZone.addEventListener("drop", function(e) {
-	e.stopPropagation();
-	e.preventDefault();
+	uploadArea.addEventListener("drop", function(e) {
+		e.stopPropagation();
+		e.preventDefault();
 
-	this.style.background = "#ffffff";
+		this.style.background = "#ffffff";
 
-	var files = e.dataTransfer.files;
-	for (var i = 0; i < files.length; i++) {
-		(function() {
-			var fr = new FileReader();
-			fr.onload = function() {
-				var div = document.createElement('div');
+		var files = e.dataTransfer.files;
+		for (var i = 0; i < files.length; i++) {
+			(function() {
+				var fr = new FileReader();
+				fr.onload = function() {
+					var div = document.createElement('div');
 
-				var img = document.createElement('img');
-				img.setAttribute('src', fr.result);
-				div.appendChild(img);
+					var img = document.createElement('img');
+					img.setAttribute('src', fr.result);
+					div.appendChild(img);
 
-				var preview = document.getElementById("preview");
-				preview.appendChild(div);
-			};
-			fr.readAsDataURL(files[i]);
-		})();
+					preview.appendChild(div);
+				};
+				fr.readAsDataURL(files[i]);
+			})();
 
-		formData.append("file", files[i]);
-	}
-}, false);
+			uploadImgs.append("file", files[i]);
+		}
+	}, false);
 
-var postButton = document.getElementById("post");
-postButton.addEventListener("click", function() {
-	  var request = new XMLHttpRequest();
-	  request.open("POST", `${api}/upload`);
-	  request.send(formData);
-});
+	var postButton = document.getElementById("post");
+	postButton.addEventListener("click", function() {
+		var request = new XMLHttpRequest();
+		request.open("POST", `${api}/upload`);
+		request.send(uploadImgs);
+		preview.textContent = null;
+	});
+}
 
 
 function addOriginalImg(v) {
