@@ -200,7 +200,7 @@ func API_twimg_upload(Rw rest.ResponseWriter, req *rest.Request) {
 		decImg, format, err := image.Decode(imgFB)
 		if err != nil {
 			log.Println(err)
-			return
+			continue
 		} else {
 			reg := `^Twitter-[0-9]{19}-[a-zA-Z0-9\_]{1,}-[a-zA-Z0-9\_]{15}.(jpg|png)$`
 			fNCheck := regexp.MustCompile(reg).Match([]byte(imgFile.FileName()))
@@ -213,12 +213,11 @@ func API_twimg_upload(Rw rest.ResponseWriter, req *rest.Request) {
 
 				useDB.DBaddImg(tID, imgFile.FileName())
 			} else {
-				log.Println("Error: unsuported file format")
-				return
+				log.Println("Error: Unsuported FileName format")
+				continue	
 			}
 		}
 	}
-	log.Println("Successfully Uploaded Image!")
 }
 
 func main() {
