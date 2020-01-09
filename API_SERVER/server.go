@@ -204,7 +204,6 @@ func API_twimg_upload(Rw rest.ResponseWriter, req *rest.Request) {
 		} else {
 			reg := `^Twitter-[0-9]{19}-[a-zA-Z0-9\_]{1,}-[a-zA-Z0-9\_]{15}.(jpg|png)$`
 			fNCheck := regexp.MustCompile(reg).Match([]byte(imgFile.FileName()))
-			fNCheck = true
 			if fNCheck == true {
 				tID := strings.Split(imgFile.FileName(), "-")[2]
 
