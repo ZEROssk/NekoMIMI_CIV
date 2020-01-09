@@ -180,7 +180,7 @@ function addUpload() {
 		'<input id="upload-input" type="file" multiple="multiple" accept="image/*">'+
 		'<div id="upload-area">'+
 			'<p>Drop or Click to Select Upload Image.<p>'+
-			'<div id="upload-description">Maximum Upload Size is 5MB</div>'+
+			'<p>Maximum Upload Size is 5MB</p>'+
 			'<div id="preview"></div>'+
 		'</div>'+
 		'<div id="upload-button">'+
