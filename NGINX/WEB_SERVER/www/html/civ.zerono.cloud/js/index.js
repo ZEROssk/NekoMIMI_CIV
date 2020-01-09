@@ -1,6 +1,6 @@
 'usestrict';
 
-var path = location.pathname + location.search;
+let path = location.pathname + location.search;
 let api = "http://civ.zerono.cloud:8888/api/v1/twimg"
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function requestAjax(endpoint, callback) {
-	var xhr = new XMLHttpRequest();
+	let xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		if (this.readyState==4 && this.status==200) {
 			callback(this.response);
@@ -191,10 +191,10 @@ function addUpload() {
 }
 
 function uploadPageFunc() {
-	var uploadImgs = new FormData();
-	var uploadArea = document.getElementById("upload-area");
-	var preview = document.getElementById("preview");
-	var inputData = document.getElementById("upload-input");
+	let uploadImgs = new FormData();
+	let uploadArea = document.getElementById("upload-area");
+	let preview = document.getElementById("preview");
+	let inputData = document.getElementById("upload-input");
 
 	uploadArea.addEventListener("dragover", function(e) {
 		e.stopPropagation();
@@ -216,14 +216,14 @@ function uploadPageFunc() {
 
 		inputData.click();
 		inputData.onchange = function() {
-			var files = inputData.files;
-			for (var i = 0; i < files.length; i++) {
+			let files = inputData.files;
+			for (let i = 0; i < files.length; i++) {
 				(function() {
-					var fr = new FileReader();
+					let fr = new FileReader();
 					fr.onload = function() {
-						var div = document.createElement('div');
+						let div = document.createElement('div');
 
-						var img = document.createElement('img');
+						let img = document.createElement('img');
 						img.setAttribute('src', fr.result);
 						div.appendChild(img);
 
@@ -243,14 +243,14 @@ function uploadPageFunc() {
 
 		this.style.background = "#ffffff";
 
-		var files = e.dataTransfer.files;
-		for (var i = 0; i < files.length; i++) {
+		let files = e.dataTransfer.files;
+		for (let i = 0; i < files.length; i++) {
 			(function() {
-				var fr = new FileReader();
+				let fr = new FileReader();
 				fr.onload = function() {
-					var div = document.createElement('div');
+					let div = document.createElement('div');
 
-					var img = document.createElement('img');
+					let img = document.createElement('img');
 					img.setAttribute('src', fr.result);
 					div.appendChild(img);
 
@@ -263,12 +263,13 @@ function uploadPageFunc() {
 		}
 	}, false);
 
-	var postButton = document.getElementById("post");
+	let postButton = document.getElementById("post");
 	postButton.addEventListener("click", function() {
-		var request = new XMLHttpRequest();
+		let request = new XMLHttpRequest();
 		request.open("POST", `${api}/upload`);
 		request.send(uploadImgs);
 		preview.textContent = null;
+		uploadImgs = new FormData();
 	});
 }
 
