@@ -176,10 +176,11 @@ function addUpload() {
 	media.appendChild(home);
 
 	let homeContent =
-		'<p>UPLOAD</p>'+
+		'<p>Upload</p>'+
 		'<input id="upload-input" type="file" multiple="multiple" accept="image/*">'+
 		'<div id="upload-area">'+
 			'<p>Drop or Click to Select Upload Image.<p>'+
+			'<div id="upload-description">Maximum Upload Size is 5MB</div>'+
 			'<div id="preview"></div>'+
 		'</div>'+
 		'<div id="upload-button">'+
@@ -200,7 +201,7 @@ function uploadPageFunc() {
 		e.stopPropagation();
 		e.preventDefault();
 
-		this.style.background = "#a9a9a9";
+		this.style.background = "#d3d3d3";
 	}, false);
 
 	uploadArea.addEventListener("dragleave", function(e) {
@@ -272,7 +273,6 @@ function uploadPageFunc() {
 		uploadImgs = new FormData();
 	});
 }
-
 
 function addOriginalImg(v) {
 	let orImg = document.getElementById('img-container');
