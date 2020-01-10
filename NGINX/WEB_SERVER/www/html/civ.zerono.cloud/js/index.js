@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	} else if (location.pathname == "/upload") {
 		addUpload();
 		uploadPageFunc();
+		preview.style = "display: none"
 	} else {
 		addThumbnailImg(path);
 	}
@@ -224,6 +225,8 @@ function uploadPageFunc() {
 					fr.onload = function() {
 						uploadArea.getElementsByTagName('p')[0].style = "display: none";
 						uploadArea.getElementsByTagName('p')[1].style = "display: none";
+						preview.style = "display: true"
+
 						let div = document.createElement('div');
 						div.setAttribute('class', "content-preview");
 
@@ -254,6 +257,8 @@ function uploadPageFunc() {
 				fr.onload = function() {
 					uploadArea.getElementsByTagName('p')[0].style = "display: none";
 					uploadArea.getElementsByTagName('p')[1].style = "display: none";
+					preview.style = "display: true"
+
 					let div = document.createElement('div');
 					div.setAttribute('class', "content-preview");
 
@@ -276,6 +281,7 @@ function uploadPageFunc() {
 		request.open("POST", `${api}/upload`);
 		request.send(uploadImgs);
 		preview.textContent = null;
+		preview.style = "display: none"
 		uploadArea.getElementsByTagName('p')[0].style = "display: true";
 		uploadArea.getElementsByTagName('p')[1].style = "display: true";
 		uploadImgs = new FormData();
