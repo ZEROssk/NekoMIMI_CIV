@@ -179,7 +179,7 @@ function addUpload() {
 		'<p>Upload</p>'+
 		'<input id="upload-input" type="file" multiple="multiple" accept="image/*">'+
 		'<div id="upload-area">'+
-			'<p>Drop or Click to Select Upload Image.<p>'+
+			'<p>Drop or Click to Select Upload Image.</p>'+
 			'<p>Maximum Upload Size is 5MB</p>'+
 			'<div id="preview"></div>'+
 		'</div>'+
@@ -222,6 +222,8 @@ function uploadPageFunc() {
 				(function() {
 					let fr = new FileReader();
 					fr.onload = function() {
+						uploadArea.getElementsByTagName('p')[0].style = "display: none";
+						uploadArea.getElementsByTagName('p')[1].style = "display: none";
 						let div = document.createElement('div');
 
 						let img = document.createElement('img');
@@ -249,6 +251,8 @@ function uploadPageFunc() {
 			(function() {
 				let fr = new FileReader();
 				fr.onload = function() {
+					uploadArea.getElementsByTagName('p')[0].style = "display: none";
+					uploadArea.getElementsByTagName('p')[1].style = "display: none";
 					let div = document.createElement('div');
 
 					let img = document.createElement('img');
@@ -270,6 +274,8 @@ function uploadPageFunc() {
 		request.open("POST", `${api}/upload`);
 		request.send(uploadImgs);
 		preview.textContent = null;
+		uploadArea.getElementsByTagName('p')[0].style = "display: true";
+		uploadArea.getElementsByTagName('p')[1].style = "display: true";
 		uploadImgs = new FormData();
 	});
 }
