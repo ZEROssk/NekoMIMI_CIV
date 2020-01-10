@@ -225,6 +225,7 @@ function uploadPageFunc() {
 						uploadArea.getElementsByTagName('p')[0].style = "display: none";
 						uploadArea.getElementsByTagName('p')[1].style = "display: none";
 						let div = document.createElement('div');
+						div.setAttribute('class', "content-preview");
 
 						let img = document.createElement('img');
 						img.setAttribute('src', fr.result);
@@ -254,6 +255,7 @@ function uploadPageFunc() {
 					uploadArea.getElementsByTagName('p')[0].style = "display: none";
 					uploadArea.getElementsByTagName('p')[1].style = "display: none";
 					let div = document.createElement('div');
+					div.setAttribute('class', "content-preview");
 
 					let img = document.createElement('img');
 					img.setAttribute('src', fr.result);
