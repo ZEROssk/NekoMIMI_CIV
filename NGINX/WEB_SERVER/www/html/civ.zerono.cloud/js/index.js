@@ -197,6 +197,7 @@ function uploadPageFunc() {
 	let uploadArea = document.getElementById("upload-area");
 	let preview = document.getElementById("preview");
 	let inputData = document.getElementById("upload-input");
+	let fileSize = 0;
 
 	uploadArea.addEventListener("dragover", function(e) {
 		e.stopPropagation();
@@ -240,6 +241,7 @@ function uploadPageFunc() {
 				})();
 
 				uploadImgs.append("file", files[i]);
+				fileSize += files[i].size;
 			}
 		};
 	}, false);
@@ -272,6 +274,7 @@ function uploadPageFunc() {
 			})();
 
 			uploadImgs.append("file", files[i]);
+			fileSize += files[i].size;
 		}
 	}, false);
 
@@ -285,6 +288,7 @@ function uploadPageFunc() {
 		uploadArea.getElementsByTagName('p')[0].style = "display: true";
 		uploadArea.getElementsByTagName('p')[1].style = "display: true";
 		uploadImgs = new FormData();
+		fileSize = 0;
 	});
 }
 
