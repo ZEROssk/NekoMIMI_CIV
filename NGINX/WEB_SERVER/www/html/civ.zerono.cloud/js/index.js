@@ -32,7 +32,7 @@ function requestAjax(endpoint, callback) {
 };
 
 function onSearchButtonClick() {
-	if(window.event.keyCode == 13) {
+	if (window.event.keyCode == 13) {
 		let searchId = document.getElementById("input-keyword").value;
 		window.location.href = `/search?tid=${searchId}&get=50`;
 	}
@@ -55,7 +55,7 @@ function changeImgSize(size) {
 
 function addChangeImgSizeButton(id, p, nA) {
 	let pa = location.pathname;
-	if(id == "") {
+	if (id == "") {
 		u = `${pa}?p=${p}&get=${nA}&s=`
 	} else {
 		u = `${pa}?tid=${id}&p=${p}&get=${nA}&s=`
@@ -76,7 +76,7 @@ function addChangeImgSizeButton(id, p, nA) {
 
 function addNAcquiredButton(id, p, s) {
 	let pa = location.pathname;
-	if(id == "") {
+	if (id == "") {
 		u = `${pa}?p=${p}&s=${s}&get=`
 	} else {
 		u = `${pa}?tid=${id}&p=${p}&s=${s}&get=`
@@ -104,7 +104,7 @@ function addPagination(p, limit, numA, s) {
 
 	let pnnContent = document.getElementById('pnn-container');
 
-	if(`${p-1}` != 0) {
+	if (`${p-1}` != 0) {
 		let back =
 			`<a id="pnn-back" class="fa pnn-button" href="${pa}?p=${p-1}&get=${numA}&s=${s}">&#xf137</a>`
 		;
@@ -114,7 +114,7 @@ function addPagination(p, limit, numA, s) {
 
 	for(let i=4; i > 0; i--) {
 		let pNumber = p-i;
-		if(pNumber > 0) {
+		if (pNumber > 0) {
 			let pnnNumber =
 				`<a id="pnn-number" href="${pa}?p=${pNumber}&get=${numA}&s=${s}">${pNumber}</a>`
 			;
@@ -126,12 +126,12 @@ function addPagination(p, limit, numA, s) {
 
 	for(let i=0; i < 5; i++) {
 		let pNumber = p+i;
-		if(pNumber == p) {
+		if (pNumber == p) {
 			let nowP =
 				`<a id="pnn-now">${p}</a>`
 			;
 			pnnContent.insertAdjacentHTML('beforeend', nowP);
-		} else if(pNumber <= limit) {
+		} else if (pNumber <= limit) {
 			let pnnNumber =
 				`<a id="pnn-number" href="${pa}?p=${pNumber}&get=${numA}&s=${s}">${pNumber}</a>`
 			;
@@ -141,7 +141,7 @@ function addPagination(p, limit, numA, s) {
 		}
 	}
 
-	if(`${p+1}` <= limit) {
+	if (`${p+1}` <= limit) {
 		let next =
 			`<a id="pnn-next" class="fa pnn-button" href="${pa}?p=${p+1}&get=${numA}&s=${s}">&#xf138</a>`
 		;
@@ -191,6 +191,24 @@ function addUpload() {
 	;
 
 	home.insertAdjacentHTML('beforeend', homeContent);
+}
+
+function fileSizeFormat(size) {
+	let i = -1;
+	let byteUnits = [' KB', ' MB', ' GB', ' TB', 'PB', 'EB', 'ZB', 'YB'];
+
+	if (size < 1024) {
+		return size + ' B';
+	}
+
+	do {
+		size = size / 1024;
+		i++;
+	} while (size > 1024);
+
+	let fs = Math.max(size, 0.1).toFixed(1);
+
+	return fs + byteUnits[i];
 }
 
 function uploadPageFunc() {
@@ -248,7 +266,8 @@ function uploadPageFunc() {
 				uploadImgs.append("file", files[i]);
 				fileSize += files[i].size;
 
-				let fi = document.createTextNode(`${fileSize}, ${fl}`);
+				let fs = fileSizeFormat(fileSize);
+				let fi = document.createTextNode(`${fs},  ${fl} File`);
 				fileInfo.appendChild(fi);
 			}
 		};
@@ -286,7 +305,8 @@ function uploadPageFunc() {
 			uploadImgs.append("file", files[i]);
 			fileSize += files[i].size;
 
-			let fi = document.createTextNode(`${fileSize}, ${fl}`);
+			let fs = fileSizeFormat(fileSize);
+			let fi = document.createTextNode(`${fs},  ${fl} File`);
 			fileInfo.appendChild(fi);
 		}
 	}, false);
