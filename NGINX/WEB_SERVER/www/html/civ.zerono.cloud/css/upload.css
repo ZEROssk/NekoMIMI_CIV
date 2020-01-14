@@ -57,6 +57,16 @@
 	height: 100%;
 }
 
+#file-data {
+	position: relative;
+}
+
+#file-info {
+	position: absolute;
+	right: 5%;
+	font-size: 0.5em;
+}
+
 #upload-button {
 	text-align:center;
 

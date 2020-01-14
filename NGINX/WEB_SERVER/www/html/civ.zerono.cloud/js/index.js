@@ -184,7 +184,7 @@ function addUpload() {
 			'<p>Maximum Upload Size is 5MB</p>'+
 			'<div id="preview"></div>'+
 		'</div>'+
-		'<div id="file-info"></div>'+
+		'<div id="file-data"><div id="file-info"></div></div>'+
 		'<div id="upload-button">'+
 			'<button id="post" class="fa" type="button">&#xf382</button>'+
 		'</div>'
