@@ -184,6 +184,7 @@ function addUpload() {
 			'<p>Maximum Upload Size is 5MB</p>'+
 			'<div id="preview"></div>'+
 		'</div>'+
+		'<div id="file-info"></div>'+
 		'<div id="upload-button">'+
 			'<button id="post" class="fa" type="button">&#xf382</button>'+
 		'</div>'
@@ -194,10 +195,12 @@ function addUpload() {
 
 function uploadPageFunc() {
 	let uploadImgs = new FormData();
+	let inputData = document.getElementById("upload-input");
 	let uploadArea = document.getElementById("upload-area");
 	let preview = document.getElementById("preview");
-	let inputData = document.getElementById("upload-input");
+	let fileInfo = document.getElementById("file-info");
 	let fileSize = 0;
+	let fl = 0;
 
 	uploadArea.addEventListener("dragover", function(e) {
 		e.stopPropagation();
@@ -220,6 +223,7 @@ function uploadPageFunc() {
 		inputData.click();
 		inputData.onchange = function() {
 			let files = inputData.files;
+			fl += files.length;
 			for (let i = 0; i < files.length; i++) {
 				(function() {
 					let fr = new FileReader();
@@ -239,9 +243,13 @@ function uploadPageFunc() {
 					};
 					fr.readAsDataURL(files[i]);
 				})();
+				fileInfo.textContent = null;
 
 				uploadImgs.append("file", files[i]);
 				fileSize += files[i].size;
+
+				let fi = document.createTextNode(`${fileSize}, ${fl}`);
+				fileInfo.appendChild(fi);
 			}
 		};
 	}, false);
@@ -253,6 +261,7 @@ function uploadPageFunc() {
 		this.style.background = "#ffffff";
 
 		let files = e.dataTransfer.files;
+		fl += files.length;
 		for (let i = 0; i < files.length; i++) {
 			(function() {
 				let fr = new FileReader();
@@ -272,9 +281,13 @@ function uploadPageFunc() {
 				};
 				fr.readAsDataURL(files[i]);
 			})();
+			fileInfo.textContent = null;
 
 			uploadImgs.append("file", files[i]);
 			fileSize += files[i].size;
+
+			let fi = document.createTextNode(`${fileSize}, ${fl}`);
+			fileInfo.appendChild(fi);
 		}
 	}, false);
 
@@ -289,6 +302,7 @@ function uploadPageFunc() {
 		uploadArea.getElementsByTagName('p')[1].style = "display: true";
 		uploadImgs = new FormData();
 		fileSize = 0;
+		fl = 0;
 	});
 }
 
