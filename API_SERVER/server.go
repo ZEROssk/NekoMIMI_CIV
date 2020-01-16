@@ -207,10 +207,19 @@ func API_twimg_upload(Rw rest.ResponseWriter, req *rest.Request) {
 			if fNCheck == true {
 				tID := strings.Split(imgFile.FileName(), "-")[2]
 
-				saveIMG.SaveOrigin(imgFile.FileName(), buffer)
-				saveIMG.SaveThumbnail(decImg, imgFile.FileName(), format)
+				iData := useDB.DBorigin(tID, imgFile.FileName())
+				log.Println(len(iData))
+				log.Println(iData)
+				if len(iData[1]) == 0 {
+					log.Println("no content")
+					continue
+				} else {
+					saveIMG.SaveOrigin(imgFile.FileName(), buffer)
+					saveIMG.SaveThumbnail(decImg, imgFile.FileName(), format)
 
-				useDB.DBaddImg(tID, imgFile.FileName())
+					useDB.DBaddImg(tID, imgFile.FileName())
+					log.Println("save img")
+				}
 			} else {
 				log.Println("Error: Unsuported FileName format")
 				continue	
