@@ -106,7 +106,8 @@ func DBorigin(t string, f string) []string {
 
 	err := row.Scan(&v.ID, &v.TwiID, &v.Img, &v.CreatedAt)
 	if err != nil {
-		panic(err.Error())
+		s := []string{}
+		return s
 	}
 	s := []string{v.TwiID, v.Img}
 
