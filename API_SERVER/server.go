@@ -210,8 +210,8 @@ func API_twimg_upload(Rw rest.ResponseWriter, req *rest.Request) {
 				iData := useDB.DBorigin(tID, imgFile.FileName())
 				log.Println(len(iData))
 				log.Println(iData)
-				if len(iData[1]) == 0 {
-					log.Println("no content")
+				if len(iData[1]) != 0 {
+					log.Println("no saved")
 					continue
 				} else {
 					saveIMG.SaveOrigin(imgFile.FileName(), buffer)
