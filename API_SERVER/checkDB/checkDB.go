@@ -8,8 +8,8 @@ import(
 	"io/ioutil"
 	"image"
 
-	"../useDB"
-	"../saveIMG"
+	"main/useDB"
+	"main/saveIMG"
 )
 
 func readDir(p string) []os.FileInfo {
