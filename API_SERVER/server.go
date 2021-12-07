@@ -11,9 +11,9 @@ import(
 	"strconv"
 	"image"
 
-	"./useDB"
-	"./checkDB"
-	"./saveIMG"
+	"main/useDB"
+	"main/checkDB"
+	"main/saveIMG"
 	"github.com/ant0ine/go-json-rest/rest"
 )
 
