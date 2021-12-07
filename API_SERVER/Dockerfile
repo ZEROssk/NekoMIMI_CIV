@@ -1,13 +1,13 @@
 FROM golang:latest
 
-RUN apt-get update && \
-	go get -u github.com/ant0ine/go-json-rest/rest && \
-	go get github.com/go-sql-driver/mysql && \
-	go get github.com/gorilla/mux && \
-	go get golang.org/x/image/draw
+ENV GOPATH=
 
 ADD ./ /go
 
-RUN go build server.go
+RUN apt-get update && \
+	export GO111MODULE=on && \
+	go mod init main && \
+	go mod tidy && \
+	go build server.go
 
 CMD ["./server"]
