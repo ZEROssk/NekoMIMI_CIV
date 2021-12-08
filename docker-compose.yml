@@ -5,7 +5,7 @@ services:
         image: "nginx"
         container_name: civ_web
         ports:
-            - "8840:80"
+            - "5280:5280"
         volumes:
             - ./WEB_SERVER/nginx.conf:/etc/nginx/conf.d/nginx.conf
             - ./WEB_SERVER/www/html:/var/www/html
@@ -14,7 +14,7 @@ services:
             - ./IMAGE:/var/www/html/civ.zerono.cloud/IMAGE
         environment:
             TZ: 'Asia/Tokyo'
-            NGINX_PORT: 80
+            NGINX_PORT: 5280
         networks:
             - nginx_reverse_proxy
         restart: always
@@ -29,7 +29,7 @@ services:
         ports:
             - "$API_SERVER_PORT"
         volumes:
-            - ./NGINX/IMAGE:/go/Content
+            - ./IMAGE:/go/Content
         environment:
             MYSQL_DB: $MYSQL_DB
             MYSQL_TABLE: $MYSQL_TABLE
