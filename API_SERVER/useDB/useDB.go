@@ -53,9 +53,9 @@ func DBhome(p string, begin string, end string) ([][]string, int) {
 	if err != nil {
 		panic(err.Error())
 	} else {
-		rows := db.QueryRow("SELECT COUNT(*) FROM "+dbTABLE+";")
+		row := db.QueryRow("SELECT COUNT(*) FROM "+dbTABLE+";")
 
-		err := rows.Scan(&v.ID)
+		err := row.Scan(&v.ID)
 		if err != nil {
 			panic(err.Error())
 		}
@@ -124,8 +124,8 @@ func DBaddImg(t string, f string) {
 func DBcheckData() int {
 	var v Check
 
-	rows := db.QueryRow("SELECT COUNT(*) FROM "+dbTABLE+";")
-	err := rows.Scan(&v.Rec)
+	row := db.QueryRow("SELECT COUNT(*) FROM "+dbTABLE+";")
+	err := row.Scan(&v.Rec)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -135,11 +135,10 @@ func DBcheckData() int {
 func DBcheckCreatedAt() string {
 	var v Check
 
-	rows := db.QueryRow("select CreatedAt from "+dbTABLE+" where CreatedAt=(select max(CreatedAt) from "+dbTABLE+")")
-	err := rows.Scan(&v.StStamp)
+	row := db.QueryRow("select CreatedAt from "+dbTABLE+" where CreatedAt=(select max(CreatedAt) from "+dbTABLE+")")
+	err := row.Scan(&v.StStamp)
 	if err != nil {
 		panic(err.Error())
 	}
 	return v.StStamp
 }
-
