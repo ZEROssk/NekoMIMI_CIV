@@ -53,7 +53,7 @@ func DBhome(p string, begin string, end string) ([][]string, int) {
 	if err != nil {
 		panic(err.Error())
 	} else {
-		row := db.QueryRow("SELECT COUNT(*) FROM "+dbTABLE+";")
+		row := db.QueryRow("SELECT COUNT(*) FROM "+dbTABLE)
 
 		err := row.Scan(&v.ID)
 		if err != nil {
@@ -124,7 +124,7 @@ func DBaddImg(t string, f string) {
 func DBcheckData() int {
 	var v Check
 
-	row := db.QueryRow("SELECT COUNT(*) FROM "+dbTABLE+";")
+	row := db.QueryRow("SELECT COUNT(*) FROM "+dbTABLE)
 	err := row.Scan(&v.Rec)
 	if err != nil {
 		panic(err.Error())
