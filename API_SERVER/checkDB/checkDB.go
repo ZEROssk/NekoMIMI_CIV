@@ -21,7 +21,10 @@ func readDir(p string) []os.FileInfo {
 
 func newIMG(files []os.FileInfo, path string) {
 	for i, f := range files {
-		FB, _ := os.Open(path+"/"+f.Name())
+		fpath := path+f.Name()
+
+		os.Chmod(fpath, 0644)
+		FB, _ := os.Open(fpath)
 		defer FB.Close()
 
 		bufData, err := ioutil.ReadAll(FB)
