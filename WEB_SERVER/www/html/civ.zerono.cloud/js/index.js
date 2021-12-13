@@ -1,7 +1,6 @@
 'usestrict';
 
 let path = location.pathname + location.search;
-//let api = "http://civ.zerono.cloud:8888/api/v1/twimg"
 let api = "https://dev.zerono.cloud/api/v1/twimg"
 
 document.addEventListener("DOMContentLoaded", function() {
