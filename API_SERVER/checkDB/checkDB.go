@@ -14,12 +14,12 @@ import(
 	"main/saveIMG"
 )
 
-func readDir(p string) []os.FileInfo {
+func ReadDir(p string) []os.FileInfo {
 	files, _ := ioutil.ReadDir(p)
 	return files
 }
 
-func newIMG(files []os.FileInfo, path string) {
+func NewIMG(files []os.FileInfo, path string) {
 	for i, f := range files {
 		fpath := path+f.Name()
 
@@ -59,17 +59,17 @@ func CheckDB(path string) {
 	r := useDB.DBcheckData()
 	if r == 0 {
 		log.Printf("Add New Image")
-		newIMG(readDir(path), path)
-	} else if r != len(readDir(path)) {
+		NewIMG(ReadDir(path), path)
+	} else if r != len(ReadDir(path)) {
 		log.Printf("Update New Image")
 		StStamp := useDB.DBcheckCreatedAt()
 		rTStamp, _ := time.Parse(tformat, StStamp)
 
-		files := readDir(path)
+		files := ReadDir(path)
 		for _, f := range files {
 			fTStamp, _ := time.Parse(tformat, f.ModTime().Format(tformat))
 			if fTStamp.After(rTStamp) == true {
-				newIMG([]os.FileInfo{f}, path)
+				NewIMG([]os.FileInfo{f}, path)
 			}
 		}
 	}

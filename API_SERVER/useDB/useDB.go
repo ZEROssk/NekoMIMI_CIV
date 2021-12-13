@@ -26,16 +26,16 @@ type Check struct {
 	StStamp string
 }
 
-func getENV(p string) string {
+func GetENV(p string) string {
 	env := os.Getenv(p)
 	return env
 }
 
 func LoginDB() {
-	dbNAME	= getENV("MYSQL_DB")
-	dbUSER	= getENV("MYSQL_USER")
-	dbPORT	= getENV("MYSQL_PORT")
-	dbTABLE	= getENV("MYSQL_TABLE")
+	dbNAME	= GetENV("MYSQL_DB")
+	dbUSER	= GetENV("MYSQL_USER")
+	dbPORT	= GetENV("MYSQL_PORT")
+	dbTABLE	= GetENV("MYSQL_TABLE")
 
 	var err error
 	db, err = sql.Open("mysql", dbUSER+"@tcp(db:"+dbPORT+")/"+dbNAME)
