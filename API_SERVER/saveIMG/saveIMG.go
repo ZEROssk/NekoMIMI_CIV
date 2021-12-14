@@ -66,4 +66,3 @@ func SaveThumbnail(dImg image.Image, FName string, format string) {
 		}
 	}
 }
-
