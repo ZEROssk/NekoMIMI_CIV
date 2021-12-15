@@ -3,6 +3,7 @@ package main
 import(
 	."fmt"
 	"io"
+	"io/ioutil"
 	"log"
 	"regexp"
 	"strings"
@@ -194,30 +195,42 @@ func API_twimg_upload(Rw rest.ResponseWriter, req *rest.Request) {
 			break
 		}
 
-		buffer := bytes.NewBuffer(nil)
-		imgFB := io.TeeReader(imgFile, buffer)
+		bufData, err := ioutil.ReadAll(imgFile)
+		if err != nil {
+			log.Println(err)
+			return
+		}
 
-		decImg, format, err := image.Decode(imgFB)
+		buf := bytes.NewBuffer(bufData)
+		mimeType := http.DetectContentType(buf.Bytes())
+		if mimeType != "image/jpeg" && mimeType != "image/png" {
+			log.Printf("Error: Unsuported File Type")
+			continue
+		}
+
+		decImg, format, err := image.Decode(buf)
 		if err != nil {
 			log.Println(err)
 			continue
 		} else {
+			fName := imgFile.FileName()
 			reg := `^Twitter-[0-9]{19}-[a-zA-Z0-9\_]{1,}-[a-zA-Z0-9\_\-]{15}.(jpg|png)$`
-			fNCheck := regexp.MustCompile(reg).Match([]byte(imgFile.FileName()))
+			fNCheck := regexp.MustCompile(reg).Match([]byte(fName))
 			if fNCheck == true {
-				tID := strings.Split(imgFile.FileName(), "-")[2]
+				tID := strings.Split(fName, "-")[2]
 
-				iData := useDB.DBorigin(tID, imgFile.FileName())
+				iData := useDB.DBorigin(tID, fName)
 				if len(iData) != 0 {
 					continue
 				} else {
-					saveIMG.SaveOrigin(imgFile.FileName(), buffer)
-					saveIMG.SaveThumbnail(decImg, imgFile.FileName(), format)
+					saveIMG.SaveOrigin(fName, buf)
+					saveIMG.SaveThumbnail(decImg, fName, format)
 
-					useDB.DBaddImg(tID, imgFile.FileName())
+					useDB.DBaddImg(tID, fName)
 				}
+				log.Println("Upload Success: ", fName)
 			} else {
-				log.Println("Error: Unsuported FileName format")
+				log.Println("Error: Unsuported FileName format ", fName)
 				continue	
 			}
 		}
