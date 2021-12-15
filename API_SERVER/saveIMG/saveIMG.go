@@ -13,7 +13,8 @@ import(
 )
 
 func SaveOrigin(FName string, b *bytes.Buffer) {
-	orImg, err := os.Create("/go/Content/ORIGIN/"+FName)
+	fpath := "/go/Content/ORIGIN/"+FName
+	orImg, err := os.Create(fpath)
 	if err != nil {
 		log.Println(err)
 		return
@@ -21,6 +22,7 @@ func SaveOrigin(FName string, b *bytes.Buffer) {
 	defer orImg.Close()
 
 	io.Copy(orImg, b)
+	os.Chmod(fpath, 0644)
 }
 
 func SaveThumbnail(dImg image.Image, FName string, format string) {
