@@ -36,6 +36,7 @@ func NewIMG(files []os.FileInfo, path string) {
 		buf := bytes.NewBuffer(bufData)
 		mimeType := http.DetectContentType(buf.Bytes())
 		if mimeType != "image/jpeg" && mimeType != "image/png" {
+			log.Printf("Error: Unsuported File Type")
 			continue
 		}
 
