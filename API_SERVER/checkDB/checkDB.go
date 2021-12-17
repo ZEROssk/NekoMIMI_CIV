@@ -6,8 +6,6 @@ import(
 	"log"
 	"time"
 	"strings"
-	"bytes"
-	"net/http"
 	"image"
 
 	"main/useDB"
@@ -27,23 +25,10 @@ func NewIMG(files []os.FileInfo, path string) {
 		FB, _ := os.Open(fpath)
 		defer FB.Close()
 
-		bufData, err := ioutil.ReadAll(FB)
+		decImg, format, err := image.Decode(FB)
 		if err != nil {
-			log.Println(err)
-			return
-		}
-
-		buf := bytes.NewBuffer(bufData)
-		mimeType := http.DetectContentType(buf.Bytes())
-		if mimeType != "image/jpeg" && mimeType != "image/png" {
-			log.Printf("Error: Unsuported File Type")
+			log.Println("File Decode Error", err)
 			continue
-		}
-
-		decImg, format, err := image.Decode(buf)
-		if err != nil {
-			log.Println(err)
-			return
 		} else {
 			ID := strings.Split(f.Name(), "-")[2]
 			saveIMG.SaveThumbnail(decImg, f.Name(), format)

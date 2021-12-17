@@ -3,7 +3,6 @@ package main
 import(
 	."fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"regexp"
 	"strings"
@@ -195,22 +194,12 @@ func API_twimg_upload(Rw rest.ResponseWriter, req *rest.Request) {
 			break
 		}
 
-		bufData, err := ioutil.ReadAll(imgFile)
-		if err != nil {
-			log.Println(err)
-			return
-		}
+		buffer := bytes.NewBuffer(nil)
+		imgFB := io.TeeReader(imgFile, buffer)
 
-		buf := bytes.NewBuffer(bufData)
-		mimeType := http.DetectContentType(buf.Bytes())
-		if mimeType != "image/jpeg" && mimeType != "image/png" {
-			log.Printf("Error: Unsuported File Type")
-			continue
-		}
-
-		decImg, format, err := image.Decode(buf)
+		decImg, format, err := image.Decode(imgFB)
 		if err != nil {
-			log.Println(err)
+			log.Println("File Decode Error", err)
 			continue
 		} else {
 			fName := imgFile.FileName()
@@ -223,7 +212,7 @@ func API_twimg_upload(Rw rest.ResponseWriter, req *rest.Request) {
 				if len(iData) != 0 {
 					continue
 				} else {
-					saveIMG.SaveOrigin(fName, buf)
+					saveIMG.SaveOrigin(fName, buffer)
 					saveIMG.SaveThumbnail(decImg, fName, format)
 
 					useDB.DBaddImg(tID, fName)
