@@ -46,7 +46,7 @@ func CheckDB(path string) {
 		NewIMG(ReadDir(path), path)
 	} else if r != len(ReadDir(path)) {
 		const tFormat = "2001-01-01 11:11:11"
-		log.Printf("Update New Image")
+		log.Printf("Update New Image", len(ReadDir(path)-r))
 		StStamp := useDB.DBcheckCreatedAt()
 		rTStamp, _ := time.Parse(tFormat, StStamp)
 
