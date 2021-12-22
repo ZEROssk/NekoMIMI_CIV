@@ -45,19 +45,20 @@ func CheckDB(path string) {
 		log.Printf("Add New Image")
 		NewIMG(ReadDir(path), path)
 	} else if r != len(ReadDir(path)) {
-		const tFormat = "2001-01-01 11:11:11"
-		log.Printf("Update New Image", len(ReadDir(path)-r))
-		StStamp := useDB.DBcheckCreatedAt()
-		rTStamp, _ := time.Parse(tFormat, StStamp)
+		//const tFormat = "2001-01-01 11:11:11"
+		//log.Printf("Update New Image", len(ReadDir(path)-r))
+		//StStamp := useDB.DBcheckCreatedAt()
+		//rTStamp, _ := time.Parse(tFormat, StStamp)
 
-		files := ReadDir(path)
-		for i, f := range files {
-			fTStamp, _ := time.Parse(tFormat, f.ModTime().Format(tFormat))
-			if fTStamp.After(rTStamp) == true {
-				NewIMG([]os.FileInfo{f}, path)
-			}
+		//files := ReadDir(path)
+		//for i, f := range files {
+		//	fTStamp, _ := time.Parse(tFormat, f.ModTime().Format(tFormat))
+		//	if fTStamp.After(rTStamp) == true {
+		//		NewIMG([]os.FileInfo{f}, path)
+		//	}
 
-			log.Println("Update Progress: ", i+1, "/", len(files))
-		}
+		//	log.Println("Update Progress: ", i+1, "/", len(files))
+		//}
+		log.Printf("Check Dir New File")
 	}
 }
